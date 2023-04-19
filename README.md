@@ -1,2 +1,3 @@
-# civ-ipriot-in-class-demos
-In class demonstration for Wednesday afternoon class, Northbridge.
+# In class demnstrations: Semester 1, 2023
+
+Code that is developed in class will be uploaded here.
