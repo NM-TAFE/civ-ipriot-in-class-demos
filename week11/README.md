@@ -65,6 +65,7 @@ fido.bark()
 
 - Explain the concept of inheritance and how it promotes code reusability.
 - Teach students how to create a subclass that inherits from a parent class.
+- Introduce some of the pitfalls of inheritance
 
 ```python
 class Animal:
@@ -90,6 +91,6 @@ fido.eat('steak')
 ### 4. Encapsulation (20 minutes)
 
 - Explain the concept of encapsulation and how it promotes modularity and data protection.
-- Private attributes and methods
+- Private attributes and methods and pythons conventions and limitations in this regard
 - Data as state
 - The state of an object should be protected
