@@ -82,7 +82,7 @@ class Dog(Animal):
     def bark(self):
         print(f"{self.name} says woof!")
 
-fido = Dog(fido, Labrador)
+fido = Dog('Fido', 'Labrador')
 fido.bark()
 fido.eat('steak')
 ```
