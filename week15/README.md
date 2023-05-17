@@ -75,3 +75,10 @@ class TBD: ...
 ### 4. Exercise (20 minutes)
 
 - Write your own unit test to test the Dog class
+
+### 5. Running unit test discovery from the command line
+```bash
+python -m unittest discover -s tests -p 'test_*.py'
+```
+`-s` - start directory
+`-p` - pattern (default pattern is test*.py)
