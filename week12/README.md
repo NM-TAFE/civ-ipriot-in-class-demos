@@ -48,9 +48,25 @@ By the end of this lesson, students will be able to:
   attributes for that shape and a method to return the area.
 
 
+
 ### 2. Abstraction and polymorphism (30 minutes)
 
 - See example `shapes.py`
 
 ### 3. Remote development and introduction to RaspberryPi 
+
+TBD
+### 2. Polymorphism (30 minutes)
+
+- Many (poly) forms (morph)
+- Deal with shapes regardless of what the shape is
+- Consider how to formalise this relationship
+- Understand duck typing and why that is a problem for statically typed languages
+
+
+## 3. Abstraction (20 minutes)
+
+- All shapes have an area
+- But all shapes calculate area differently
+- How do we define an abstract quality like "area is calculateable"
 
