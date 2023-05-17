@@ -48,55 +48,9 @@ By the end of this lesson, students will be able to:
   attributes for that shape and a method to return the area.
 
 
-### 2. Classes and objects (30 minutes)
+### 2. Abstraction and polymorphism (30 minutes)
 
-- Introduce the concept of a class and how it defines a blueprint for objects.
-- Explain how objects are instances of classes.
-- Teach students how to create a class in Python.
-- Show how to create objects and access their attributes and methods.
+- See example `shapes.py`
 
-```python
-class Dog:
-    def __init__(self, name, breed):
-        self.name = name
-        self.breed = breed
+### 3. Remote development and introduction to RaspberryPi 
 
-    def bark(self):
-        print(f"{self.name} says woof!")
-
-fido = Dog("Fido", "Labrador")
-fido.bark()
-```
-
-## Inheritance (20 minutes)
-
-- Explain the concept of inheritance and how it promotes code reusability.
-- Teach students how to create a subclass that inherits from a parent class.
-
-```python
-class Animal:
-    def __init__(self, name):
-        self.name = name
-    
-    def eat(self, food):
-        print(f"Yum Yum delicious {food}")
-
-class Dog(Animal):
-    def __init__(self, name, breed):
-        super().__init__(name)
-        self.breed = breed
-
-    def bark(self):
-        print(f"{self.name} says woof!")
-
-fido = Dog(fido, Labrador)
-fido.bark()
-fido.eat('steak')
-```
-
-### 4. Encapsulation (20 minutes)
-
-- Explain the concept of encapsulation and how it promotes modularity and data protection.
-- Private attributes and methods
-- Data as state
-- The state of an object should be protected
