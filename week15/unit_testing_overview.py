@@ -12,15 +12,14 @@ class TestDog(unittest.TestCase):
         self.name = "Fido"
         self.breed = "Labrador"
         self.dog = Dog(self.name, self.breed)
+
     def test_dog_bark_includes_name_of_dog(self):
         self.assertEquals(self.dog.bark(),
                           f"{self.name} says woof!")
 
     def test_dog_name_in_bark(self):
-       name = "Fido"
-       fido = Dog(name, "Labrador")
-       result = fido.bark()
-       self.assertIn(name, result)
+       self.assertIn(self.name,
+                     self.dog.bark())
 
 if __name__ == '__not_main__':
     fido = Dog("Fido", "Labrador") # Fido says woof
