@@ -1,4 +1,4 @@
-# In class demonstrations: Semester 1, 2023
+# In class demonstrations: Semester 2, 2023
 
 The code that is developed in class will be uploaded here.
 
