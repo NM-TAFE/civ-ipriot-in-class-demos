@@ -1,45 +1,61 @@
-# In class demonstrations: Semester 2, 2023
+# In-class Demonstrations
 
-The code that is developed in class will be uploaded here.
+The code developed in class will be uploaded here. Each semester's delivery for each lecturer is in a separate branch. To find your class, look for a branch named in the format `yyyy/sn/lecturer`. For example, for Semester 2 of 2023 with lecturer Raf, the branch would be `2023/s2/raf`.
 
+## Recommended Workflow
 
-## Recommended workflow
-Note: not a general development workflow, just a useful way to work with this (constantly updating) repository.
+This workflow is specifically tailored for working with this repository, which will be constantly updated by the lecturer during the class.
+
+### Initial Setup
+
 1. Clone this repository locally:
 
-```bash
-git clone https://github.com/NM-TAFE/civ-ipriot-in-class-demos.git
-cd civ-ipriot-in-class-demos
-```
-2. If you want to experiment with the code locally, create a new branch:
+    ```bash
+    git clone https://github.com/NM-TAFE/civ-ipriot-in-class-demos.git
+    cd civ-ipriot-in-class-demos
+    ```
 
-```bash
-git checkout -b local_experiments
-```
+2. List all available branches to find your class:
 
-3. Periodically, fetch changes from the upstream repository:
+    ```bash
+    git fetch origin
+    git branch -r
+    ```
 
-```bash
-git fetch origin
-```
+3. Switch to the appropriate branch for your class:
 
-4. Merge the changes from the upstream's main branch into your local branch:
+    ```bash
+    git checkout -b local_class_branch origin/yyyy/sn/lecturer
+    ```
 
-```bash
-git checkout local_experiments
-git merge origin/main
-```
+### Ongoing Work
 
-5. If you want to keep your local branch's history clean, you can rebase instead of merge:
+1. If you want to experiment with the code locally, create a new branch:
 
-```bash
-git checkout local_experiments
-git rebase origin/main
-```
- If there are any conflicts, you'll need to resolve them and continue the rebase using git rebase --continue.
+    ```bash
+    git checkout -b local_experiments
+    ```
 
-Following this workflow lets you update your local branch with the upstream repository. Remember not to push your changes to the upstream repository.
+2. Periodically, fetch changes from the upstream repository:
 
+    ```bash
+    git fetch origin yyyy/sn/lecturer
+    ```
 
+3. Merge the changes from the upstream's class-specific branch into your local branch:
 
+    ```bash
+    git checkout local_experiments
+    git merge origin/yyyy/sn/lecturer
+    ```
 
+    or, if you want to keep your local branch's history clean, you can rebase instead of merge:
+
+    ```bash
+    git checkout local_experiments
+    git rebase origin/yyyy/sn/lecturer
+    ```
+
+    If there are any conflicts, you'll need to resolve them and continue the rebase using `git rebase --continue`.
+
+4. Remember not to push your changes to the upstream repository.
