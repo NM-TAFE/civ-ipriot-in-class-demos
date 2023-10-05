@@ -6,7 +6,7 @@ Use more meaningful names; don't replicate a function's logic in the test case."
 import unittest
 
 def encrypt(message):
-    return ""
+    return message
 
 class TestEncryption(unittest.TestCase):
     def setUp(self):
@@ -23,6 +23,9 @@ class TestEncryption(unittest.TestCase):
     def test_encryption_returns_a_value_of_the_same_length(self):
         self.assertEqual(len(self.my_message),
                          len(encrypt(self.my_message)))
+
+    def test_input_message_not_equal_output_message(self):
+        self.assertNotEqual(self.my_message, encrypt(self.my_message))
 
 if __name__ == '__main__':
     unittest.main()
