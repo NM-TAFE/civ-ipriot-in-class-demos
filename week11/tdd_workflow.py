@@ -6,7 +6,11 @@ Use more meaningful names; don't replicate a function's logic in the test case."
 import unittest
 
 class TestEncryption(unittest.TestCase):
+    def setUp(self):
+        self.my_message = 0
     def test_message_exists(self):
         self.assertIsNotNone(self.my_message)
 
+if __name__ == '__main__':
+    unittest.main()
 # Code to be updated in class
