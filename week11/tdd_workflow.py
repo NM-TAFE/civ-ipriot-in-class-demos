@@ -7,9 +7,14 @@ import unittest
 from string import ascii_letters
 
 
+def _shift_char(char, key):
+    shifted_position = (ascii_letters.find(char) + key) % len(ascii_letters)
+    return ascii_letters[shifted_position]
+
+
 def encrypt(message):
-    encrypted_message = [ascii_letters[ascii_letters.find(char) + 1]
-                         for idx, char in enumerate(message)]
+    encrypted_message = [_shift_char(char, 1)
+                         for char in message]
     return "".join(encrypted_message)
 
 class TestEncryption(unittest.TestCase):
