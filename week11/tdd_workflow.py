@@ -6,12 +6,14 @@ Use more meaningful names; don't replicate a function's logic in the test case."
 import unittest
 
 def encrypt(message):
-    encrypted_message = [idx for idx, char in enumerate(message)]
-    return encrypted_message
+    encrypted_message = [str(idx)
+                         for idx, char in enumerate(message)]
+    return "".join(encrypted_message)
 
 class TestEncryption(unittest.TestCase):
     def setUp(self):
         self.my_message = "banana"
+        self.my_manually_encrypted = "cbobob"
     def test_message_exists(self):
         self.assertIsNotNone(self.my_message)
 
@@ -27,6 +29,12 @@ class TestEncryption(unittest.TestCase):
 
     def test_input_message_not_equal_output_message(self):
         self.assertNotEqual(self.my_message, encrypt(self.my_message))
+
+    def test_shifted_message_by_1(self):
+        self.assertEqual(self.my_manually_encrypted, encrypt(self.my_message))
+
+    def test_output_type_is_string(self):
+        self.assertIsInstance(encrypt(self.my_message), str)
 
 if __name__ == '__main__':
     unittest.main()
