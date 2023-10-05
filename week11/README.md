@@ -1,96 +1,138 @@
-# Lesson Plan: Introduction to Object-Oriented Programming (OOP) in Python
+# Unit Testing in Python
 
-## Overview
+> **ICTPRG430: Apply Introductory Object-Oriented Language Skills**
 
-In this lesson, we will introduce you to the fundamentals of Object-Oriented Programming (OOP) using Python. You will learn about OOP concepts such as classes, objects, inheritance, and encapsulation.
+---
 
-## Duration
+## Lesson Objectives
 
-2 hours
+1. Understand the significance of testing in the software development lifecycle.
+2. Recognise the importance of developing tests to meet user requirements and application specifications.
+3. Learn about the concept of Test-Driven Development (TDD) and its role in object-oriented programming.
+4. Familiarise yourself with the Python `unittest` module.
+5. Master the basic operations of the `unittest` module to write, conduct, and document tests.
+6. Comprehend how to document tests effectively using modern industry best practices.
 
-## Objectives
+**Learning Summary:**
 
-By the end of this lesson, students will be able to:
+- Importance of testing in software development.
+- Aligning tests with user requirements.
+- Introduction to TDD.
+- Python's `unittest` module's role and functions.
+- Effective test documentation.
 
-1. Understand the basic concepts of OOP, including classes, objects, inheritance, and encapsulation.
-2. Write simple Python programs using OOP concepts.
+---
 
-## Prerequisites
+## Revision: [Fundamentals of OOP](revision.md)
 
-- Basic understanding of Python programming
-- Familiarity with programming concepts such as functions, loops, and conditionals
+Before diving into the topic, review the principles of Object-Oriented Programming (OOP). This revision ensures you have a strong foundation to understand the context and importance of the testing concepts that follow.
 
-## Materials
+**Learning Summary:**
 
-- Python 3.x installed on students' computers
-- A text editor or Integrated Development Environment (IDE) for writing Python code
+- Core concepts of OOP.
+- Role of objects, classes, and methods in OOP.
 
-## Lesson Outline
+---
 
-1. Introduction to OOP
-2. Classes and objects
-3. Inheritance
-4. Encapsulation
-5. Hands-on practice: Designing and implementing a simple object-oriented system
-6. Recap and closing
+## Introduction to the High-Level Concept of Unit Testing
 
-## Lesson Details
+Unit testing involves testing individual "units" or components of software to ensure they function as intended. By ensuring that individual units work correctly, you ensure the integrated software application functions as intended.
 
-### 1. Introduction to OOP (15 minutes)
+**Learning Summary:**
 
-- Briefly explain the history and purpose of OOP.
-- Discuss the advantages of OOP, such as code reusability, modularity, and ease of maintenance.
+- Definition and purpose of unit testing.
+- Role of unit testing in OOP.
 
-### 2. Classes and objects (30 minutes)
+---
 
-- Introduce the concept of a class and how it defines a blueprint for objects.
-- Explain how objects are instances of classes.
-- Teach students how to create a class in Python.
-- Show how to create objects and access their attributes and methods.
+## Introduction to the Concept of Test-Driven Development (TDD)
+
+TDD is a development approach where you write tests before you write the code. The primary benefits include better code structure, higher code coverage, and enhanced software robustness.
+
+**Learning Summary:**
+
+- What is TDD?
+- Benefits of TDD in the software development process.
+
+---
+
+## Introduction to the Python `unittest` Module
+
+Python’s built-in module, `unittest`, allows you to write, execute, and set up your unit tests. Its primary components include TestCase, Test Fixture, Test Suite, and Test Runner.
+
+**Learning Summary:**
+
+- Overview of the `unittest` module.
+- Key components and their functions.
+
+---
+
+## Examples of Unit Tests and Traditional Written Test Cases
+
+**Documented Test Case (using `unittest`):**
 
 ```python
-class Dog:
-    def __init__(self, name, breed):
-        self.name = name
-        self.breed = breed
+import unittest
+from my_module import Calculator
 
-    def bark(self):
-        print(f"{self.name} says woof!")
+class TestCalculatorMethods(unittest.TestCase):
+    def test_add_positive_numbers(self):
+        calc = Calculator()
+        self.assertEqual(calc.add(3, 4), 7)
 
-fido = Dog("Fido", "Labrador")
-fido.bark()
+    def test_multiply_negative_and_positive_number(self):
+        calc = Calculator()
+        self.assertEqual(calc.multiply(-3, 4), -12)
 ```
 
-## Inheritance (20 minutes)
+**Traditional Written Test Case:**
 
-- Explain the concept of inheritance and how it promotes code reusability.
-- Teach students how to create a subclass that inherits from a parent class.
-- Introduce some of the pitfalls of inheritance
-
-```python
-class Animal:
-    def __init__(self, name):
-        self.name = name
-    
-    def eat(self, food):
-        print(f"Yum Yum delicious {food}")
-
-class Dog(Animal):
-    def __init__(self, name, breed):
-        super().__init__(name)
-        self.breed = breed
-
-    def bark(self):
-        print(f"{self.name} says woof!")
-
-fido = Dog('Fido', 'Labrador')
-fido.bark()
-fido.eat('steak')
+```text
+Test Case Name: Test Addition of Two Positive Numbers
+Objective: Verify that the calculator can add two positive numbers correctly.
+Steps:
+1. Launch the calculator application.
+2. Enter the first number: 3.
+3. Enter the second number: 4.
+4. Press the 'Add' button.
+Expected Result: The calculator should display the result as 7.
 ```
 
-### 4. Encapsulation (20 minutes)
+**Learning Summary:**
 
-- Explain the concept of encapsulation and how it promotes modularity and data protection.
-- Private attributes and methods and pythons conventions and limitations in this regard
-- Data as state
-- The state of an object should be protected
+- Coding a unit test using the `unittest` module.
+- Contrasting with a traditional written test case.
+
+---
+
+## "Cheatsheet" for Unit Testing with `unittest`
+
+**unittest Module:**
+
+- `TestCase`: A collection of test functions.
+- `Test Fixture`: Setup and teardown operations for tests.
+- `Test Suite`: A combination of multiple test cases.
+- `Test Runner`: Manages test execution and provides results.
+
+**Test Module Naming:**
+
+- Prefix the test module name with `test_`, e.g., `test_calculator.py`.
+
+**Test Method Naming:**
+
+- Start the test method name with `test_`.
+- Ensure the name describes both the condition and expected outcome, e.g., `test_add_positive_numbers`.
+
+**Best Practices:**
+
+- Write self-explanatory and descriptive method names.
+- Avoid redundancy in test documentation.
+- Utilise setUp() and tearDown() methods for initializing and cleaning up resources.
+
+**Learning Summary:**
+
+- Basic components of the `unittest` module.
+- Naming conventions for test modules and methods.
+- Essential best practices for unit testing.
+
+---
