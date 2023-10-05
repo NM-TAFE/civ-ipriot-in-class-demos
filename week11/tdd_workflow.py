@@ -6,11 +6,7 @@ Use more meaningful names; don't replicate a function's logic in the test case."
 import unittest
 
 def encrypt(message):
-    encrypted_message = [idx for idx in range(len(message))]
-    # identical to:
-    # encrypted_message = []
-    # for idx in range(len(message)):
-    #     encrypted_message.append(idx)
+    encrypted_message = [idx for idx, char in enumerate(message)]
     return encrypted_message
 
 class TestEncryption(unittest.TestCase):
