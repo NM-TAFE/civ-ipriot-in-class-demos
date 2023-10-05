@@ -11,6 +11,9 @@ class TestEncryption(unittest.TestCase):
     def test_message_exists(self):
         self.assertIsNotNone(self.my_message)
 
+    def test_input_type_is_string(self):
+        self.assertIsInstance(self.my_message, str)
+
 if __name__ == '__main__':
     unittest.main()
 # Code to be updated in class
