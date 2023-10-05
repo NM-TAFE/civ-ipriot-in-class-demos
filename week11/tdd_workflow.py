@@ -7,7 +7,7 @@ import unittest
 
 class TestEncryption(unittest.TestCase):
     def setUp(self):
-        self.my_message = 0
+        self.my_message = ""
     def test_message_exists(self):
         self.assertIsNotNone(self.my_message)
 
