@@ -12,6 +12,7 @@ class CarPark:
                  max_bays,
                  occupied = 0,
                  displays = None,
+                 bays = None,
                  cars = None):
         ...
         # that's a lot of attributes!
