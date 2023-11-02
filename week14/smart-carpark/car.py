@@ -8,3 +8,12 @@ class Car:
         else: # should raise exception or call the cops!
             print("Crazy illegal driver")
             self.plate = plate
+        self._has_entered = False
+
+    def entered_car_park(self):
+        print("Car has entered")
+        self._has_entered = True
+
+    def exitted_car_park(self):
+        print("Car has exitted")
+        self._has_entered = False
