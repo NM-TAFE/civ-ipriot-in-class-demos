@@ -32,15 +32,20 @@ class CarPark:
 
     def add_car(self, car):
         '''Adds a car to the carpark'''
-        self._car_count += 1
+        self._car_count += 1 # TODO: do we need a count if we are using a list?
         self.publish_car_park_status()
         # self.car_count = self.car_count + 1
-        # TODO: maybe I should build a list of cars...
+        # TODO: add to plate list...
+        # TODO: write to file
+        # ENTERED: <plate_number>
 
     def remove_car(self, car):
         assert self._car_count > 0, "There should be cars for a car to be removed"
         self._car_count -= 1
         self.publish_car_park_status()
+        # TODO: remove from plate list...
+        # TODO: write to file
+        # EXITED: <plate_number>
 
     @property
     def is_full(self):
