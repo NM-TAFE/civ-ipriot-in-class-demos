@@ -1,6 +1,8 @@
 from car import Car
 import random
-class Sensor:
+from abc import ABC, abstractmethod
+
+class Sensor(ABC):
     """
     Defines a car park sensor
     """
@@ -17,8 +19,9 @@ class Sensor:
 
         print("Detection occurred")
 
+    @abstractmethod
     def update_car_park(self, car):
-        raise NotImplementedError
+        ...
 
 
 class EntrySensor(Sensor):

@@ -7,8 +7,9 @@ car_park = CarPark('A', 'B', 100)
 car_park.register_display(Display())
 entry_sensor = EntrySensor(car_park)
 exit_sensor = ExitSensor(car_park)
-
 entry_sensor.detect()
+exit_sensor.detect()
+
 
 # car leaves...
 # sensor reads plate
