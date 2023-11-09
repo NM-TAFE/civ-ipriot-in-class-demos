@@ -17,7 +17,7 @@ class CarPark:
         self.temperature = self.update_temperature()
         self._car_count = 0 # TODO: read from config
         self._max_bays = 42 # ditto...
-        if self.displays is None:
+        if displays is None:
             self.displays = []
         # that's a lot of attributes!
 
