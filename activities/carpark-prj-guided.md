@@ -144,7 +144,7 @@ You will be assessed on:
 Include a screenshot of your GitHub repository **after** you have pushed your initial commit.
 
 ```text
-![Initial commit](images/initial-commit.png)
+![Initial commit](images/mu_image.png)
 ```
 
 ### Identify classes, methods, and attributes
