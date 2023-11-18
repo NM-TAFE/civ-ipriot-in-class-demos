@@ -214,7 +214,7 @@ Include a screenshot of your GitHub repository `src/` directory **after** you ha
          ... # Return a string containing the carpark's location and capacity
    ```
 
-7. Commit your changes to the repository, locally and add a tag so your lecturer can find it. A tag is a way to mark a specific commit as important. You can use tags to mark milestones in your project, often marking releases. You will use it to mark specific commits for your lecturer to review.
+7. Commit your changes to the repository locally and add a tag so your lecturer can find it. A tag is a way to mark a specific commit as important. You can use tags to mark milestones in your project, often marking releases. You will use it to mark specific commits for your lecturer to review.
 
    ```bash
    git add .
@@ -281,6 +281,7 @@ Do the same for the `ExitSensor` class.
 
 You realize that you need a way to configure the carpark system. You decide to create a `Config` class to store the configuration data. However, you want to have a firmer grasp of the requirements before you implement the class. So you skip this step for now.
 
+--------
 **Evidencing:**
 Ensure that you have completed the previous steps and created the appropriate tags. Confirm that the tags have been created by running `git tag` in the terminal and provide a screenshot of the output.
 
@@ -289,6 +290,196 @@ Ensure that you have completed the previous steps and created the appropriate ta
 s1
 s2
 ```
-## TO BE CONTINUED
 
 Additional content to be added shortly
+=======
+----
+
+### Relate the classes
+
+Let's consider how the classes relate to each other. We can start by using a sequence diagram to illustrate the interactions between the classes. A sequence diagram shows the interactions between objects in a sequential order. The following diagram shows the interactions between the `Carpark`, `Sensor`, and `Display` classes.
+
+```mermaid
+sequenceDiagram
+    actor v as Vehicle
+    participant s as Sensor
+    participant c as Carpark
+    participant d as Display
+    v->>s: enters (detect_car())
+    s->>s: scan_plate()
+    s->>c: update_carpark(+1)
+    c->>d: update_displays()
+    v->>s: exits (detect_car())
+    s->>s: scan_plate()
+    s->>c: update_carpark(-1)
+    c->>d: update_display()
+```
+
+Notice a sensor detects cars and notifies a carpark. The carpark then updates the displays. Sensors connect **to** a carpark and a carpark connects **to** displays.
+
+In other words, a sensor needs to know about a carpark, and a carpark needs to know about displays. This is an example of aggregation, where one object holds a reference to another object. In this case, the `Carpark` class holds a reference to instances of the `Display` classes (aggregation); sensors for their part hold a reference to a carpark.
+
+The following class diagram presents this relationship:
+
+```mermaid
+classDiagram
+      Carpark "1" o-- "0..*" Display
+      Carpark "1" *-- "0..*" Sensor
+      Sensor <|-- EntrySensor
+      Sensor <|-- ExitSensor 
+      
+
+      class Carpark {
+         - sensors: Sensor[]
+         - displays: Display[]
+         - plates: String[]
+         + register(obj: Sensor | Display) void
+         + add_car(plate: str) void
+         + remove_car(plate: str) void 
+         + update_displays() void
+      }
+      class Sensor {
+         <<abstract>>
+         - carpark: Carpark
+         - update_carpark(plate: str) void
+         + detect_car() void
+      }
+      class EntrySensor{
+         - update_carpark(plate: str) void
+
+      }
+      class ExitSensor{
+         - update_carpark(plate: str) void
+      }
+      class Display {
+         - carpark: Carpark
+         + update() void
+      }
+```
+
+The diagram omits methods and attributes that are not relevant to the relationship between the object. Notice that the `Carpark` class has a `register` method that allows it to register sensors and displays.
+
+Notice also that displays and sensors reference a carpark and a carpark references displays. This kind of two way relationship is not always advisable. But for this project, it is acceptable.
+
+### Implement methods for the Carpark class
+
+Our analysis shows that the carpark will need to implement the following methods:
+
+- `register`: This method will allow the carpark to register sensors and displays.
+- `add_car`: This method will be called when a car enters the carpark. It will record the plate number and update the displays.
+- `remove_car`: This method will be called when a car exits the carpark. It will remove the plate number and update the displays.
+- `update_displays`: This method will be called when the carpark needs to update the displays. It will iterate through the displays and call their `update` method.
+
+As we implement these methods, we may find we need additional methods and attributes. For example, we may need a method to check if a plate number is already in the carpark. We may also need an attribute to store the plate numbers. We can add these as we go.
+
+We will focus on these key principles to guide the need for additional methods and attributes:
+
+- **Encapsulation**: We want to hide the implementation details of the class from other classes. We can do this by making attributes private and only exposing them through methods.
+- **Single Responsibility**: We want each method to have a single responsibility. This will make the code easier to understand and maintain.
+- **DRY**: We want to avoid repeating code or information about state (Don't Repeat Yourself). We can do this by creating methods and attributes for behaviors and values that are repeated.
+
+---
+
+#### Register method
+
+1. Create a `register` method for the `Carpark` class. This method should accept a single parameter, `obj`. This parameter will be either a `Sensor` or `Display` object.
+2. If the `obj` is a `Sensor`, add it to the `sensors` array. If the `obj` is a `Display`, add it to the `displays` array.
+3. If the `obj` is neither a `Sensor` nor a `Display`, raise a `TypeError` with the message `"Object must be a Sensor or Display"`.
+
+**Stuck?**
+Here are some some hints to help you complete this task:
+
+Even though we often think of exceptions last, we generally want to put them first in our method definitions. This is because exceptions are exceptional. We want to handle them first and then handle the normal flow of the method. This is called a **guard pattern** and is a common pattern in Python and other languages.
+Let's do that now. Add the following code to the top of the `register` method:
+
+   ```python
+   # ... inside the Carpark class
+   def register(self, component):
+      if not isinstance(component, (Sensor, Display)):
+         raise TypeError("Object must be a Sensor or Display")
+   ```
+
+The `isinstance` function checks if an object is an instance of a class. In this case, we are checking if the `component` is an instance of either the `Sensor` or `Display` class. Notice, that we'll need to import the `Sensor` and `Display` classes to use them in the `isinstance` function. Add the following import statement to the top of the `carpark.py` file:
+
+   ```python
+   from sensor import Sensor
+   from display import Display
+   ```
+
+Now we can add the code to add the `component` to the appropriate array. Add the following code to the `register` method:
+
+   ```python
+   # ... inside the register method
+   if isinstance(component, Sensor):
+      self.sensors.append(component)
+   # add an elif to check if the component is a Display
+   ```
+
+**Evidencing:**
+After you have implemented the required code, commit your changes to the local repository and add a tag so your lecturer can find it:
+
+   ```bash
+   git add .
+   git commit -m "Added a register method to the carpark class"
+   git tag -a "s3" -m "Added a register method to the carpark class"
+   ```
+
+#### Add and remove car method
+
+When a car enters the carpark, we record its plate number and update the displays. When a car exits the carpark, we remove its plate number and update the displays. We can implement these behaviors in the `add_car` and `remove_car` methods.
+
+1. In the Carpark class, create an `add_car` method. This method should accept a single parameter, `plate`. This parameter will be a string containing the car's plate number.
+2. Append the `plate` to the `plates` list (`self.plates.append(plate)`).
+3. Call the `update_displays` method.
+   Hang on, we haven't implemented the `update_displays` method yet. We'll do that next.
+   Here is a sample implementation of the `add_car` method:
+
+      ```python
+      # ... inside the Carpark class
+      def add_car(self, plate):
+         self.plates.append(plate)
+         self.update_displays()
+      ```
+
+4. Repeat the previous steps to implement the `remove_car` method. This method also accepts a single parameter, `plate` and also calls `update_displays`. However, this method should remove the plate from `self.plates`.
+
+#### Update displays method
+
+Finally, we are going to create the `update_displays` method. This method will iterate through the `displays` list and call the `update` method on each display. Before we proceed, consider, as a driver, what information you would like to see when you enter a carpark.
+
+You may want to see the number of available bays, the current temperature, and the time.
+
+Now consider, between the `Carpark`, `Sensor`, and `Display` classes, which class is responsible for each of these pieces of information? There's no right or wrong answer here. But you should be able to justify your answer.
+
+Q. Which class is responsible for the number of available bays (and why)?
+Q. Which class is responsible for the current temperature (and why)?
+Q. Which class is responsible for the time (and why)?
+
+--------
+**Detour: implement available bays**
+You realize that you are not currently maintaining the number of available bays. The number of available bays is a curious case. This value, on the one hand, clearly seems like an attribute of the carpark. However, it is also a **property** of the carpark's capacity and the number of cars in the carpark. In other words, it is a **derived** value. We can calculate the number of available bays by subtracting the number of cars from the capacity. We can do this in the `Carpark` class by adding a `get_available_bays` method. This method will return the number of available bays.
+
+But you're not comfortable with this, because even though you are deriving the value through a calculation it still seems like an attribute. Python has a built-in way to treat a method as though it is a simple attribute. We can use it to protect values as well as make attributes derived via simple calculations easier to access. Fittingly, it is called a **property**. We can create a property by adding a `@property` decorator (we'll learn more about decorators in the diploma) to a method. While we don't yet fully understand decorators, the important thing is that they make a method act like an attribute.
+
+Let's add `available_bays` as a property now:
+
+```python
+      # ... inside the Carpark class
+      @property
+      def available_bays(self):
+         return self.capacity - len(self.plates)
+```
+
+Notice that we did **not** use a verb in a property name. This is because properties are accessed like attributes. For example, `carpark.available_bays` instead of `carpark.get_available_bays()`.
+
+Question: What do you think should happen if the number of cars exceeds the capacity? We might not be able to stop this from happening! But what should happen if it does? Do we want to allow the number of available bays to be negative? Or should we set it to zero? Or should we raise an exception? Or should we do something else?
+
+You discuss with the senior developer and decide that if the number of plates exceeds the capacity you will return 0. 
+
+> Modify the `available_bays` property to return 0 if the number of plates exceeds the capacity.
+
+--------
+
+**TO BE CONTINUED...**
+
+
