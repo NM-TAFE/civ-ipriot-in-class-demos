@@ -9,7 +9,7 @@ import time
 
 
 ## Helper functions           
-def scroll_text(text, delay=0.1):
+def scroll_text(text, delay=0.2):
     for i in range(len(text) + 1):
         print(text[:i], end='\r', flush=True)
         time.sleep(delay)
@@ -39,8 +39,9 @@ class Carpark:
         self.displays = displays or []
         self.plates = plates or []
         self.location = location
+        self.total_bays = 10
 
-    def register(self, component):
+    def register(self, component): # notice that "component" suggests that we may want a superclass for Sensor and Display
         if not isinstance(component, (Sensor, Display)):
             raise TypeError("Invalid component type")
 
@@ -51,14 +52,16 @@ class Carpark:
             
     def add_car(self, plate):
         self.plates.append(plate)
+        self.update_displays()
 
 
     def remove_car(self, plate):
         self.plates.remove(plate)
+        self.update_displays()
         
     @property
     def available_bays(self):
-        return 42 # see instructions to implement this correctly
+        return max(0, self.total_bays - len(self.plates)) # see instructions to implement this correctly
     
     def update_displays(self):
         for display in self.displays:
@@ -72,11 +75,11 @@ class Display:
         self.carpark.register(self)
         
     def update(self, data):
+        print("Time:", datetime.now().strftime("%H:%M"))  # print current time as hh:MM
         for key, value in data.items():
-            print("Time:", datetime.now().strftime("%H:%M"))  # print current time as hh:MM
-            print(key, end=': ')
-            scroll_text(str(value))
-            print()
+            print(key, value, sep=': ')
+            time.sleep(0.1)
+        print()
 
 class Sensor:
     def __init__(self, carpark):
@@ -96,6 +99,7 @@ class Sensor:
 
 class EntrySensor(Sensor):
     def update_carpark(self, plate):
+        print("🚘 entered carpark")
         self.carpark.add_car(plate)
 
 class ExitSensor(Sensor):
@@ -105,5 +109,29 @@ class ExitSensor(Sensor):
         return random.choice(self.carpark.plates)
 
     def update_carpark(self, plate):
+        print("🚗 exited carpark")
         self.carpark.remove_car(plate)
 
+def main():
+    carpark = Carpark("Perth")
+    EntrySensor(carpark) # notice how the registration is **implicit** in the constructor
+    ExitSensor(carpark) # in our final version we will make this explicit
+    Display(carpark)
+
+    while True:
+        # You don't have to worry about this code too much it is just to simulate cars entering and exiting
+        occupancy_ratio = len(carpark.plates) / carpark.total_bays
+        entry_probability = max(0.1, 1 - occupancy_ratio)  # Lower probability if carpark is fuller
+        exit_probability = max(0.1, occupancy_ratio - 1)  # Higher probability if carpark is fuller
+
+        for sensor in carpark.sensors:
+            time.sleep(1)
+            if isinstance(sensor, EntrySensor):
+                if random.random() < entry_probability:
+                    sensor.detect_vehicle()
+            elif isinstance(sensor, ExitSensor) and len(carpark.plates) > 0:
+                if random.random() < exit_probability:
+                    sensor.detect_vehicle()  
+
+if __name__ == "__main__":
+    main()
