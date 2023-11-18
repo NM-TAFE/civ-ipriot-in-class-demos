@@ -424,7 +424,7 @@ After you have implemented the required code, commit your changes to the local r
    git tag -a "s3" -m "Added a register method to the carpark class"
    ```
 
-#### Add and remove car method
+#### Add and remove car methods
 
 When a car enters the carpark, we record its plate number and update the displays. When a car exits the carpark, we remove its plate number and update the displays. We can implement these behaviors in the `add_car` and `remove_car` methods.
 
@@ -456,7 +456,9 @@ Q. Which class is responsible for the current temperature (and why)?
 Q. Which class is responsible for the time (and why)?
 
 --------
-**Detour: implement available bays**
+
+##### Detour: implement available bays
+
 You realize that you are not currently maintaining the number of available bays. The number of available bays is a curious case. This value, on the one hand, clearly seems like an attribute of the carpark. However, it is also a **property** of the carpark's capacity and the number of cars in the carpark. In other words, it is a **derived** value. We can calculate the number of available bays by subtracting the number of cars from the capacity. We can do this in the `Carpark` class by adding a `get_available_bays` method. This method will return the number of available bays.
 
 But you're not comfortable with this, because even though you are deriving the value through a calculation it still seems like an attribute. Python has a built-in way to treat a method as though it is a simple attribute. We can use it to protect values as well as make attributes derived via simple calculations easier to access. Fittingly, it is called a **property**. We can create a property by adding a `@property` decorator (we'll learn more about decorators in the diploma) to a method. While we don't yet fully understand decorators, the important thing is that they make a method act like an attribute.
@@ -472,9 +474,15 @@ Let's add `available_bays` as a property now:
 
 Notice that we did **not** use a verb in a property name. This is because properties are accessed like attributes. For example, `carpark.available_bays` instead of `carpark.get_available_bays()`.
 
-Question: What do you think should happen if the number of cars exceeds the capacity? We might not be able to stop this from happening! But what should happen if it does? Do we want to allow the number of available bays to be negative? Or should we set it to zero? Or should we raise an exception? Or should we do something else?
+An added bonus is that if someone accidentally tries to set the value to this property, they will get an error. This is because we have not defined a property setter, and this is a good thing in this case.
 
-You discuss with the senior developer and decide that if the number of plates exceeds the capacity you will return 0. 
+You recognize an issue: what if the number of cars that entered exceeds capacity?
+
+We might not be able to stop this from happening!
+
+But what should happen if it does? Do we want to allow the number of available bays to be negative? Or should we set it to zero? Or should we raise an exception? Something else??
+
+You discuss with the senior developer and decide that if the number of plates exceeds the capacity you will return 0.
 
 > Modify the `available_bays` property to return 0 if the number of plates exceeds the capacity.
 
