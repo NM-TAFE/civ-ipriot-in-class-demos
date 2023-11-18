@@ -354,7 +354,7 @@ classDiagram
       }
 ```
 
-The diagram omits methods and attributes that are not relevant to the relationship between the object. Notice that the `Carpark` class has a `register` method that allows it to register sensors and displays.
+The diagram omits methods and attributes that are not relevant to the relationship between the classes. Notice that the `Carpark` class has a `register` method that allows it to register sensors and displays.
 
 Notice also that displays and sensors reference a carpark and a carpark references displays. This kind of two way relationship is not always advisable. But for this project, it is acceptable.
 
