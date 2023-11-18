@@ -9,7 +9,7 @@ In this assessment, you are required to design and implement a simplified carpar
 By completing this task, you will demonstrate the following competencies as outlined in ICTPRG430:
 
 1. **Modularity**: Implementing the logic for one object operation using a modular approach.
-2. **Data Structures**: Utilizing arrays of primitive data types within a class.
+2. **Data Structures**: Utilizing s of primitive data types within a class.
 3. **File Operations**: Reading from and writing to a text file.
 4. **Class Design**: Developing two classes with four instance variables each.
 5. **Object Construction**: Creating a class that offers two options for object construction.
@@ -22,7 +22,7 @@ By completing this task, you will demonstrate the following competencies as outl
 ## Task Requirements
 
 1. **Carpark Class**:
-   - Implement a `Carpark` class with instance variables for location, capacity, current vehicle count, and an array of `Sensor` objects.
+   - Implement a `Carpark` class with instance variables for location, capacity, current vehicle count, and an  of `Sensor` objects.
    - Include methods to increment/decrement the vehicle count and to update the display.
    - The class should have two constructors: one default and one that allows setting the initial values of the instance variables.
 
@@ -32,7 +32,7 @@ By completing this task, you will demonstrate the following competencies as outl
    - The `Sensor` class should interact with the `Carpark` class to update the vehicle count and availability of bays.
 
 3. **Display Class**:
-   - Design a `Display` class with instance variables for ID, message, status, and an array of `Carpark` data.
+   - Design a `Display` class with instance variables for ID, message, status, and an  of `Carpark` data.
    - This class should have a method to display the current number of available parking bays.
 
 4. **Aggregation**:
@@ -69,7 +69,7 @@ As part of this assessment, you will demonstrate competencies in using a version
 
 1. Begin by outlining the classes and their relationships.
 2. Pseudocode can help map out the logic before actual coding.
-3. Use comments to mark sections where file operations and arrays are used.
+3. Use comments to mark sections where file operations and s are used.
 4. Develop a simple flowchart to illustrate object interactions within the system.
 5. Example code snippets will be provided to guide the construction of methods for reading/writing files and for implementing constructors.
 
@@ -199,7 +199,7 @@ Include a screenshot of your GitHub repository `src/` directory **after** you ha
    - `displays`
 2. Add instance variables for each of the parameters. For example, `self.location = location`.
 3. Add a default value for each parameter. For example, `location = "Unknown"`.
-4. Notice that sensors and displays are arrays. This is because a carpark can have multiple sensors and displays. Add an empty array for each of these parameters. For example, `self.sensors = []`. However, we must never set mutable defaults for parameters. So make the defaults `None`.
+4. Notice that sensors and displays are lists ("s"). This is because a carpark can have multiple sensors and displays. Add an empty list for each of these parameters. For example, `self.sensors = []`. However, lists are mutable and we must never set mutable defaults for parameters. So make the defaults `None`.
 5. Add a `__str__` method to the `Carpark` class. This method will be called when you print a `Carpark` object. The method should return a string containing the carpark's location and capacity. For example, `"Carpark at 123 Example Street, with 100 bays."`.
 6. Your carpark class should now look similar to this:
 
@@ -291,9 +291,6 @@ s1
 s2
 ```
 
-Additional content to be added shortly
-=======
-----
 
 ### Relate the classes
 
@@ -382,9 +379,9 @@ We will focus on these key principles to guide the need for additional methods a
 
 #### Register method
 
-1. Create a `register` method for the `Carpark` class. This method should accept a single parameter, `obj`. This parameter will be either a `Sensor` or `Display` object.
-2. If the `obj` is a `Sensor`, add it to the `sensors` array. If the `obj` is a `Display`, add it to the `displays` array.
-3. If the `obj` is neither a `Sensor` nor a `Display`, raise a `TypeError` with the message `"Object must be a Sensor or Display"`.
+1. Create a `register` method for the `Carpark` class. This method should accept a single parameter, `component`. This parameter will be either a `Sensor` or `Display` object.
+2. If the `component` is a `Sensor`, add it to the `sensors` . If the `component` is a `Display`, add it to the `displays` list.
+3. If the `component` is neither a `Sensor` nor a `Display`, raise a `TypeError` with the message `"Object must be a Sensor or Display"`.
 
 **Stuck?**
 Here are some some hints to help you complete this task:
@@ -406,7 +403,7 @@ The `isinstance` function checks if an object is an instance of a class. In this
    from display import Display
    ```
 
-Now we can add the code to add the `component` to the appropriate array. Add the following code to the `register` method:
+Now we can add the code to add the `component` to the appropriate . Add the following code to the `register` method:
 
    ```python
    # ... inside the register method
