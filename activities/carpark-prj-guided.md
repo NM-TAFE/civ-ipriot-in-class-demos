@@ -291,7 +291,6 @@ s1
 s2
 ```
 
-
 ### Relate the classes
 
 Let's consider how the classes relate to each other. We can start by using a sequence diagram to illustrate the interactions between the classes. A sequence diagram shows the interactions between objects in a sequential order. The following diagram shows the interactions between the `Carpark`, `Sensor`, and `Display` classes.
@@ -485,6 +484,161 @@ You discuss with the senior developer and decide that if the number of plates ex
 
 --------
 
-**TO BE CONTINUED...**
+#### Back to the update displays method
 
+The `update_displays` method shall send status information: available bays, temperature, and any other relevant information to each display. We will implement this method in the `Carpark` class.
 
+1. Create an `update_displays` method in the `Carpark` class. This method only needs to accept the `self` parameter.
+2. Build a dictionary containing the information you want to send to the displays. For example, `data = {"available_bays": self.available_bays, "temperature": 25}`.
+3. Iterate through the `displays` list and call the `update` method on each display. For example, `for display in self.displays: display.update(data)`.
+4. Create a `update` method for the `Display` class. This method should accept a single parameter, `data`. For now, we will simply print the keys and values. Here is a sample implementation:
+
+   ```python
+   # ... inside the Display class
+   def update(self, data):
+      for key, value in data.items():
+         print(f"{key}: {value}")
+   ```
+
+**Evidencing:**
+After you have implemented the required code, commit your changes to the local repository and add a tag so your lecturer can find it:
+
+   ```bash
+   git add .
+   git commit -m "Added methods to the carpark class"
+   git tag -a "s4" -m "Added methods to the carpark class"
+   ```
+
+This time, we will push the tag to the remote repository:
+
+   ```bash
+   git push --tags
+   ```
+
+Add a screenshot of the GitHub repository after pushing the tag, showing the Carpark class with the new methods:
+
+```text
+![Added methods to the carpark class](images/methods-to-carpark.png)
+```
+
+Answer the following questions:
+
+```text
+   1. Which class is responsible for each of the following pieces of information (and why)?
+      - The number of available bays
+      - The current temperature
+      - The time
+   2. What is the difference between an attribute and a property?
+   3. Why do you think we used a dictionary to hold the data we passed the display? List at least one advantage and one disadvantage of this approach
+```
+
+#### Add a detect vehicle method to the Sensor class
+
+A sensor detects a vehicle, scans the plate, and notifies the carpark. The Sensor class is specialized by the EntrySensor and ExitSensor classes. We will implement the `detect_vehicle` method in the `EntrySensor` and `ExitSensor` classes.
+
+The Sensor superclass is abstract, meaning we don't expect it to be instantiated. However, we can still implement methods in the superclass. We will implement the `detect_vehicle` method in the `Sensor` class. The `detect_vehicle` method will be called when a vehicle is detected. It will scan the plate and the call the `update_carpark` method.
+
+The `update_carpark` method should be implemented in the `EntrySensor` and `ExitSensor` classes. This method will be called by the `detect_vehicle` method. Since the implementation will be determined by the subclass, this is an example of polymorphism.
+
+```mermaid
+classDiagram
+        class Sensor {
+        <<abstract>>
+        -scan_plate()
+        +detect_vehicle()
+    }
+    note "calls subclass update_carpark"
+    
+    class EntrySensor {
+        +update_carpark()
+    }
+    class ExitSensor {
+        +update_carpark()
+    }
+    Sensor <|-- EntrySensor : inherits
+    Sensor <|-- ExitSensor : inherits
+```
+
+1. Open `sensor.py`, add the following import statement to the top of the file:
+
+   ```python
+   from carpark import Carpark
+   from abc import ABC, abstractmethod
+   ```
+
+2. Update the class declaration to inherit from ABC: `class Sensor(ABC):`.
+3. Add an `update_carpark` method to the `Sensor` class. This method should accept a single parameter, `plate`. This method should be abstract, meaning it should not be implemented in the superclass and must be implemented by a subclass. We can do this by adding the `@abstractmethod` decorator to the method. Here is a sample implementation:
+
+   ```python
+   # ... inside the Sensor class
+   @abstractmethod
+   def update_carpark(self, plate):
+      pass
+   ```
+
+4. Create a private method called `scan_plate`. The method should return a plate. For now, we will simply return a random plate. Here is a sample implementation:
+
+   ```python
+   # ... inside the Sensor class
+   def _scan_plate(self):
+      return 'FAKE-' + format(random.randint(0, 999), "03d")
+   ```
+
+5. Create a `detect_vehicle` method **in the Sensor class**. The method includes the following steps:
+   - Call the `scan_plate` method to get the plate.
+   - Call the `update_carpark` method with the plate.
+   Notice that the `update_carpark` method is abstract. It is **not** implemented in the `Sensor` class. This is because the implementation will be determined by the subclass.
+   Here is a proposed implementation:
+
+   ```python
+      # ... inside the Sensor class
+   def detect_vehicle(self):
+      plate = self._scan_plate()
+      self.update_carpark(plate)
+   ```
+
+6. Now, let's implement update_carpark in the EntrySensor class. This method should accept a single parameter, `plate`. Here is a sample implementation:
+
+   ```python
+   # ... inside the EntrySensor class
+   def update_carpark(self, plate):
+      self.carpark.add_car(plate)
+      print(f"Incoming 🚘 vehicle detected. Plate: {plate}")
+   ```
+
+7. Let's do the same for the ExitSensor:
+
+   ```python
+   # ... inside the ExitSensor class
+   def update_carpark(self, plate):
+      self.carpark.remove_car(plate)
+      print(f"Outgoing 🚗 vehicle detected. Plate: {plate}")
+   ```
+
+Normally, we'd be done. But the astute among you may have identified a problem: we can generate a random license plate for cars entering, but not cars that are exiting. Remember this is not a real-world problem, just a problem causes by us not having a "real" plate sensor.
+
+So just for this simulation we will override the _scan_plate method to return a plate at random from the carpark. This is a bit of a hack, but it will work for our purposes.
+
+```python
+# ... inside the ExitSensor class
+def _scan_plate(self):
+   return random.choice(self.carpark.plates)
+```
+
+**Evidencing:**
+After you have implemented the required code, commit your changes to the local repository and add a tag so your lecturer can find it:
+
+   ```bash
+   git add .
+   git commit -m "Created core methods for the classes"
+   git tag -a "s5" -m "Core methods completed"
+   ```
+
+Probably a good idea to commit to GitHub now:
+
+   ```bash
+   git push --tags
+   ```
+
+-----------
+TO BE CONTINUED...
