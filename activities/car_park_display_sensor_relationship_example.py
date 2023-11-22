@@ -1,6 +1,6 @@
-"""This code snippet shows us how we establish the relationship between a carpark and its components (sensors and displays). 
+"""This code snippet shows us how we establish the relationship between a car park and its components (sensors and displays). 
 Because our sensors are not actual sensors (shock horror!), we have to do a little fudge to make sure that while incoming cars 
-generate random plates, outgoing cars only generate plates of cars that are in the carpark.
+generate random plates, outgoing cars only generate plates of cars that are in the car park.
 """
 import random
 from datetime import datetime
@@ -29,7 +29,7 @@ def generate_bogus_plate(prefix="FAKE", sep='-'):
 # They are just here to illustrate the relationship between the components
 # Read the instructions to see how to complete them.
 
-class Carpark:
+class CarPark:
     def __init__(self, 
                  location,
                  sensors = None, 
@@ -70,9 +70,9 @@ class Carpark:
             
         
 class Display:
-    def __init__(self, carpark):
-        self.carpark = carpark
-        self.carpark.register(self)
+    def __init__(self, car_park):
+        self.car_park = car_park
+        self.car_park.register(self)
         
     def update(self, data):
         print("Time:", datetime.now().strftime("%H:%M"))  # print current time as hh:MM
@@ -82,9 +82,9 @@ class Display:
         print()
 
 class Sensor:
-    def __init__(self, carpark):
-        self.carpark = carpark
-        self.carpark.register(self)
+    def __init__(self, car_park):
+        self.car_park = car_park
+        self.car_park.register(self)
 
     def _scan_plate(self):
         """Scans the plate using sophisticated number plate reading technology. 
@@ -93,43 +93,43 @@ class Sensor:
     
     def detect_vehicle(self):
         plate = self._scan_plate()
-        self.update_carpark(plate) # think about how this method is polymorphic (i.e. it behaves differently depending on sensor subclass)
+        self.update_car_park(plate) # think about how this method is polymorphic (i.e. it behaves differently depending on sensor subclass)
         print("Detected vehicle with plate", plate)
         
 
 class EntrySensor(Sensor):
-    def update_carpark(self, plate):
-        print("🚘 entered carpark")
-        self.carpark.add_car(plate)
+    def update_car_park(self, plate):
+        print("🚘 entered car park")
+        self.car_park.add_car(plate)
 
 class ExitSensor(Sensor):
     def _scan_plate(self):
         # fudge to simulate only reading cars that exist
         # normally we would not need to override this method!
-        return random.choice(self.carpark.plates)
+        return random.choice(self.car_park.plates)
 
-    def update_carpark(self, plate):
-        print("🚗 exited carpark")
-        self.carpark.remove_car(plate)
+    def update_car_park(self, plate):
+        print("🚗 exited car park")
+        self.car_park.remove_car(plate)
 
 def main():
-    carpark = Carpark("Perth")
-    EntrySensor(carpark) # notice how the registration is **implicit** in the constructor
-    ExitSensor(carpark) # in our final version we will make this explicit
-    Display(carpark)
+    car_park = CarPark("Perth")
+    EntrySensor(car_park) # notice how the registration is **implicit** in the constructor
+    ExitSensor(car_park) # in our final version we will make this explicit
+    Display(car_park)
 
     while True:
         # You don't have to worry about this code too much it is just to simulate cars entering and exiting
-        occupancy_ratio = len(carpark.plates) / carpark.total_bays
-        entry_probability = max(0.1, 1 - occupancy_ratio)  # Lower probability if carpark is fuller
-        exit_probability = max(0.1, occupancy_ratio - 1)  # Higher probability if carpark is fuller
+        occupancy_ratio = len(car_park.plates) / car_park.total_bays
+        entry_probability = max(0.1, 1 - occupancy_ratio)  # Lower probability if car_park is fuller
+        exit_probability = max(0.1, occupancy_ratio - 1)  # Higher probability if car_park is fuller
 
-        for sensor in carpark.sensors:
+        for sensor in car_park.sensors:
             time.sleep(1)
             if isinstance(sensor, EntrySensor):
                 if random.random() < entry_probability:
                     sensor.detect_vehicle()
-            elif isinstance(sensor, ExitSensor) and len(carpark.plates) > 0:
+            elif isinstance(sensor, ExitSensor) and len(car_park.plates) > 0:
                 if random.random() < exit_probability:
                     sensor.detect_vehicle()  
 

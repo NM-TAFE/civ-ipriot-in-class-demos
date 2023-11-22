@@ -1,4 +1,5 @@
 # Object-Oriented Programming - Car Park System
+>
 > Assessment Guide: a step-by-step worksheet you can use to complete all the project's coding and version control requirements.
 
 ## Overview
@@ -123,7 +124,7 @@ You will be assessed on:
    ```
 
 8. Create a new Python file in the `src` directory called `main.py`. This will be the main script for your car park system.
-9. Create a new Python file in the `tests` directory called `test_carpark.py`. This will be the main script for your unit tests.
+9. Create a new Python file in the `tests` directory called `test_car_park.py`. This will be the main script for your unit tests.
 10. In PyCharm, mark the `src` directory as a source root. This will allow you to import modules from the `src` directory in your unit tests; keep the `tests` directory as a test root. This will enable you to run your unit tests from the IDE.
 11. Commit your changes to the repository, both locally and remotely:
 
@@ -156,9 +157,9 @@ Ensure you have completed the previous table and include at least two methods an
 
 ### Implement stubs for the classes
 
-1. In your `src/` directory, create a new Python file for each class you identified in the previous step. For example, `carpark.py`, `sensor.py`, `display.py`, and `config.py`.
+1. In your `src/` directory, create a new Python file for each class you identified in the previous step. For example, `car_park.py`, `sensor.py`, `display.py`, and `config.py`.
    Notice that the file names are all lowercase and use underscores to separate words. This is a common convention for Python file names.
-2. In each file, create a class with the same name as the file. For example, the `carpark.py` file should contain a `CarPark` class. Notice that the class name is capitalized and uses CamelCase to separate words. This is a common convention for Python class names. An example class definition is shown below:
+2. In each file, create a class with the same name as the file. For example, the `car_park.py` file should contain a `CarPark` class. Notice that the class name is capitalized and uses CamelCase to separate words. This is a common convention for Python class names. An example class definition is shown below:
 
    ```python
    class CarPark:
@@ -221,17 +222,17 @@ Include a screenshot of your GitHub repository `src/` directory **after** you ha
    - `id`
    - `message`
    - `is_on`
-   - `carpark`
+   - `car_park`
 2. Add instance variables for each of the parameters. For example, `self.id = id`.
 3. Add default values for parameters, such that there is no default for id or car park, but there is a default for message and status. For example, `message = ""` and `is_on = False`.
-4. Create a `__str__` method for the `Display` class. This method will be called when you print a `Display` object. The method should return a string containing the display's id and message. For example, `"Display 1: Welcome to the carpark."`.
+4. Create a `__str__` method for the `Display` class. This method will be called when you print a `Display` object. The method should return a string containing the display's id and message. For example, `"Display 1: Welcome to the car park."`.
 
 #### Sensor class
 
 1. Create an `__init__` method for the `Sensor` class. This method will be called when a new `Sensor` object is created. The method should accept the following parameters:
    - `id`
    - `is_active`
-   - `carpark`
+   - `car_park`
 
    You realize that you need to distinguish between entry and exit sensors. Since each of those sensors will need different methods, you decide to subclass the `Sensor` class.
 
@@ -279,7 +280,7 @@ You realize that you need a way to configure the car park system. You decide to 
 Ensure that you have completed the previous steps and created the appropriate tags. Confirm that the tags have been created by running `git tag` in the terminal and provide a screenshot of the output.
 
 ```text
-[student@workstation ipriot-carpark-prj]$ git tag
+[student@workstation ipriot-car-park-prj]$ git tag
 s1
 s2
 ```
@@ -330,7 +331,7 @@ classDiagram
       class Sensor {
          <<abstract>>
          - car_park: CarPark
-         - update_carpark(plate: str) void
+         - update_car_park(plate: str) void
          + detect_car() void
       }
       class EntrySensor{
