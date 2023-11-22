@@ -6,86 +6,9 @@
 
 In this assessment, you must design and implement a simplified car park system using Object-Oriented Programming (OOP) concepts in Python. The system will consist of a **car park**, **sensors**, and **displays** to track the cars entering and exiting and the availability of parking bays.
 
-## Objectives
+The system will be implemented in Python using the PyCharm IDE. You will use version control to manage your project and submit your work.
 
-By completing this task, you will demonstrate the following competencies as outlined in ICTPRG430:
-
-1. **Modularity**: Implementing the logic for one object operation using a modular approach.
-2. **Data Structures**: Utilizing s of primitive data types within a class.
-3. **File Operations**: Reading from and writing to a text file.
-4. **Class Design**: Developing two classes with four instance variables each.
-5. **Object Construction**: Creating a class that offers two options for object construction.
-6. **Object Aggregation**: Employing user-defined object aggregation within a class.
-7. **Polymorphism**: Implementing polymorphism to enhance code extensibility.
-8. **Debugging**: Utilizing a debugging tool to troubleshoot your code.
-9. **Code and Documentation Conventions**: Applying specified coding and documentation standards.
-10. **Unit Testing**: Conducting and documenting two unit test cases.
-
-## Task Requirements
-
-1. **CarPark Class**:
-   - Implement a `CarPark` class with instance variables for location, capacity, current vehicle count, and of `Sensor` objects.
-   - Include methods to increment/decrease the vehicle count and update the display.
-   - The class should have two constructors: one default and one that allows setting the initial values of the instance variables.
-
-2. **Sensor Class**:
-   - Create a `Sensor` class with instance variables for ID, status, location, and type.
-   - Implement methods to activate/deactivate the sensor and detect a car's presence.
-   - The `Sensor` class should interact with the `CarPark` class to update the vehicle count and availability of bays.
-
-3. **Display Class**:
-   - Design a `Display` class with instance variables for ID, message, status, and `CarPark` data.
-   - This class should have a method to display the current number of available parking bays.
-
-4. **Aggregation**:
-   - Use aggregation in the `Display` class to hold information about the `CarPark` class, showing their relationship.
-
-5. **Polymorphism**:
-   - Implement polymorphism by creating a method that can be overridden in a subclass to provide different display messages.
-
-6. **File Operations**:
-   - Implement file reading and writing in the `CarPark` class to log car entry and exit times.
-
-7. **Debugging**:
-   - Utilize a debugging tool of your choice (e.g., Pycharm's debugger) to debug your classes.
-
-8. **Documentation Conventions**:
-   - Ensure your code is well-documented, including comments for classes and methods, and use consistent naming conventions for variables and functions.
-   - Specify at least three documentation aspects according to the organizational standards provided in the task brief.
-
-9. **Unit Testing**:
-   - Write two unit tests to verify that the `Sensor` and `Display` classes are functioning as expected.
-
-## Version control requirements
-
-As part of this assessment, you will be able to demonstrate competencies in using a version control system as outlined in ICTICT449. You will plan, install, create, and manage a repository to control versions of your code for the CarPark system.
-
-- Configure a new repository with README, .gitignore, and other essential setup files.
-- Initialize your local repository and link it to a remote repository on GitHub.
-- Make initial commits with the basic structure of your CarPark system.
-- As you develop the system, commit your changes each time you reach a significant milestone or complete a task.
-- Make at least three commits to demonstrate the evolution of your project.
-- Manage any changes or improvements by committing to the repository with clear, descriptive commit messages.
-
-## Submission
-
-Your final submission should include:
-
-- Python script files for each class in a zip file.
-- Your `.git/` should be included with your zip file.
-- Your `.gitignore` file should exclude any files that are not required for marking
-- Your `venv/` should **not** be included in your submission.
-- A text file used for logging car entries/exits.
-- This worksheet with evidence requirements addressed.
-
-## Assessment Criteria
-
-You will be assessed on:
-
-- The correct implementation of OOP concepts.
-- Code functionality and adherence to the provided specifications.
-- Quality and clarity of code documentation.
-- Successful execution and documentation of unit tests.
+This guide provides detailed step-by-step instructions for completing the project. You do **not** have to use this guide, but it will make your life easier and ensure you meet **all** project requirements. If you choose not to follow the guide, read the submissions requirements carefully to ensure you meet all the requirements.
 
 ## Instructions
 
@@ -114,7 +37,8 @@ You will be assessed on:
 7. Create a `src` and `tests` directories in your project. The `src` directory will contain your Python scripts, and the `tests` directory will contain your unit tests. Your project structure should look like this:
 
    ```bash
-   ipriot-car_park-prj/
+   ipriot-car_park-prj/  # >> This is your project root folder
+   ├── .idea/
    ├── .git/
    ├── venv/
    ├── .gitignore
@@ -188,7 +112,7 @@ Include a screenshot of your GitHub repository `src/` directory **after** you ha
 1. Create an `__init__` method for the `CarPark` class. This method will be called when a new `CarPark` object is created. The method should accept the following parameters:
    - `location`
    - `capacity`
-   - `current_vehicle_count`
+   - `plates`
    - `sensors`
    - `displays`
 2. Add instance variables for each of the parameters. For example, `self.location = location`.
@@ -199,7 +123,7 @@ Include a screenshot of your GitHub repository `src/` directory **after** you ha
 
    ```python
    class CarPark:
-      def __init__(self, location="Unknown", capacity=0, current_vehicle_count=0, sensors=None, displays=None):
+      def __init__(self, location="Unknown", capacity=0, plates=None, sensors=None, displays=None):
          self.location = location
          self.sensors = sensors or [] # uses the first value if not None, otherwise uses the second value
          ... # Add the other parameters here
@@ -634,5 +558,151 @@ Probably a good idea to commit to GitHub now:
    git push --tags
    ```
 
------------
+### Taking stock
+
+Let's take stock of what we've done up till now. Diagrammatically, here is a representation of all the classes, methods, and attributes we have implemented so far in the project:
+
+```mermaid
+classDiagram
+    class CarPark {
+        -location: string
+        -capacity: int
+        -plates: str[]
+        -sensors: Sensor[]
+        -displays: Display[]
+        __init__(location, capacity, plates, sensors, displays)
+        register(component: Sensor | Display)
+        add_car(plate: string)
+        remove_car(plate: string)
+        update_displays()
+        property: available_bays: int 
+    }
+
+    class Sensor {
+        <<abstract>>
+        -id: int
+        -is_active: bool
+        -car_park: CarPark
+        __init__(id, is_active, car_park)
+        -scan_plate(): string
+        detect_vehicle()
+        update_car_park(plate: string)
+    }
+
+    class EntrySensor {
+        inherit Sensor
+        update_car_park(plate: string)
+        
+    }
+
+    class ExitSensor {
+        inherit Sensor
+        +update_car_park(plate: string)
+        -scan_plate() string
+    }
+
+    class Display {
+        -id: int
+        -message: string
+        -is_on: bool
+        -car_park: CarPark
+        __init__(id, message, is_on, car_park)
+        update(data: dictionary)
+    }
+
+    CarPark "1" o-- "0..*" Display : contains
+    CarPark "1" *-- "0..*" Sensor : contains
+    Sensor <|-- EntrySensor
+    Sensor <|-- ExitSensor 
+
+```
+
+Take a moment to review the diagram and ensure you have implemented the classes, methods, and attributes correctly. You're about to find out if you haven't!
+
+### Implement unit tests
+
+The first set of unit tests are given to you below. We use the unittest module to create unit tests. The unittest module provides a base class, TestCase, which we can use to create test cases. We can then use the assert methods to test the behaviour of our classes.
+
+#### CarPark unit tests
+
+The following unit tests test the `CarPark` class. They test the `__init__` method, the `add_car` method, and the `remove_car` method. Notice that we use the `setUp` method to create a `CarPark` object before each test. This ensures that each test starts with a fresh `CarPark` object.
+
+```python
+import unittest
+from car_park import CarPark
+
+class TestCarPark(unittest.TestCase):
+      def setUp(self):
+         self.car_park = CarPark("123 Example Street", 100)
+   
+      def test_car_park_initialized_with_all_attributes(self):
+         self.assertIsInstance(self.car_park, CarPark)
+         self.assertEqual(self.car_park.location, "123 Example Street")
+         self.assertEqual(self.car_park.capacity, 100)
+         self.assertEqual(self.car_park.plates, [])
+         self.assertEqual(self.car_park.sensors, [])
+         self.assertEqual(self.car_park.displays, [])
+         self.assertEqual(self.car_park.available_bays, 100)
+   
+      def test_add_car(self):
+         self.car_park.add_car("FAKE-001")
+         self.assertEqual(self.car_park.plates, ["FAKE-001"])
+         self.assertEqual(self.car_park.available_bays, 99)
+   
+      def test_remove_car(self):
+         self.car_park.add_car("FAKE-001")
+         self.car_park.remove_car("FAKE-001")
+         self.assertEqual(self.car_park.plates, [])
+         self.assertEqual(self.car_park.available_bays, 100)
+
+      def test_overfill_the_car_park(self):
+         for i in range(100):
+            self.car_park.add_car(f"FAKE-{i}")
+         self.assertEqual(self.car_park.available_bays, 0)
+         self.car_park.add_car("FAKE-100")
+         # Overfilling the car park should not change the number of available bays
+         self.assertEqual(self.car_park.available_bays, 0)
+
+         # Removing a car from an overfilled car park should not change the number of available bays   
+         self.car_park.remove_car("FAKE-100")
+         self.assertEqual(self.car_park.available_bays, 0)
+
+      def test_removing_a_car_that_does_not_exist(self):
+         with self.assertRaises(ValueError):
+            self.car_park.remove_car("NO-1")
+         
+
+if __name__ == "__main__":
+   unittest.main()
+
+```
+
+1. Create or open the Python file in the `tests` directory called `test_car_park.py` and paste the contents of the previous unit test into it.
+2. Commit your changes to the local repository. Do not tag the commit. It is an interim commit.
+
+   ```bash
+   git add .
+   git commit -m "Added unit tests for the car park class"
+   ```
+
+3. Run the above unit tests in PyCharm.
+4. Fix any errors you encounter.
+
+**Evidencing:**
+
+1. Add a screenshot of the output of the unit tests. If any failed, add a screenshot of the error message and a screenshot after you have fixed the errors:
+
+   ```text
+   ![Unit tests](images/unit-tests.png)
+   ```
+
+2. Commit your changes to the local repository. Tag the commit with `s6` so your lecturer can find it:
+3. Push the tag to the remote repository:
+
+   ```bash
+   git push --tags
+   ```
+
+--------
 TO BE CONTINUED...
+
