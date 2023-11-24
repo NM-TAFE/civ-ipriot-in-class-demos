@@ -448,21 +448,17 @@ Answer the following questions:
 > 1. **Which class is responsible for each of the following pieces of information (and why)?**
 >    - *The number of available bays*  
 >      `Answer here...`
-> <br>
 >    - *The current temperature*  
 >      `Answer here...`
-> <br>
 >    - *The time*  
 >      `Answer here...`
-> <br>
 >
 > 2. **What is the difference between an attribute and a property?**  
 >    `Answer here...`
-> <br>
 >
 > 3. **Why do you think we used a dictionary to hold the data we passed the display? List at least one advantage and one disadvantage of this approach.**  
 >    `Answer here...`
-> <br>
+
 
 #### Add a detect vehicle method to the Sensor class
 
