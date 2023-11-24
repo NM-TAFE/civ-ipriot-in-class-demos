@@ -64,7 +64,7 @@ This guide provides detailed step-by-step instructions for completing the projec
 **Evidencing:**
 Include a screenshot of your GitHub repository **after** you have pushed your initial commit.
 
-```text
+```markdown
 ![Initial commit](images/mu_image.png)
 ```
 
@@ -104,7 +104,7 @@ Ensure you have completed the previous table and include at least two methods an
 **Evidencing:**
 Include a screenshot of your GitHub repository `src/` directory **after** you have pushed your changes.
 
-```text
+```markdown
 ![Added stubs for classes](images/stubs-for-classes.png)
 ```
 
@@ -206,7 +206,7 @@ You realize that you need a way to configure the car park system. You decide to 
 **Evidencing:**
 Ensure that you have completed the previous steps and created the appropriate tags. Confirm that the tags have been created by running `git tag` in the terminal and provide a screenshot of the output.
 
-```text
+```bash
 [student@workstation ipriot-car-park-prj]$ git tag
 s1
 s2
@@ -438,20 +438,31 @@ This time, we will push the tag to the remote repository:
 
 Add a screenshot of the GitHub repository after pushing the tag, showing the CarPark class with the new methods:
 
-```text
+```markdown
 ![Added methods to the car park class](images/methods-to-car-park.png)
 ```
 
 Answer the following questions:
-
-```text
-   1. Which class is responsible for each of the following pieces of information (and why)?
-      - The number of available bays
-      - The current temperature
-      - The time
-   2. What is the difference between an attribute and a property?
-   3. Why do you think we used a dictionary to hold the data we passed the display? List at least one advantage and one disadvantage of this approach
-```
+> **Review Questions**
+>
+> 1. **Which class is responsible for each of the following pieces of information (and why)?**
+>    - *The number of available bays*  
+>      `Answer here...`
+> <br>
+>    - *The current temperature*  
+>      `Answer here...`
+> <br>
+>    - *The time*  
+>      `Answer here...`
+> <br>
+>
+> 2. **What is the difference between an attribute and a property?**  
+>    `Answer here...`
+> <br>
+>
+> 3. **Why do you think we used a dictionary to hold the data we passed the display? List at least one advantage and one disadvantage of this approach.**  
+>    `Answer here...`
+> <br>
 
 #### Add a detect vehicle method to the Sensor class
 
@@ -506,7 +517,7 @@ classDiagram
    ```
 
 5. Create a `detect_vehicle` method **in the Sensor class**. The method includes the following steps:
-   - Call the `scan_plate` method to get the plate.
+   - Call the `_scan_plate` method to get the plate.
    - Call the `update_car_park` method with the plate.
    Notice that the `update_car_park` method is abstract. It is **not** implemented in the `Sensor` class. This is because the implementation will be determined by the subclass.
    Here is a proposed implementation:
@@ -695,7 +706,7 @@ if __name__ == "__main__":
 
 1. Add a screenshot of the output of the unit tests. If any failed, add a screenshot of the error message and a screenshot after you have fixed the errors:
 
-   ```text
+   ```markdown
    ![Unit tests](images/unit-tests.png)
    ```
 
@@ -708,3 +719,4 @@ if __name__ == "__main__":
 
 --------
 
+![Image of a car park on the moon](images/moon_park.png)
