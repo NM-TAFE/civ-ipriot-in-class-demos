@@ -49,7 +49,7 @@ This guide provides detailed step-by-step instructions for completing the projec
 
 8. Create a new Python file in the `src` directory called `main.py`. This will be the main script for your car park system.
 9. Create a new Python file in the `tests` directory called `test_car_park.py`. This will be the main script for your unit tests.
-10. In PyCharm, mark the `src` directory as a source root. This will allow you to import modules from the `src` directory in your unit tests; keep the `tests` directory as a test root. This will enable you to run your unit tests from the IDE.
+10. In PyCharm, mark the `src` directory as a source root. This will allow you to import modules from the `src` directory in your unit tests; mark the `tests` directory as a test root. This will enable you to run your unit tests from the IDE, without having to mess around with relative imports (long story!).
 11. Commit your changes to the repository, both locally and remotely:
 
       ```bash
@@ -74,20 +74,20 @@ After reading the task requirements, you should be able to identify the classes,
 | `CarPark`    |            |         |
 | `Sensor`     |            |         |
 | `Display`    |            |         |
-| `Config`     |            |         |
 
 **Evidencing:**
 Ensure you have completed the previous table and include at least two methods and attributes for each.
 
 ### Implement stubs for the classes
 
-1. In your `src/` directory, create a new Python file for each class you identified in the previous step. For example, `car_park.py`, `sensor.py`, `display.py`, and `config.py`.
-   Notice that the file names are all lowercase and use underscores to separate words. This is a common convention for Python file names.
-2. In each file, create a class with the same name as the file. For example, the `car_park.py` file should contain a `CarPark` class. Notice that the class name is capitalized and uses CamelCase to separate words. This is a common convention for Python class names. An example class definition is shown below:
+1. In your `src/` directory, create a new Python file for each class you identified in the previous step. For example, `car_park.py`, `sensor.py`, and `display.py`.
+   Notice that the file names are all lowercase and use underscores to separate words. This is a common convention for Python file names. In general, Python files are named like variables, using lowercase and underscores to separate words.
+2. In _each_ file, create a class with the same name as the file. For example, the `car_park.py` file should contain a `CarPark` class. Notice that the class name is capitalized and uses CamelCase to separate words. This is a common convention for Python class names. An example class definition is shown below:
 
    ```python
    class CarPark:
-       pass
+       pass # this just means nothing... it actually does nothing
+   # do this for ALL the other classes!
    ```
 
 3. Commit your changes to the repository, both locally and remotely:
@@ -117,13 +117,13 @@ Include a screenshot of your GitHub repository `src/` directory **after** you ha
    - `displays`
 2. Add instance variables for each of the parameters. For example, `self.location = location`.
 3. Add a default value for each parameter. For example, `location = "Unknown"`.
-4. Notice that sensors and displays are lists ("s"). This is because a car park can have multiple sensors and displays. Add an empty list for each of these parameters. For example, `self.sensors = []`. However, lists are mutable, and we must never set mutable defaults for parameters. So make the defaults `None`.
+4. Notice that plates, sensors, and displays are lists ("plurals"). Sensors/Displays, hold references to instances of sensors/displays.Plates, holds reference to license plates represented as strings (built-in/primitive types). Specifying these at initialization is optional, but we don't want to use an empty list as the default. For example, `self.sensors = []`. Lists are **mutable**, and we must never set mutable defaults for parameters. Thus we make the defaults `None`.
 5. Add a `__str__` method to the `CarPark` class. This method will be called when you print a `Car park` object. The method should return a string containing the car park's location and capacity. For example, `"Car park at 123 Example Street, with 100 bays."`.
 6. Your car park class should now look similar to this:
 
    ```python
    class CarPark:
-      def __init__(self, location="Unknown", capacity=0, plates=None, sensors=None, displays=None):
+      def __init__(self, location, capacity, plates=None, sensors=None, displays=None):
          self.location = location
          self.sensors = sensors or [] # uses the first value if not None, otherwise uses the second value
          ... # Add the other parameters here
