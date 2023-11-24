@@ -1,6 +1,9 @@
 # Object-Oriented Programming - Car Park System
->
-> Assessment Guide: a step-by-step worksheet you can use to complete all the project's coding and version control requirements.
+
+> **Assessment Guide:**
+> A step-by-step worksheet you can use to complete all the project's coding and version control requirements.
+
+![Image of a modern car park](images/new_car_park.png)
 
 ## Overview
 
@@ -704,5 +707,4 @@ if __name__ == "__main__":
    ```
 
 --------
-TO BE CONTINUED...
 
