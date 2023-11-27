@@ -713,6 +713,90 @@ if __name__ == "__main__":
    git push --tags
    ```
 
+### Display unit tests
+
+Next, we'll create tests for the `Display` class. These tests will test the `__init__` method and the `update` method.
+
+1. In the tests/ directory, create a new Python file called `test_display.py`. Notice that tests are usually suffixed or prefixed with `test`. Typically, a unit applies to a class. So the unit tests for the `Display` class are in the `test_display.py` file.
+2. Add the following import statement to the top of the file:
+
+   ```python
+   import unittest
+   from display import Display
+   from car_park import CarPark
+   ```
+
+3. Create a `TestDisplay` class that inherits from `unittest.TestCase`.
+4. Create a `setUp` method that creates a `Display` object and a `CarPark` object. The `Display` object should have the following attributes:
+   - `id`: 1
+   - `message`: "Welcome to the car park"
+   - `is_on`: True
+   - `car_park`: CarPark(...)
+
+5. Create a `test_display_initialized_with_all_attributes` method. This method should test that the `Display` object was initialized with the correct attributes. Here is a sample implementation:
+
+   ```python
+   # ... inside the TestDisplay class
+   def test_display_initialized_with_all_attributes(self):
+      self.assertIsInstance(self.display, Display)
+      self.assertEqual(self.display.id, 1)
+      self.assertEqual(self.display.message, "Welcome to the car park")
+      self.assertEqual(self.display.is_on, True)
+      self.assertIsInstance(self.display.car_park, CarPark)
+   ```
+
+6. Now create a `test_update` method. This method should test that the `update` method updates the `message` attribute. Here is a sample implementation:
+
+   ```python
+   # ... inside the TestDisplay class
+   def test_update(self):
+      self.display.update({"message": "Goodbye"})
+      self.assertEqual(self.display.message, "Goodbye")
+   ```
+
+7. Run the unit test in PyCharm.
+8. Fix any errors you encounter.
+
+**Evidencing:**
+
+1. Add a screenshot of the output of the unit tests. If any failed, add a screenshot of the error message and a screenshot after you have fixed the errors:
+
+   ```markdown
+   ![Unit tests](images/unit-tests-display.png)
+   ```
+
+2. Commit your changes to the local repository. Tag the commit with `s7` so your lecturer can find it.
+3. Push the tag to the remote repository.
+
+   ```bash
+   git push --tags
+   ```
+
+### Sensor unit tests
+
+Finally, we'll create tests for the `Sensor` class. These tests will test the `__init__` method and the `detect_vehicle` method. Implement at least two relevant unit tests.
+
+### Test the car park register method
+
+The car park register method should accept a `Sensor` or `Display` object. It should raise a `TypeError` if the object is neither a `Sensor` nor a `Display`. Before proceeding, think about where you would test this behaviour. Should you test it in the `CarPark` unit tests or the `Sensor` unit tests? Why?
+
+> Answer here...
+
+Create a new unit test in the `test_car_park.py` file called `test_register_raises_type_error`. This test should create a `CarPark` object and a `str` object. It should then call the `register` method on the `CarPark` object with the `str` object as a parameter. The test should assert that a `TypeError` is raised. Here is a sample implementation:
+
+```python
+# ... inside the TestCarPark class
+with self.assertRaises(TypeError):
+   self.car_park.register("Not a Sensor or Display")
+```
+
+
+
+
+**Evidencing:**
+
+Commit your original test cases for the sensor class to the local repository. Tag the commit with `s8` so your lecturer can find it.
+
 --------
 
 ![Image of a car park on the moon](images/moon_park.png)
