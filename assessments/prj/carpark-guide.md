@@ -777,6 +777,8 @@ Next, we'll create tests for the `Display` class. These tests will test the `__i
 
 Finally, we'll create tests for the `Sensor` class. These tests will test the `__init__` method and the `detect_vehicle` method. Implement at least two relevant unit tests.
 
+> **Note**: Because the Sensor is abstract you cannot directly test it. You can only test its concrete subclasses.
+
 ### Test the car park register method
 
 The car park register method should accept a `Sensor` or `Display` object. It should raise a `TypeError` if the object is neither a `Sensor` nor a `Display`. Before proceeding, think about where you would test this behaviour. Should you test it in the `CarPark` unit tests or the `Sensor` unit tests? Why?
