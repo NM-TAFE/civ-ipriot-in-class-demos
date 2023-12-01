@@ -1039,6 +1039,7 @@ In your final submission you need to include any files you have created or modif
    from sensor import EntrySensor, ExitSensor
    from display import Display
    ```
+
 3. Now complete all the TODO steps outlined below:
 
    ```python
