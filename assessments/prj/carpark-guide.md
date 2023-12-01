@@ -955,21 +955,19 @@ Let's now implement the functionality to make the unit tests pass (if you have w
 
 4. Push the main branch to the remote repository.
 
-
-
+   ```python
    # in CarPark class
    def _log_car_activity(self, plate, action):
       with self.log_file.open("a") as f:
          f.write(f"{plate} {action} at {datetime.now()}\n")
    ```
 
-
-
 #### Store the configuration of a car park in a file called `config.json`
 
 **Detour – JSON:** JavaScript Object Notation (JSON) is a common format for storing data. It is a text-based format that is easy for humans to read and write. It is also easy for computers to parse and generate. JSON is often used for storing configuration data (though `yaml` and `toml` are increasingly popular). It is also a common format for exchanging data between applications. Like most high-level languages, Python has built-in support for JSON.
 
 Now that you're becoming familiar with the process. Try and do the following:
+
 1. (Optional) Create a new branch called `feature/store-config-in-json`
 2. (Optional) Create a new unit test to test that a CarPark can be initialized with a `config_file` parameter.
 3. Do one of the following:
@@ -1071,12 +1069,13 @@ In your final submission you need to include any files you have created or modif
 
 4. Release your code on GitHub. You can do this by going to the releases section and selecting "Create a new release". Give the release a title ("Project Submission") and description. Then click "Publish release". Include a screenshot of the release:
 
+   ```markdown
    ![Create a release](images/create-release.png)
 
    ![Publish a release](images/publish-release.png)
+   ```
 
 5. Congratulations! You have completed the project. You can now submit the project via Blackboard. Take the time to reflect on your work and write any notes and observations down.
-
 
 --------
 
