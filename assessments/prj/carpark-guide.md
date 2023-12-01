@@ -446,11 +446,11 @@ Answer the following questions:
 > **Review Questions**
 >
 > 1. **Which class is responsible for each of the following pieces of information (and why)?**
->    - *The number of available bays*  
+>    - _The number of available bays_  
 >      `Answer here...`
->    - *The current temperature*  
+>    - _The current temperature_  
 >      `Answer here...`
->    - *The time*  
+>    - _The time_  
 >      `Answer here...`
 >
 > 2. **What is the difference between an attribute and a property?**  
@@ -458,7 +458,6 @@ Answer the following questions:
 >
 > 3. **Why do you think we used a dictionary to hold the data we passed the display? List at least one advantage and one disadvantage of this approach.**  
 >    `Answer here...`
-
 
 #### Add a detect vehicle method to the Sensor class
 
@@ -790,12 +789,294 @@ with self.assertRaises(TypeError):
    self.car_park.register("Not a Sensor or Display")
 ```
 
-
-
-
 **Evidencing:**
 
 Commit your original test cases for the sensor class to the local repository. Tag the commit with `s8` so your lecturer can find it.
+
+### Additional functionality: TDD
+
+You have been asked to implement the following additional functionality:
+
+- Log cars entering and leaving in a file called `log.txt`.
+- Store the configuration of a car park in a file called `config.json`.
+
+You decide to use TDD to implement this functionality. You start by writing a unit test for each requirement. You then implement the functionality to make the unit tests pass. Because you've already developed and tested much of the core functionality, you also decide to create a branch for this work.
+
+Working in a branch allows you to work on the new functionality without affecting the core functionality. You can then merge the branch back into the main branch when you are done. This is a common workflow in software development.
+
+#### Create a branch
+
+Create a new local branch named `feature/log-car-activity`. You can do this either using `git checkout` or the more modern `git switch` command:
+
+   ```bash
+   git switch -c feature/log-car-activity
+   ```
+
+   This command creates a new branch **and** switches to it. Notice that the branch name is prefixed with `feature/` and uses `kebab-case`. This is a common convention for branch naming. Further, notice that we avoid the temptation to combine unrelated functionality in a single branch. This is a common mistake that can lead to problems later on.
+
+#### Log cars entering and leaving in a file called `log.txt`
+
+**Detour – Python file handling:**
+Python is a multi-platform language. This means that it can run on different operating systems. However, different operating systems have different ways of representing files and paths. We therefore want to _abstract_ this representation away from our code. We can do this using the `pathlib` module. This module provides a platform-independent way to represent files and paths. We can use it to create a `Path` object that represents a file or directory. We can then use this object to create, read, write, and delete files and directories.
+
+Typically, we import the `Path` class from the `pathlib` module. We can then use the `Path` class to create a `Path` object. For example, `Path("log.txt")` creates a `Path` object that represents a file called `log.txt`. We can then use the `Path` object to create, read, write, and delete files and directories.
+
+**Add test cases: (optional but recommended)**
+
+1. In your `test_car_park.py` file, add the following import statement to the top of the file:
+
+   ```python
+   from pathlib import Path
+   ```
+
+2. Update `test_car_park_initialized_with_all_attributes` to assert (1) that a new optional parameter (2) `log_file` and a new instance variable `log_file` is added. The `log_file` should default to Path(`log.txt`). Here is a sample implementation:
+
+   ```python
+   # ... inside the TestCarPark class
+   def test_car_park_initialized_with_all_attributes(self):
+      # ... existing code
+      self.assertEqual(self.car_park.log_file, Path("log.txt"))
+   ```
+
+3. Create a new unit test in the `test_car_park.py` file called `test_log_file_created`. This test should create a `CarPark` object and assert that a `log.txt` file is created, when a car enters or exits the car park. Here is a sample implementation:
+
+   ```python
+
+      # ... inside the TestCarPark class
+      def test_log_file_created(self):
+         new_carpark = CarPark("123 Example Street", 100, log_file = "new_log.txt")
+         self.assertTrue(Path("new_log.txt").exists())
+   ```
+
+   When a test creates a file, it is **not** cleaned up automatically. So we want to ensure that the file is deleted with a `tearDown` method.
+
+4. Add the following code to the `TestCarPark` class:
+
+   ```python
+   # ... inside the TestCarPark class
+   def tearDown(self):
+      Path("new_log.txt").unlink(missing_ok=True)
+   ```
+
+   **Bonus:** Unlink? What does that mean? Well, it turns out when you delete files on most operating system, what actually happens is you unlink the file from a directory entry. The data is still there, but can now be overwritten. When we program, we often use the more precise and explicit term.
+   Notice how we have inadvertently made our test code hard to maintain (if we change the name of the log file, we have to change it in two places). Can you think of a way to improve this code? Hint: consider using a class attribute or new instance variable in the `setUp` method.
+
+5. Finally, there is are two more test case we are going to add, since you have worked so hard you can just copy/paste this code:
+
+   ```python
+   # inside the TestCarPark class
+   def test_car_logged_when_entering(self):
+      new_carpark = CarPark("123 Example Street", 100, log_file = "new_log.txt") # TODO: change this to use a class attribute or new instance variable
+      self.car_park.add_car("NEW-001")
+      with self.car_park.log_file.open() as f:
+         last_line = f.readlines()[-1]
+      self.assertIn(last_line, "NEW-001") # check plate entered
+      self.assertIn(last_line, "entered") # check description
+      self.assertIn(last_line, "\n") # check entry has a new line
+   
+   def test_car_logged_when_exiting(self):
+      new_carpark = CarPark("123 Example Street", 100, log_file = "new_log.txt") # TODO: change this to use a class attribute or new instance variable
+      self.car_park.add_car("NEW-001")
+      self.car_park.remove_car("NEW-001")
+      with self.car_park.log_file.open() as f:
+         last_line = f.readlines()[-1]
+      self.assertIn(last_line, "NEW-001") # check plate entered
+      self.assertIn(last_line, "exited") # check description
+      self.assertIn(last_line, "\n") # check entry has a new line
+   ```
+
+6. Run the unit tests in PyCharm. Confirm that they fail!
+
+7. Commit your changes to the local repository. You do not need to tag them:
+   
+      ```bash
+      git add .
+      git commit -m "Added unit tests for logging car activity"
+      ```
+
+**Add the functionality: (mandatory)**
+Let's now implement the functionality to make the unit tests pass (if you have written them):
+
+1. Open the `car_park.py` file and add the following import statement to the top of the file:
+
+   ```python
+   from pathlib import Path
+   from datetime import datetime # we'll use this to timestamp entries
+   ```
+
+2. Update the `__init__` method to accept an optional `log_file` parameter. This parameter should default to `Path("log.txt")`. Here is a sample implementation:
+
+   ```python
+   # in CarPark class
+   def __init__(self, location, capacity, plates=None, sensors=None, displays=None, log_file=Path("log.txt")):
+      # ... existing code
+      self.log_file = log_file if isinstance(log_file, Path) else Path(log_file)
+      # create the file if it doesn't exist:
+      self.log_file.touch(exist_ok=True)
+   ```
+
+3. If you have written the unit tests, run them in PyCharm. Confirm that the your initialization tests now pass.
+4. Create a private method to log car activity. This method should accept the `plate` and `action` parameter. It should open the `log_file` in append mode and write the plate, action ('entered' or 'exited') and a timestamp to the file. Here is a sample implementation:
+
+   ```python
+   # in CarPark class
+   def _log_car_activity(self, plate, action):
+      with self.log_file.open("a") as f:
+         f.write(f"{plate} {action} at {datetime.now():%Y-%m-%d %H:%M:%S}\n")
+   ```
+
+5. Call the `_log_car_activity` method in the `add_car` **and** `remove_car` methods. Here is a sample implementation for the `add_car` method:
+
+   ```python
+   # in CarPark class
+   def add_car(self, plate):
+      self.plates.append(plate)
+      self.update_displays()
+      self._log_car_activity(plate, "entered")
+   ```
+
+6. If you have created the unit tests, run them in PyCharm. Confirm that they now pass.
+
+**Evidencing:**
+
+1. Add and commit your changes to the branch
+2. Now we are going to merge the branch back into the main branch. First, switch to the main branch:
+
+   ```bash
+   git switch main
+   ```
+
+3. Merge the branch into the main branch and then tag the commit with `s9` so your lecturer can find it:
+
+   ```bash
+   git merge feature/log-car-activity
+   git tag -a "s9" -m "Added logging functionality"
+   ```
+
+4. Push the main branch to the remote repository.
+
+
+
+   # in CarPark class
+   def _log_car_activity(self, plate, action):
+      with self.log_file.open("a") as f:
+         f.write(f"{plate} {action} at {datetime.now()}\n")
+   ```
+
+
+
+#### Store the configuration of a car park in a file called `config.json`
+
+**Detour – JSON:** JavaScript Object Notation (JSON) is a common format for storing data. It is a text-based format that is easy for humans to read and write. It is also easy for computers to parse and generate. JSON is often used for storing configuration data (though `yaml` and `toml` are increasingly popular). It is also a common format for exchanging data between applications. Like most high-level languages, Python has built-in support for JSON.
+
+Now that you're becoming familiar with the process. Try and do the following:
+1. (Optional) Create a new branch called `feature/store-config-in-json`
+2. (Optional) Create a new unit test to test that a CarPark can be initialized with a `config_file` parameter.
+3. Do one of the following:
+   - Implement the Config class
+   - Implement a save_config method in the CarPark class that returns a CarPark from a config file
+
+We are going to do the latter:
+
+1. Since we are **not** using a dedicated class, we will remove the config.py file. We can use `git rm` to remove the file and stage the change in one step:
+
+   ```bash
+   git rm src/config.py
+   ```
+
+2. Open the `car_park.py` file and add the following import statement to the top of the file:
+
+   ```python
+   import json
+   ```
+
+3. Implement a `write_config` method in the CarPark class. This method should write the location, log_file, and capacity to a file called `config.json`. Here is a sample implementation:
+
+   ```python
+   # ... inside the CarPark class
+   def write_config(self):
+      with open("config.json", "w") as f: # TODO: use self.config_file; use Path; add optional parm to __init__
+         json.dump({"location": self.location, 
+                    "capacity": self.capacity,
+                    "log_file": str(self.log_file)}, f)
+   ```
+
+   Because JSON is dictionary-like (key-value pairs), we can use a dictionary to represent the configuration. We can then use the `json.dump` method to write the dictionary to a file.
+
+4. Implement a `from_config` method in the CarPark class. This method should accept a single parameter, `config_file`. This parameter should default to `Path("config.json")`. This method should read the `config_file` and return a `CarPark` object. Here is a sample implementation:
+
+   ```python
+   # ... inside the CarPark class
+   @staticmethod
+   def from_config(config_file=Path("config.json")):
+      config_file = config_file if isinstance(config_file, Path) else Path(config_file)
+      with config_file.open() as f:
+         config = json.load(f)
+      return CarPark(config["location"], config["capacity"], log_file=config["log_file"])
+   ```
+
+   Notice that we use the `@staticmethod` decorator. A static method is a method that does not operate on an instance (notice it does not use `self`). For example, `CarPark.from_config()` instead of `car_park.from_config()`. This is useful when we want to create an object from a file or database. We could also have used a class method, but we'll learn about those later.
+
+5. If you have created the unit tests, run them in PyCharm. Confirm that they now pass.
+
+**Evidencing:**
+After you have merged your branch to main, push to your remote with the s10 tag. Add a screenshot of the GitHub repository after pushing the tag, showing the CarPark class with the new methods:
+
+```markdown
+![Added methods to the car park class](images/methods-to-car-park.png)
+```
+
+### Final step: build a car park!
+
+In the final step, you will create a `main.py` file that 'drives' a car park. This file will create a car park, add sensors and displays, and simulate cars entering and exiting the car park. You will then run the file to see the car park in action.
+In your final submission you need to include any files you have created or modified. This includes the `main.py` file, the `config.json` file, and the `log.txt` file.
+
+#### Create a main.py file
+
+1. Create a new file in the `src/` directory called `main.py`.
+2. Add the following import statements to the top of the file:
+
+   ```python
+   from car_park import CarPark
+   from sensor import EntrySensor, ExitSensor
+   from display import Display
+   ```
+3. Now complete all the TODO steps outlined below:
+
+   ```python
+   # TODO: create a car park object with the location moondalup, capacity 100, and log_file "moondalup.txt"
+   # TODO: create an entry sensor object with id 1, is_active True, and car_park car_park
+   # TODO: create an exit sensor object with id 2, is_active True, and car_park car_park
+   # TODO: create a display object with id 1, message "Welcome to Moondalup", is_on True, and car_park car_park
+   # TODO: drive 10 cars into the car park (must be triggered via the sensor - NOT by calling car_park.add_car directly)
+   # TODO: drive 2 cars out of the car park (must be triggered via the sensor - NOT by calling car_park.remove_car directly)
+   ```
+
+4. Run the `main.py` file in PyCharm. Confirm that the car park is working as expected.
+
+**Evidencing:**
+
+1. Add a screenshot of the output of the `main.py` file:
+
+   ```markdown
+   ![Main.py output](images/main-py.png)
+   ```
+
+2. Commit your changes to the local repository. Tag the commit with `v1` so your lecturer can find it. Ensure the commit includes the log file and config file (though you would typically ignore them).
+3. Push the tag to the remote repository.
+
+   ```bash
+   git push --tags
+   ```
+
+4. Release your code on GitHub. You can do this by going to the releases section and selecting "Create a new release". Give the release a title ("Project Submission") and description. Then click "Publish release". Include a screenshot of the release:
+
+   ![Create a release](images/create-release.png)
+
+   ![Publish a release](images/publish-release.png)
+
+5. Congratulations! You have completed the project. You can now submit the project via Blackboard. Take the time to reflect on your work and write any notes and observations down.
+
 
 --------
 
