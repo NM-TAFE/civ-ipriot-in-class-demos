@@ -11,7 +11,7 @@ In this assessment, you must design and implement a simplified car park system u
 
 The system will be implemented in Python using the PyCharm IDE. You will use version control to manage your project and submit your work.
 
-This guide provides detailed step-by-step instructions for completing the project. You do **not** have to use this guide, but it will make your life easier and ensure you meet **all** project requirements. If you choose not to follow the guide, read the submissions requirements carefully to ensure you meet all the requirements.
+This guide provides detailed step-by-step instructions for completing the project. You do **not** have to use this guide, but it will make your life easier and ensure you meet **all** project requirements. If you choose not to follow the guide, read the submission requirements carefully to ensure you meet all the requirements.
 
 ## Instructions
 
@@ -120,8 +120,8 @@ Include a screenshot of your GitHub repository `src/` directory **after** you ha
    - `displays`
 2. Add instance variables for each of the parameters. For example, `self.location = location`.
 3. Add a default value for each parameter. For example, `location = "Unknown"`.
-4. Notice that plates, sensors, and displays are lists ("plurals"). Sensors/Displays, hold references to instances of sensors/displays.Plates, holds reference to license plates represented as strings (built-in/primitive types). Specifying these at initialization is optional, but we don't want to use an empty list as the default. For example, `self.sensors = []`. Lists are **mutable**, and we must never set mutable defaults for parameters. Thus we make the defaults `None`.
-5. Add a `__str__` method to the `CarPark` class. This method will be called when you print a `Car park` object. The method should return a string containing the car park's location and capacity. For example, `"Car park at 123 Example Street, with 100 bays."`.
+4. Notice that plates, sensors, and displays are lists ("plurals"). Sensors/Displays, hold references to instances of sensors/displays. The `plates` attribute holds references to license plates represented as strings (built-in/primitive types). Specifying these at initialization is optional, but we don't want to use an empty list as the default. For example, `self.sensors = []`. Lists are **mutable**, and we must never set mutable defaults for parameters. Thus we make the defaults `None`.
+5. Add a `__str__` method to the `CarPark` class. When you print a `Car park` object, this method will be called. The method should return a string containing the car park's location and capacity. For example, `"Car park at 123 Example Street, with 100 bays."`.
 6. Your car park class should now look similar to this:
 
    ```python
@@ -214,7 +214,7 @@ s2
 
 ### Relate the classes
 
-Let's consider how the classes relate to each other. We can start by using a sequence diagram to illustrate the interactions between the classes. A sequence diagram shows the interactions between objects in a sequential order. The following diagram shows the interactions between the `CarPark`, `Sensor`, and `Display` classes.
+Let's consider how the classes relate to each other. We can start by using a sequence diagram to illustrate class interactions. A sequence diagram shows the interactions between objects in a sequential order. The following diagram shows the interactions between the `CarPark`, `Sensor`, and `Display` classes.
 
 ```mermaid
 sequenceDiagram
@@ -276,7 +276,7 @@ classDiagram
 
 The diagram omits methods and attributes irrelevant to the relationship between the classes. Notice that the `CarPark` class has a `register` method that allows it to register sensors and displays.
 
-Notice also that displays and sensors reference a car park and a car park references displays. This kind of two-way relationship is not always advisable. But for this project, it is acceptable.
+Notice also that displays and sensors reference a car park, and a car park references displays. This kind of two-way relationship is only sometimes advisable. But for this project, it is acceptable.
 
 ### Implement methods for the CarPark class
 
@@ -368,17 +368,19 @@ You may want to see the number of available bays, the current temperature, and t
 
 Now consider, between the `CarPark`, `Sensor`, and `Display` classes, which class is responsible for each of these pieces of information? There's no right or wrong answer here. But you should be able to justify your answer.
 
-Q. Which class is responsible for the number of available bays (and why)?
-Q. Which class is responsible for the current temperature (and why)?
-Q. Which class is responsible for the time (and why)?
-
+>Q. Which class is responsible for the number of available bays (and why)?
+>
+>Q. Which class is responsible for the current temperature (and why)?
+>
+>Q. Which class is responsible for the time (and why)?
+>
 --------
 
 ##### Detour: implement available bays
 
-You realize that you are not currently maintaining the number of available bays. The number of available bays is a curious case. This value, on the one hand, clearly seems like an attribute of the car park. However, it is also a **property** of the car park's capacity and the number of cars in the car park. In other words, it is a **derived** value. We can calculate the number of available bays by subtracting the number of cars from the capacity. We can do this in the `CarPark` class by adding a `get_available_bays` method. This method will return the number of available bays.
+You realize that you need to maintain the number of available bays. The number of available bays is a curious case. On the one hand, this value is an attribute of the car park. However, it is also a **property** of the car park's capacity and the number of cars in the car park. In other words, it is a **derived** value. We can calculate the number of available bays by subtracting the number of cars from the capacity. We can do this in the `CarPark` class by adding a `get_available_bays` method. This method will return the number of available bays.
 
-But you're uncomfortable with this because even though you derive the value through a calculation it still seems like an attribute. Python has a built-in way to treat a method as though it is a simple attribute. We can use it to protect values as well as make attributes derived via simple calculations easier to access. Fittingly, it is called a **property**. We can create a property by adding a `@property` decorator (we'll learn more about decorators in the diploma) to a method. While we don't yet fully understand decorators, the important thing is that they make a method act like an attribute.
+But you're uncomfortable with this because even though you derive the value through a calculation, it still seems like an attribute. Python has a built-in way of treating a method as a simple attribute. We can use it to protect values and make attributes derived via simple calculations easier to access. Fittingly, it is called a **property**. We can create a property by adding a `@property` decorator (we'll learn more about decorators in the diploma) to a method. While we have yet to fully understand decorators, the important thing is that they make a method act like an attribute.
 
 Let's add `available_bays` as a property now:
 
@@ -393,13 +395,13 @@ Notice that we did **not** use a verb in a property name. This is because proper
 
 An added bonus is that if someone accidentally tries to set the value to this property, they will get an error. This is because we have not defined a property setter, and this is a good thing in this case.
 
-You recognize an issue: what if the number of cars that entered exceeds capacity?
+You recognize an issue: What if the number of cars that enter exceeds capacity?
 
 We might not be able to stop this from happening!
 
-But what should happen if it does? Do we want to allow the number of available bays to be negative? Or should we set it to zero? Or should we raise an exception? Something else??
+But what should happen if it does? Do we want to allow the number of available bays to be negative? Or should we set it to zero? Or should we raise an exception? Something else?
 
-You discuss with the senior developer and decide that if the number of plates exceeds the capacity you will return 0.
+You discussed with the senior developer and decided that if the number of plates exceeds the capacity, you will return 0.
 
 > Modify the `available_bays` property to return 0 if the number of plates exceeds the capacity.
 
@@ -407,7 +409,7 @@ You discuss with the senior developer and decide that if the number of plates ex
 
 #### Back to the update displays method
 
-The `update_displays` method shall send status information: available bays, temperature, and any other relevant information to each display. We will implement this method in the `CarPark` class.
+The `update_displays` method shall send status information: available bays, temperature, and other relevant information to each display. We will implement this method in the `CarPark` class.
 
 1. Create an `update_displays` method in the `CarPark` class. This method only needs to accept the `self` parameter.
 2. Build a dictionary containing the information you want to send to the displays. For example, `data = {"available_bays": self.available_bays, "temperature": 25}`.
@@ -964,7 +966,7 @@ Let's now implement the functionality to make the unit tests pass (if you have w
 
 #### Store the configuration of a car park in a file called `config.json`
 
-**Detour – JSON:** JavaScript Object Notation (JSON) is a common format for storing data. It is a text-based format that is easy for humans to read and write. It is also easy for computers to parse and generate. JSON is often used for storing configuration data (though `yaml` and `toml` are increasingly popular). It is also a common format for exchanging data between applications. Like most high-level languages, Python has built-in support for JSON.
+**Detour – JSON:** JavaScript Object Notation (JSON) is a standard format for storing data. It is a text-based format that is easy for humans to read and write. It is also easy for computers to parse and generate. JSON is often used for storing configuration data (though `yaml` and `toml` are increasingly popular). It is also a standard format for exchanging data between applications. Like most high-level languages, Python has built-in support for JSON.
 
 Now that you're becoming familiar with the process. Try and do the following:
 
@@ -1027,7 +1029,7 @@ After you have merged your branch to main, push to your remote with the s10 tag.
 ### Final step: build a car park!
 
 In the final step, you will create a `main.py` file that 'drives' a car park. This file will create a car park, add sensors and displays, and simulate cars entering and exiting the car park. You will then run the file to see the car park in action.
-In your final submission you need to include any files you have created or modified. This includes the `main.py` file, the `config.json` file, and the `log.txt` file.
+In your final submission, you must include any files you created or modified. The submission must include the `main.py` file, the `config.json` file, and the `log.txt` file.
 
 #### Create a main.py file
 
@@ -1061,7 +1063,7 @@ In your final submission you need to include any files you have created or modif
    ![Main.py output](images/main-py.png)
    ```
 
-2. Commit your changes to the local repository. Tag the commit with `v1` so your lecturer can find it. Ensure the commit includes the log file and config file (though you would typically ignore them).
+2. Commit your changes to the local repository. Tag the commit with `v1`, so your lecturer can find it. Ensure the commit includes the log and config files (though you would typically ignore them).
 3. Push the tag to the remote repository.
 
    ```bash
@@ -1076,7 +1078,7 @@ In your final submission you need to include any files you have created or modif
    ![Publish a release](images/publish-release.png)
    ```
 
-5. Congratulations! You have completed the project. You can now submit the project via Blackboard. Take the time to reflect on your work and write any notes and observations down.
+5. Congratulations! You have completed the project. You can now submit the assignment via Blackboard. Take the time to reflect on your work and write any notes and observations down.
 
 --------
 
