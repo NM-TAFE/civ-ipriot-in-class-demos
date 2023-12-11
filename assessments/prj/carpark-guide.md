@@ -863,7 +863,9 @@ When a test creates a file, it is **not** cleaned up automatically. So, we want 
    ```
 
 --------
-**Bonus:** Unlink? What does that mean? Well, when you delete files on most operating systems, you unlink the file from a directory entry. The data is still there but can now be overwritten. When we program, we often use the more precise and explicit terms.
+**Bonus:** 
+
+Unlink? What does that mean? It turns out that when you delete files on most operating systems, you unlink the file from a directory entry. The data is still there but can now be overwritten. When we program, we often use the more precise and explicit terms.
 --------
 
 Notice how we have inadvertently made our test code hard to maintain (if we change the log file's name, we have to change it in two places). Can you think of a way to improve this code? Hint: consider using a class attribute or new instance variable in the `setUp` method.
