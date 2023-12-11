@@ -842,7 +842,7 @@ Typically, we import the `Path` class from the `pathlib` module. We can then use
       self.assertEqual(self.car_park.log_file, Path("log.txt"))
    ```
 
-3. Create a new unit test in the `test_car_park.py` file called `test_log_file_created`. This test should create a `CarPark` object and assert that a `log.txt` file is created, when a car enters or exits the car park. Here is a sample implementation:
+3. Create a new unit test in the `test_car_park.py` file called `test_log_file_created`. This test should create a `CarPark` object and assert that a `log.txt` file is created when a car enters or exits the car park. Here is a sample implementation:
 
    ```python
 
@@ -852,7 +852,7 @@ Typically, we import the `Path` class from the `pathlib` module. We can then use
          self.assertTrue(Path("new_log.txt").exists())
    ```
 
-   When a test creates a file, it is **not** cleaned up automatically. So we want to ensure that the file is deleted with a `tearDown` method.
+When a test creates a file, it is **not** cleaned up automatically. So, we want to ensure that the file is deleted with a `tearDown` method.
 
 4. Add the following code to the `TestCarPark` class:
 
@@ -862,10 +862,13 @@ Typically, we import the `Path` class from the `pathlib` module. We can then use
       Path("new_log.txt").unlink(missing_ok=True)
    ```
 
-   **Bonus:** Unlink? What does that mean? Well, it turns out when you delete files on most operating system, what actually happens is you unlink the file from a directory entry. The data is still there, but can now be overwritten. When we program, we often use the more precise and explicit term.
-   Notice how we have inadvertently made our test code hard to maintain (if we change the name of the log file, we have to change it in two places). Can you think of a way to improve this code? Hint: consider using a class attribute or new instance variable in the `setUp` method.
+--------
+**Bonus:** Unlink? What does that mean? Well, when you delete files on most operating systems, you unlink the file from a directory entry. The data is still there but can now be overwritten. When we program, we often use the more precise and explicit terms.
+--------
 
-5. Finally, there is are two more test case we are going to add, since you have worked so hard you can just copy/paste this code:
+Notice how we have inadvertently made our test code hard to maintain (if we change the log file's name, we have to change it in two places). Can you think of a way to improve this code? Hint: consider using a class attribute or new instance variable in the `setUp` method.
+
+5. Finally, there are two more test cases we are going to add. Since you have worked so hard, you can copy/paste this code:
 
    ```python
    # inside the TestCarPark class
@@ -919,8 +922,8 @@ Let's now implement the functionality to make the unit tests pass (if you have w
       self.log_file.touch(exist_ok=True)
    ```
 
-3. If you have written the unit tests, run them in PyCharm. Confirm that the your initialization tests now pass.
-4. Create a private method to log car activity. This method should accept the `plate` and `action` parameter. It should open the `log_file` in append mode and write the plate, action ('entered' or 'exited') and a timestamp to the file. Here is a sample implementation:
+3. If you have written the unit tests, run them in PyCharm. Confirm that your initialization tests now pass.
+4. Create a private method to log car activity. This method should accept the `plate` and `action` parameters. It should open the `log_file` in append mode and write the plate, action ('entered' or 'exited') and a timestamp to the file. Here is a sample implementation:
 
    ```python
    # in CarPark class
