@@ -152,7 +152,7 @@ Include a screenshot of your GitHub repository `src/` directory **after** you ha
    - `car_park`
 2. Add instance variables for each of the parameters. For example, `self.id = id`.
 3. Add default values for parameters, such that there is no default for id or car park, but there is a default for message and status. For example, `message = ""` and `is_on = False`.
-4. Create a `__str__` method for the `Display` class. This method will be called when you print a `Display` object. The method should return a string containing the display's id and message. For example, `"Display 1: Welcome to the car park."`.
+4. Create a `__str__` method for the `Display` class. This method will be called when you print a `Display` object. The method should return a string containing the display's ID and message. For example, `"Display 1: Welcome to the car park."`.
 
 #### Sensor class
 
@@ -234,7 +234,7 @@ sequenceDiagram
 
 Notice a sensor detects cars and notifies a car park. The car park then updates the displays. Sensors connect **to** a car park, and a car park connects **to** displays.
 
-In other words, a sensor needs to know about a car park, and a car park needs to know about displays. This is an example of aggregation, where one object holds a reference to another object. In this case, the `CarPark` class holds a reference to instances of the `Display` classes (aggregation); sensors for their part hold a reference to a car park.
+In other words, a sensor needs to know about a car park, and a car park needs to know about displays. This is an example of aggregation, where one object holds a reference to another object. In this case, the `CarPark` class holds a reference to instances of the `Display` classes (aggregation); sensors, for their part, hold a reference to a car park.
 
 The following class diagram presents this relationship:
 
@@ -287,11 +287,11 @@ Our analysis shows that the car park will need to implement the following method
 - `remove_car`: This method will be called when a car exits the car park. It will remove the plate number and update the displays.
 - `update_displays`: This method will be called when the car park needs to update the displays. It will iterate through the displays and call their `update` method.
 
-As we implement these methods, we may find we need additional methods and attributes. For example, we may need a method to check if a plate number is already in the car park. We may also need an attribute to store the plate numbers. We can add these as we go.
+As we implement these methods, we may need additional methods and attributes. For example, we may need a method to check if a plate number is already in the car park. We may also need an attribute to store the plate numbers. We can add these as we go.
 
 We will focus on these key principles to guide the need for additional methods and attributes:
 
-- **Encapsulation**: We want to hide the implementation details of the class from other classes. We can do this by making attributes private and only exposing them through methods.
+- **Encapsulation**: We want to hide the class's implementation details from other classes. We can do this by making attributes private and only exposing them through methods.
 - **Single Responsibility**: We want each method to have a single responsibility. This will make the code easier to understand and maintain.
 - **DRY**: We want to avoid repeating code or information about the state (Don't Repeat Yourself). We can do this by creating methods and attributes for behaviours and values that are repeated.
 
@@ -306,7 +306,7 @@ We will focus on these key principles to guide the need for additional methods a
 **Stuck?**
 Here are some some hints to help you complete this task:
 
-Even though we often think of exceptions last, we generally want to put them first in our method definitions. This is because exceptions are exceptional. We want to handle them first and then handle the normal flow of the method. This is called a **guard pattern** and is a common pattern in Python and other languages.
+Even though we often think of exceptions last, we generally want to put them first in our method definitions. This is because exceptions are, well, exceptional. We want to handle them first and then handle the normal flow of the method. This is called a **guard pattern** and is a common pattern in Python and other languages.
 Let's do that now. Add the following code to the top of the `register` method:
 
    ```python
@@ -323,13 +323,13 @@ The `isinstance` function checks if an object is an instance of a class. In this
    from display import Display
    ```
 
-Now we can add the code to add the `component` to the appropriate. Add the following code to the `register` method:
+Now, we can add the code to add the `component` to the appropriate list. Add the following code to the `register` method:
 
    ```python
    # ... inside the register method
    if isinstance(component, Sensor):
       self.sensors.append(component)
-   # add an elif to check if the component is a Display
+   # TODO: add an elif to check if the component is a Display - MUST
    ```
 
 **Evidencing:**
@@ -366,7 +366,7 @@ Finally, we are going to create the `update_displays` method. This method will i
 
 You may want to see the number of available bays, the current temperature, and the time.
 
-Now consider, between the `CarPark`, `Sensor`, and `Display` classes, which class is responsible for each of these pieces of information? There's no right or wrong answer here. But you should be able to justify your answer.
+Now consider, between the `CarPark`, `Sensor`, and `Display` classes, which class is responsible for each piece of information? There's no right or wrong answer here. But you should be able to justify your answer.
 
 >Q. Which class is responsible for the number of available bays (and why)?
 >
@@ -393,7 +393,7 @@ Let's add `available_bays` as a property now:
 
 Notice that we did **not** use a verb in a property name. This is because properties are accessed like attributes. For example, `car_park.available_bays` instead of `car_park.get_available_bays()`.
 
-An added bonus is that if someone accidentally tries to set the value to this property, they will get an error. This is because we have not defined a property setter, and this is a good thing in this case.
+A bonus is that if someone accidentally tries to set the value to this property, they will get an error. This is because we have not defined a property setter, and this is a good thing in this case.
 
 You recognize an issue: What if the number of cars that enter exceeds capacity?
 
@@ -414,7 +414,7 @@ The `update_displays` method shall send status information: available bays, temp
 1. Create an `update_displays` method in the `CarPark` class. This method only needs to accept the `self` parameter.
 2. Build a dictionary containing the information you want to send to the displays. For example, `data = {"available_bays": self.available_bays, "temperature": 25}`.
 3. Iterate through the `displays` list and call the `update` method on each display. For example, `for display in self.displays: display.update(data)`.
-4. Create a `update` method for the `Display` class. This method should accept a single parameter, `data`. For now, we will simply print the keys and values. Here is a sample implementation:
+4. Create an `update` method for the `Display` class. This method should accept a single parameter, `data`. For now, we will print the keys and values. Here is a sample implementation:
 
    ```python
    # ... inside the Display class
@@ -821,7 +821,7 @@ Create a new local branch named `feature/log-car-activity`. You can do this eith
 #### Log cars entering and leaving in a file called `log.txt`
 
 **Detour – Python file handling:**
-Python is a multi-platform language. This means that it can run on different operating systems. However, different operating systems have different ways of representing files and paths. We therefore want to _abstract_ this representation away from our code. We can do this using the `pathlib` module. This module provides a platform-independent way to represent files and paths. We can use it to create a `Path` object that represents a file or directory. We can then use this object to create, read, write, and delete files and directories.
+Python is a multi-platform language. This means that it can run on different operating systems. However, different operating systems have different ways of representing files and paths. We therefore want to _abstract_ this representation away from our code. We can do this using the `pathlib` module. This module provides a platform-independent way to represent files and paths. We can use it to create a `Path` object representing a file or directory. We can then use this object to create, read, write, and delete files and directories.
 
 Typically, we import the `Path` class from the `pathlib` module. We can then use the `Path` class to create a `Path` object. For example, `Path("log.txt")` creates a `Path` object that represents a file called `log.txt`. We can then use the `Path` object to create, read, write, and delete files and directories.
 
