@@ -1014,15 +1014,15 @@ We are going to do the latter:
 
    ```python
    # ... inside the CarPark class
-   @staticmethod
-   def from_config(config_file=Path("config.json")):
+   @classmethod
+   def from_config(cls, config_file=Path("config.json")):
       config_file = config_file if isinstance(config_file, Path) else Path(config_file)
       with config_file.open() as f:
          config = json.load(f)
-      return CarPark(config["location"], config["capacity"], log_file=config["log_file"])
+      return cls(config["location"], config["capacity"], log_file=config["log_file"])
    ```
 
-   Notice that we use the `@staticmethod` decorator. A static method is a method that does not operate on an instance (notice it does not use `self`). For example, `CarPark.from_config()` instead of `car_park.from_config()`. This is useful when we want to create an object from a file or database. We could also have used a class method, but we'll learn about those later.
+   Notice that we use the `@classmethod` decorator. A class method is a method that operates on an instance of a class, as opposed to an instance of an object of that class (notice it uses `cls` instead of `self`, though that is a convention). In the past, we've used a `staticmethod` and while it is possible to implement this pattern, it would not support inheritance as well as this implementation.
 
 5. If you have created the unit tests, run them in PyCharm. Confirm that they now pass.
 
