@@ -18,7 +18,6 @@ This workflow is specifically tailored for working with this repository, which w
 2. List all available branches to find your class:
 
     ```bash
-    git fetch origin
     git branch -r
     ```
 
@@ -26,6 +25,8 @@ This workflow is specifically tailored for working with this repository, which w
 
     ```bash
     git checkout -b local_class_branch origin/yyyy/sn/lecturer
+   # alternatively
+    git switch -c your_branch_name --track origin/yyyy/sn/lecturer
     ```
 
 ### Ongoing Work
@@ -33,7 +34,7 @@ This workflow is specifically tailored for working with this repository, which w
 1. If you want to experiment with the code locally, create a new branch:
 
     ```bash
-    git checkout -b local_experiments
+    git switch -c local_experiments
     ```
 
 2. Periodically, fetch changes from the upstream repository:
@@ -45,14 +46,14 @@ This workflow is specifically tailored for working with this repository, which w
 3. Merge the changes from the upstream's class-specific branch into your local branch:
 
     ```bash
-    git checkout local_experiments
+    git switch local_experiments
     git merge origin/yyyy/sn/lecturer
     ```
 
     or, if you want to keep your local branch's history clean, you can rebase instead of merge:
 
     ```bash
-    git checkout local_experiments
+    git switch local_experiments
     git rebase origin/yyyy/sn/lecturer
     ```
 
