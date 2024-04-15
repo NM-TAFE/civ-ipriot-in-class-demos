@@ -46,18 +46,18 @@ print(cat.name)
 print(cat.age)
 ```
 
-While this is semantically valid, it's not much of a **blueprint**. We can't gurantee that all cats shall have a name and an age, nor can we gurentee the properties of these attributes.
+While this is syntactically valid, it's not much of a **blueprint**. We can't guarantee that all cats shall have a name and an age, nor can we guarantee the properties of these attributes.
 
 ```python
   cat2 = Cat()
   cat2.bark = "Woof, Woof" # Oh no! A barking cat
-  print(cat2.name) # Ooops forgot to set the name!
+  print(cat2.name) # Oops forgot to set the name!
   # Disaster!
 ```
 
 ## Adding attributes to a class
 
-What we want is to define a `Cat` blueprint that says "when a cat is created (instantiated is the technical term)), it must have a name and an age". We can do this by defining a special method called `__init__`:
+What we want is to define a `Cat` blueprint that says "when a cat is created (instantiated is the technical term), it must have a name and an age". We can do this by defining a special method called `__init__`:
 
 ```python
 class Cat:
@@ -84,9 +84,9 @@ In Python, we must explicitly reference that instance - always.
 
 Why?
 
-This is because _conceptually_ we think of the object as having behaviours "my cat meows". However, while my cat meowing is a behaviour of my cat, in reality when we program it makes no sense to copy the behaviour into every instance of a class (since the procedure for meowing is the same, it is only the attributes that change).
+This is because _conceptually_ we think of the object as having behaviors "my cat meows". However, while my cat meowing is a behavior of my cat, in reality when we program it makes no sense to copy the behavior into every instance of a class (since the procedure for meowing is the same, it is only the attributes that change).
 
-Instead, we define the behaviour once in the class and then pass the instances to the class.
+Instead, we define the behavior once in the class and then pass the instances to the class.
 
 In that sense, it is as though we are asking the class Cat to meow my cat.
 
@@ -116,7 +116,7 @@ Okay, we keep talking about meowing let's finally make a can that can meow:
           print(f'{self.name} says "Meow"')
 ```
 
-    Now we can call the `meow` method on an instance of the `Cat` class:
+Now we can call the `meow` method on an instance of the `Cat` class:
 
 ```python
 
@@ -146,5 +146,3 @@ cat.meow()
 if isinstance(other, Cat):
     print(f'{self.name} hisses at {other.name}')
 ```
-
-]
