@@ -128,19 +128,19 @@ cat.meow()
 
 1. Add a coat color attribute to the `Cat` class. Instantiate a `Cat` instance and print the `name`, `age`, and `coat_color` attributes.
 
-2. Add a purr method to the `Cat` class that prints <name> purrs. Call the purr method on the `Cat` instance.
+2. Add a purr method to the `Cat` class that prints &lt;name&gt; purrs. Call the purr method on the `Cat` instance.
 
 3. Define a class `Dog` that has a `name` and an `age` attribute. Instantiate a `Dog` instance and print the `name` and `age` attributes.
 
-4. Add a `bark` method to the `Dog` class that prints <name> barks. Call the `bark` method on the `Dog` instance.
+4. Add a `bark` method to the `Dog` class that prints &lt;name&gt; barks. Call the `bark` method on the `Dog` instance.
 
 ### Challenge exercise
 
-1. Define a method in both the Cat and Dog class called "meet" when a cat gets passed a cat or a dog it will "hisses at <other's name>".
+1. Define a method in both the Cat and Dog class called "meet" when a cat gets passed a cat or a dog it will "hisses at &lt;other's name&gt;".
 
 2. When a dog gets passed a cat it will bark but when passed a dog it will wag its tail.
 
-**Clue**: You can use the `isinstance` built in function to check the type of an object (this is better than using `type`, for reasons we'll explain next week).
+**Clue**: You can use the `isinstance` built-in function to check the type of an object (this is better than using `type`, for reasons we'll explain next week).
 
 ```python
 if isinstance(other, Cat):
