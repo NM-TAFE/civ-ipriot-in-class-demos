@@ -28,7 +28,7 @@ print(type(cat))
 
 Notice that we **call** a class to get an _instance_ of that class.
 
-Notice also some naming conventions: classes are typically named in `CamelCase`, while instances (like all variables!) are named in `snake_case`.
+Notice some naming conventions: classes are typically named in `PascalCase`, while instances (like all variables!) are named in `snake_case`.
 
 ## Adding attributes to an instance
 
