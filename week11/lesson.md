@@ -92,7 +92,7 @@ In that sense, it is as though we are asking the class Cat to meow my cat.
 
 ## Using the `__init__` method
 
-The parameters defined in the `__init__` method are the parameters that must be passed when creating an instance of the class. For example:
+The parameters defined in the `__init__` method determine the arguments that must be passed when creating an instance of the class. For example:
 
 ```python
 cat = Cat('Whiskers', 3)
