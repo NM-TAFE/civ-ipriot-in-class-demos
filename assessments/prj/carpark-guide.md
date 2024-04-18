@@ -84,8 +84,8 @@ Ensure you have completed the previous table and include at least two methods an
 ### Implement stubs for the classes
 
 1. In your `src/` directory, create a new Python file for each class you identified in the previous step. For example, `car_park.py`, `sensor.py`, and `display.py`.
-   Notice that the file names are all lowercase and use underscores to separate words. This is a common convention for Python file names. In general, Python files are named like variables, using lowercase and underscores to separate words.
-2. In _each_ file, create a class with the same name as the file. For example, the `car_park.py` file should contain a `CarPark` class. Notice that the class name is capitalized and uses CamelCase to separate words. This is a common convention for Python class names. An example class definition is shown below:
+   Notice that the file names are all lowercase and use underscores to separate words. This is a common convention for Python file names. Python files are generally named like variables, using lowercase and underscores to separate words.
+2. In _each_ file, create a class with the same name as the file. For example, the `car_park.py` file should contain a `CarPark` class. Notice that the class name is capitalized and uses `PascalCasse` to separate words. This is a common convention for Python class names. An example class definition is shown below:
 
    ```python
    class CarPark:
@@ -821,7 +821,7 @@ Create a new local branch named `feature/log-car-activity`. You can do this eith
 #### Log cars entering and leaving in a file called `log.txt`
 
 **Detour – Python file handling:**
-Python is a multi-platform language. This means that it can run on different operating systems. However, different operating systems have different ways of representing files and paths. We therefore want to _abstract_ this representation away from our code. We can do this using the `pathlib` module. This module provides a platform-independent way to represent files and paths. We can use it to create a `Path` object representing a file or directory. We can then use this object to create, read, write, and delete files and directories.
+Python is a multi-platform language. This means that it can run on different operating systems. However, different operating systems have different ways of representing files and paths. We, therefore, want to _abstract_ this representation away from our code. We can do this using the `pathlib` module. This module provides a platform-independent way to represent files and paths. We can use it to create a `Path` object representing a file or directory. We can then use this object to create, read, write, and delete files and directories.
 
 Typically, we import the `Path` class from the `pathlib` module. We can then use the `Path` class to create a `Path` object. For example, `Path("log.txt")` creates a `Path` object that represents a file called `log.txt`. We can then use the `Path` object to create, read, write, and delete files and directories.
 
@@ -863,9 +863,15 @@ When a test creates a file, it is **not** cleaned up automatically. So, we want 
    ```
 
 --------
+
 **Bonus:** 
 
-Unlink? What does that mean? It turns out that when you delete files on most operating systems, you unlink the file from a directory entry. The data is still there but can now be overwritten. When we program, we often use the more precise and explicit terms.
+Unlink? 
+
+What does that mean? 
+
+It turns out that when you delete files on most operating systems, you unlink the file from a directory entry. The data is still there but can now be overwritten. When we program, we often use the more precise and explicit terms.
+
 --------
 
 Notice how we have inadvertently made our test code hard to maintain (if we change the log file's name, we have to change it in two places). Can you think of a way to improve this code? Hint: consider using a class attribute or new instance variable in the `setUp` method.
