@@ -4,7 +4,7 @@ Provides sample code for OOP fundamentals in Python. The code is designed to hel
 
 ## The simplest class you can create
 
-let's create a class that does nothing (a Cat?). It's the simplest class you can create in Python.
+Let's create a class that does nothing (a Cat?). It's the simplest class you can create in Python.
 
 ```python
 class Cat:
@@ -104,7 +104,7 @@ cat2 = Cat('Fluffy') # Error! We must pass the age
 
 ## Defining methods
 
-Okay, we keep talking about meowing let's finally make a can that can meow:
+Okay, we keep talking about meowing let's finally make a cat that can meow:
 
 ```python
   class Cat:
