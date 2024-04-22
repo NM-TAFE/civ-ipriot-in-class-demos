@@ -277,7 +277,15 @@ Polymorphism is the biggest word but not a very hard concept - particularly if y
 
 Poly means many and morph means form. So, polymorphism means many forms. It is the ability to treat many types in a similar way.
 
-We achieve this through inheritance (for example, we can write a function to make an animal speak that will work with both cats and dogs) and through interfaces (for example, we can write a function that will work with any object that has a `speak` method, regardless of type).
+We can achieve this through the inheritance of abstract classes (for example, we can write a function to make an animal speak that will work with both cats and dogs) and through the inheritance of interfaces (for example, we can write a function that will work with any object that has a `speak` method, regardless of type). 
+
+In dynamically typed languages, we don't have to even define these relationships explicitly: a function will be polymorphic in so far as the types that are passed to it have the necessary attributes and methods. If they don't, we will get a runtime error. 
+
+This "I don't care who you are, I just care what you do" is often called "Duck Typing": "if it looks like a duck, and quacks like a duck, then chances are it is a duck". 
+
+This is both a blessing and a curse, and you should take a moment to think about what the possible advantages and disadvantages are of this approach:
+
+> Go on, write something here! 
 
 ### Polymorphism through inheritance
 
