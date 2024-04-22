@@ -139,19 +139,19 @@ It is no longer necessary, and indeed, undesirable, to write classes that explic
 
 #### `is-a` vs `has-a`
 
-Inheritance used to be synonymous with OOP. But in modern software development practices it is now considered a last resort. This is because inheritance is a very strong relationship. Another term for it is 'coupling' - anything we do to the base class will affect every derived class and every class that derives from those classes and so on. This can lead to a lot of unintended consequences.
+Inheritance used to be synonymous with OOP. However, in modern software development practices, it is now considered a last resort. This is because inheritance is a very strong relationship. Another term for it is 'coupling' - anything we do to the base class will affect every derived class and every class that derives from those classes, and so on. This can lead to a lot of unintended consequences.
 
-In modern software development, we prefer composition over inheritance. Composition is a `has-a` relationship. That is, instead of saying a class 'is-a' another type, we try and form relationships that a class 'has-a' another type. This is a much looser relationship and is more flexible but still allows for reuse and code organization.
+In modern software development, we prefer composition over inheritance. Composition is a `has-a` relationship. Instead of saying a class 'is-a' another type, we try to form relationships that a class 'has-a' another type. This is a much looser relationship and is more flexible but still allows for reuse and code organization.
 
 Composition involves passing (or instantiating) an instance of one class to/in another class.
 
 Raf's golden rule: "if a relationship can be described as `has-a` use composition." Raf's corollary: "almost all relationships _can_ be described as `has-a`.". Finally, if you are sure that inheritance can actually help organize your solution, inherit from an abstract class or interface (that's coming up).
 
-**Consider**: suppose all animals have a tail and can speak. We want to make sure that cats receive these properties, but we don't want to inherit from the `Animal` class. How could we do it using composition?
+**Consider**: suppose all animals have a tail and can speak. We want to ensure cats receive these properties, but we don't want to inherit from the `Animal` class. How could we do it using composition?
 
 ### Terminology note
 
-In OOP there are many terms to refer to the action of inheriting from a class.
+In OOP, many terms refer to the action of inheriting from a class.
 
 A class that inherits another class, will variously be referred to as any of the following:
 
@@ -172,7 +172,7 @@ For our purposes, we can think of these terms as being interchangeable. Though, 
 
 ## Encapsulation
 
-Encapsulation is about setting some boundaries. It is the practice of keeping the internal state of an object private and only exposing a public interface. This is done by using access modifiers (private v. public).
+Encapsulation is about setting some boundaries. It is the practice of keeping the internal state of an object private and only exposing a public interface. This is done by using access modifiers (private vs. public).
 
 In Python, there is no strict _privacy_ as there are in some other languages.
 
@@ -211,19 +211,19 @@ In Python, attributes and methods with a single underscore are by default not im
 
 ##### Myth 2: Use a double underscore when you really want to make something private
 
-Because of name mangling, a double underscore will make inadvertent (or advertent) access to a method or attribute more difficult, but it is not impossible. Moreover, it is a feature designed to avoid overriding a method/attribute in subclasses, but it can make debugging more difficult.
+Because of name mangling, a double underscore will make inadvertent (or advertent) access to a method or attribute more difficult, particularly from subclasses. However, this feature can make debugging more difficult.
 
 In a technical sense, a single underscore is 'protected', and a double underscore is 'private'. But in a practical sense, it is not a distinction you need to worry about. Generally, issues around name mangling tend to come up in framework development and are seldom encountered in day-to-day programming
 
 ## Abstraction
 
-Abstraction is the process of identifying and exposing the essential characteristics of an object while ignoring the irrelevant details.
+Abstraction is the process of identifying and exposing the essential characteristics of an object while ignoring the irrelevant details, thus making it easier to use and allowing generalization of the kind of objects that can be handled in the same way (see, Polymorphism).
 
-In practice, it is usually done through inheritance from `abstract` classes or `interfaces`.
+In practice, Abstraction is usually realised through inheritance from `abstract` classes or `interfaces`.
 
-An abstract class is a class that cannot be instantiated and is used **only** to define a blueprint for other classes. An interface is a class that contains abstract methods and is used to define a contract for other classes.
+An abstract class is a class that cannot be instantiated and is used **only** to define a blueprint for other classes. An interface is a class that contains abstract methods (methods without a concrete implementation) and is used to define a contract for other classes.
 
-In Python, we can use the `abc` module to create abstract classes and interfaces. An ABC (Abstract Base Class) is a mixin - it can be used to define both abstract methods and concrete methods, but regardless an ABC cannot be instantiated.
+In Python, we can use the `abc` module to create abstract classes and interfaces. An ABC (Abstract Base Class) is a mixin - it can be used to define both abstract methods and concrete methods, but regardless an ABC cannot itself be instantiated.
 
 ### Creating an ABC
 
