@@ -203,17 +203,17 @@ cat._name = 'Rover' # this can be done but shouldn't be done.
 
 The following is **not** required for completion of the course.
 
-In Python texts, the single versus double underscore is often explained as (a) a convention and (b) implies that the difference between the two is that a single underscore is a "protected" attribute and a double underscore is a "private" attribute; or that a double underscore is "extra" private. This is not true.
+In Python texts, the single versus double underscore is often explained as (a) a convention and (b) implies that the difference between the two is that a single underscore is somehow less private than a double underscore. This explanation can be misleading.
 
 ##### Myth 1: Underscores are just a convention
 
-In Python, attributes and methods with a single underscore are by default not imported when using `from module import *`. A double underscore is a "name mangling" feature. This means that the attribute is renamed to `_classname__attribute` to avoid name clashes. This is not a privacy feature, but a name collision feature.
+In Python, attributes and methods with a single underscore are by default not imported when using `from module import *`. A double underscore is a "name mangling" feature. This means that the attribute is renamed to `_classname__attribute` to avoid name clashes. This prevents name collisions with derived classes, but this is not likely to be a practical issue for you at this stage.
 
 ##### Myth 2: Use a double underscore when you really want to make something private
 
 Because of name mangling, a double underscore will make inadvertent (or advertent) access to a method or attribute more difficult, but it is not impossible. Moreover, it is a feature designed to avoid overriding a method/attribute in subclasses, but it can make debugging more difficult.
 
-Generally, if this is all sounding too much - that is fine - because the issues around name mangling tend to come up in framework development and are seldom used in day-to-day programming.
+In a technical sense, a single underscore is 'protected', and a double underscore is 'private'. But in a practical sense, it is not a distinction you need to worry about. Generally, issues around name mangling tend to come up in framework development and are seldom encountered in day-to-day programming
 
 ## Abstraction
 
@@ -223,7 +223,7 @@ In practice, it is usually done through inheritance from `abstract` classes or `
 
 An abstract class is a class that cannot be instantiated and is used **only** to define a blueprint for other classes. An interface is a class that contains abstract methods and is used to define a contract for other classes.
 
-In Python, we can use the `abc` module to create abstract classes and interfaces. An ABC (Abstract Base Class) is a mixin - which can be used to define both abstract methods and concrete methods, but an ABC cannot be instantiated.
+In Python, we can use the `abc` module to create abstract classes and interfaces. An ABC (Abstract Base Class) is a mixin - it can be used to define both abstract methods and concrete methods, but regardless an ABC cannot be instantiated.
 
 ### Creating an ABC
 
