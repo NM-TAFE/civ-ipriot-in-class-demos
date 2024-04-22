@@ -376,7 +376,7 @@ For example:
 
 ```mermaid
 classDiagram
-    Person o-- Car
+    Garage o-- Car
 ```
 
 ### Composition relationship
