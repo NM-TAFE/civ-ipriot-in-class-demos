@@ -41,9 +41,9 @@ class Cat(Animal):
 
 ```
 
-In this example, `Cat` is a derived class that inherits from the base class `Animal`. The `Cat` class will inherit all the attributes and methods of the `Animal` class (currently there aren't any).
+In this example, `Cat` is a derived class inherited from the base class `Animal`. The `Cat` class will inherit all the attributes and methods of the `Animal` class (currently, there aren't any).
 
-Before we go into the mechanics of subclassing and overriding, it is important to understand what we have said. By saying that `Cat` inherits from `Animal`, we are saying that `Cat` **is a** `Animal`. Specifically, any cat we instantiate is **both** a `Cat` and an `Animal`. All cats are animals, but not all animals are cats. This is the essence of inheritance.
+Before we go into the mechanics of subclassing and overriding, we must understand what we have said. By saying that `Cat` inherits from `Animal`, we are saying that `Cat` **is a** `Animal`. Specifically, any cat we instantiate is **both** a `Cat` and an `Animal`. All cats are animals, but not all animals are cats. This is the essence of inheritance.
 
 ### Inheriting methods and attributes
 
@@ -70,7 +70,7 @@ cat.speak() # speaks
 cat.purr() # purrs
 ```
 
-Semantically, we are saying "all animals must have a name and can speak. Only cats can purr."
+Semantically, we are saying, "all animals must have a name and can speak. Only cats can purr."
 
 ### Overriding methods
 
