@@ -178,12 +178,11 @@ In Python, there is no strict _privacy_ as there are in some other languages.
 
 Instead, we indicate the **intended** privacy of an attribute or method by using a single underscore `_` or double underscore `__` prefix. While this is largely a convention, it does have some practical implications (discussed in the advanced section).
 
-Lots of texts will give various explanation for `_` versus `__` but we will always use a `_` underscore and "just because" is good enough answer.
+Lots of texts will give various explanations for `_` versus `__`, but we will always use a `_` underscore, and "just because" is a good enough reason.
 
 ### Private methods/attributes
 
-When a method or attribute starts with an underscore (`_`) it should only be accessed within the class. It should never be accessed from outside the class. Notice _should_ there is no enforcement in python, but you should follow this convention.
-
+When a method or attribute starts with an underscore (`_`) it should only be accessed within the class. It should never be accessed from outside the class. Notice _should_ – there is no enforcement in Python, but you should adhere to this closely, particularly this semester.
 For example:
 
 ```python
