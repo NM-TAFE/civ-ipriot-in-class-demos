@@ -277,15 +277,16 @@ Polymorphism is the biggest word, but it is not that hard a concept. Particularl
 
 Poly means many and morph means form. So, polymorphism means many forms. It is the ability to treat many types in a similar way.
 
-We can achieve this through the inheritance of abstract classes (for example, we can write a function to make an animal speak that will work with both cats and dogs) and through the inheritance of interfaces (for example, we can write a function that will work with any object that has a `speak` method, regardless of type). Whenever we achieve polymorphism through some form of inheritance, it is called subclass polymorphism.
+We can achieve this through the inheritance of abstract and concrete classes (for example, we can write a function to make an animal speak that will work with both cats and dogs) and through the inheritance of interfaces (for example, we can write a function that will work with any object that has a `speak` method, regardless of type). Whenever we achieve polymorphism through some form of inheritance, it is usually called *subclass* **polymorphism**.
 
-Now, let's look at the word "achieving": in statically typed languages, we need to think about our types and their relationship in order to convince the compiler to let us do polymorphism - hence 'achieve'; whether that's subclass polymorphism or the more advanced (and not covered) parametric polymorphism (generics).
+Now, let's look at the word "achieving": in statically typed languages, we need to think about our types and their relationship in order to convince the compiler to let us do things polymorphically - hence 'achieve'; whether that's subclass polymorphism or the more advanced (and not covered) parametric polymorphism (generics).
 
 Python and other dynamically typed languages allow for more 'ad-hoc'(read: *whatev's*) polymorphism.
 
 In dynamically typed languages, we don't have to explicitly define the typology: a function will be polymorphic in so far as the types that are passed to it have the necessary attributes and methods. If they don't, we will get a `runtime error`. 
 
-This "I don't care who you are, I just care what you do" is often called "Duck Typing": "if it looks like a duck, and quacks like a duck, then chances are it is a duck". 
+This "I don't care who you are, I just care what you do" is often called `Duck Typing`: 
+> "If it looks like a duck, and quacks like a duck, then chances are it is a duck!"
 
 This is both a blessing and a curse, and you should take a moment to think about the possible advantages and disadvantages of this approach:
 
