@@ -129,17 +129,17 @@ In older versions of Python, we had to explicitly inherit from `object`:
 class Animal(object):
     pass
 
-# In modern python, is **exactly** equivalent to:
+# Since it is **exactly** equivalent to the more succint:
 
 class Animal:
     pass
 ```
 
-It is no longer necessary and undesirable to write classes this way (though it is still possible).
+It is no longer necessary, and indeed, undesirable, to write classes that explicitly inherit from `object` (though it is still *possible*).
 
 #### `is-a` vs `has-a`
 
-Inheritance used to be synonymous with OOP. But in modern software development practices it is now considered a last resort. This is because inheritance is a very strong relationship. Another term for it is 'coupling' - anything we do to the base class will affect every derived class and every class that derives from those class and so on. This can lead to a lot of unintended consequences.
+Inheritance used to be synonymous with OOP. But in modern software development practices it is now considered a last resort. This is because inheritance is a very strong relationship. Another term for it is 'coupling' - anything we do to the base class will affect every derived class and every class that derives from those classes and so on. This can lead to a lot of unintended consequences.
 
 In modern software development, we prefer composition over inheritance. Composition is a `has-a` relationship. That is, instead of saying a class 'is-a' another type, we try and form relationships that a class 'has-a' another type. This is a much looser relationship and is more flexible but still allows for reuse and code organization.
 
