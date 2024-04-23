@@ -113,9 +113,9 @@ cat.speak() # speaks
 
 Notice that all animals must have a name, but only cats have a color. Try the above without calling super and note any differences!
 
-### More advanced topics
+### Intermediate topics
 
-The following section is optional and not required for completion of the course.
+The following section is **optional** and not required for completion of the course.
 
 #### Inheritance from `object`
 
@@ -135,7 +135,26 @@ class Animal:
     pass
 ```
 
-It is no longer necessary, and indeed, undesirable, to write classes that explicitly inherit from `object` (though it is still *possible*).
+It is no longer necessary, and indeed, undesirable, to write classes that explicitly inherit from `object` (though it is still _possible_).
+
+#### Using `insinstance` instead of `type`
+
+You are finally ready to understand why in Python we typically **don't** use the built-in `type` function to check the type of an object. Instead, we use the `isinstance` function. This is because `isinstance` is aware of inheritance, while `type` is not.
+
+For example:
+
+```python
+
+cat = Cat('Whiskers', 'black')
+
+print(type(cat) is Cat) # True
+print(type(cat) is Animal) # False!
+print(isinstance(cat, Cat)) # True
+print(isinstance(cat, Animal)) # True - much better.
+
+```
+
+The `cat` instance **is** an `Animal`, but only `isinstance` reveals this. The `type` function does not. It is almost always more correct to use `isinstance` than `type`.
 
 #### `is-a` vs `has-a`
 
@@ -277,20 +296,21 @@ Polymorphism is the biggest word, but it is not that hard a concept. Particularl
 
 Poly means many and morph means form. So, polymorphism means many forms. It is the ability to treat many types in a similar way.
 
-We can achieve this through the inheritance of abstract and concrete classes (for example, we can write a function to make an animal speak that will work with both cats and dogs) and through the inheritance of interfaces (for example, we can write a function that will work with any object that has a `speak` method, regardless of type). Whenever we achieve polymorphism through some form of inheritance, it is usually called *subclass* **polymorphism**.
+We can achieve this through the inheritance of abstract and concrete classes (for example, we can write a function to make an animal speak that will work with both cats and dogs) and through the inheritance of interfaces (for example, we can write a function that will work with any object that has a `speak` method, regardless of type). Whenever we achieve polymorphism through some form of inheritance, it is usually called _subclass_ **polymorphism**.
 
 Now, let's look at the word "achieving": in statically typed languages, we need to think about our types and their relationship in order to convince the compiler to let us do things polymorphically - hence 'achieve'; whether that's subclass polymorphism or the more advanced (and not covered) parametric polymorphism (generics).
 
-Python and other dynamically typed languages allow for more 'ad-hoc'(read: *whatev's*) polymorphism.
+Python and other dynamically typed languages allow for more 'ad-hoc'(read: _whatev's_) polymorphism.
 
-In dynamically typed languages, we don't have to explicitly define the typology: a function will be polymorphic in so far as the types that are passed to it have the necessary attributes and methods. If they don't, we will get a `runtime error`. 
+In dynamically typed languages, we don't have to explicitly define the typology: a function will be polymorphic in so far as the types that are passed to it have the necessary attributes and methods. If they don't, we will get a `runtime error`.
 
-This "I don't care who you are, I just care what you do" is often called `Duck Typing`: 
+This "I don't care who you are, I just care what you do" is often called `Duck Typing`:
+
 > "If it looks like a duck, and quacks like a duck, then chances are it is a duck!"
 
 This is both a blessing and a curse, and you should take a moment to think about the possible advantages and disadvantages of this approach:
 
-> Go on, write something here! 
+> Go on, write something here!
 
 ### Polymorphism through inheritance
 
