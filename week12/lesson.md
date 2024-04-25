@@ -256,8 +256,8 @@ class Animal(ABC):
         self.name = name
 
     @abstractmethod
-    def speak(self):
-        pass
+    def speak(self): ...
+
 ```
 
 Try and create an instance of the `Animal` class:
@@ -280,7 +280,7 @@ class Dog(Animal):
         print(f"{self.name} barks")
 
 class Cat(Animal):
-    ...
+    pass
 
 dog = Dog('Rover')
 dog.speak()
@@ -298,9 +298,9 @@ Poly means many and morph means form. So, polymorphism means many forms. It is t
 
 We can achieve this through the inheritance of abstract and concrete classes (for example, we can write a function to make an animal speak that will work with both cats and dogs) and through the inheritance of interfaces (for example, we can write a function that will work with any object that has a `speak` method, regardless of type). Whenever we achieve polymorphism through some form of inheritance, it is usually called _subclass_ **polymorphism**.
 
-Now, let's look at the word "achieving": in statically typed languages, we need to think about our types and their relationship in order to convince the compiler to let us do things polymorphically - hence 'achieve'; whether that's subclass polymorphism or the more advanced (and not covered) parametric polymorphism (generics).
+Now, let's look at the word "achieving": in statically typed languages, we need to think about our types and their relationship in order to convince the compiler to let us do things polymorphically - hence 'achieve'; whether that's subclass polymorphism or the more advanced (and not covered) _parametric_ polymorphism (generics).
 
-Python and other dynamically typed languages allow for more 'ad-hoc'(read: _whatev's_) polymorphism.
+Python and other dynamically typed languages allow for more _ad-hoc_(read: "whatev's") polymorphism.
 
 In dynamically typed languages, we don't have to explicitly define the typology: a function will be polymorphic in so far as the types that are passed to it have the necessary attributes and methods. If they don't, we will get a `runtime error`.
 
