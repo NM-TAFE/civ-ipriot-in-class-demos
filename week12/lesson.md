@@ -294,7 +294,7 @@ Make sure you know **when** the code above fails.
 
 Polymorphism is the biggest word, but it is not that hard a concept. Particularly if you understand inheritance and abstraction.
 
-Poly means many and morph means form. So, polymorphism means many forms. It is the ability to treat many types in a similar way.
+Poly means many and morph means form. So, polymorphism means many forms. It is the ability to handle many types uniformally, while taking on their distictive forms.
 
 We can achieve this through the inheritance of abstract and concrete classes (for example, we can write a function to make an animal speak that will work with both cats and dogs) and through the inheritance of interfaces (for example, we can write a function that will work with any object that has a `speak` method, regardless of type). Whenever we achieve polymorphism through some form of inheritance, it is usually called _subclass_ **polymorphism**.
 
@@ -354,11 +354,11 @@ These two are often confused, but the difference is significant, if subtle.
 
 Refers to an object having a reference to another object (or objects). The objects are independent of each other, and the child object can exist without the parent object.
 
-Examples of aggregation include a `Person` object having a `Car` object, or a `Library` object having a `Book` object; a classroom object having student objects. Cars, books, and students can all exist independently of their 'container` and can be interchanged between containers.
+Examples of aggregation include a `Garage`-type having a `Car`-type object; a `Library`-type object having a `Book`-type object; a `Classroom`-type object having a `Student`-type objects, and so forth. Cars, books, and students can all exist independently of their 'container'.
 
 #### Composition
 
-Also involves an object having a reference to another object (or objects). However, the objects are dependent on each other, and the child object cannot exist without the parent object.
+Also involves an object having a reference to another object (or objects). However, the objects are **dependent** on each other, and the child object cannot exist without its parent (referer) object.
 
 Examples of composition include a `Person` object having a `Heart` object, or a `Car` object having an `Engine` object. A `Heart` cannot exist without a `Person`, and an `Engine` cannot exist without a `Car`.
 
