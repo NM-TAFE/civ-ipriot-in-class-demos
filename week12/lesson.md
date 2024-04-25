@@ -80,7 +80,7 @@ For example:
 
 ```python
 class Dog(Animal):
-    ...
+   pass
 
 
 class Cat(Animal):
@@ -249,7 +249,7 @@ In Python, we can use the `abc` module to create abstract classes and interfaces
 To create an ABC, we need to import the `ABC` class from the `abc` module and use it as a base class for our abstract class.
 
 ```python
-from abc import ABC
+from abc import ABC, abstractmethod
 
 class Animal(ABC):
     def __init__(self, name):
