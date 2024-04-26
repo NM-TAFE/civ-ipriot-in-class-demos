@@ -218,21 +218,67 @@ cat = Cat('Whiskers')
 cat._name = 'Rover' # this can be done but shouldn't be done.
 ```
 
-#### Advanced note
+### Optional topics: encapsulation
 
-The following is **not** required for completion of the course.
+While not essential for the course, the following sections provide a deeper understanding of encapsulation.
+
+#### Intermediate: Why encapsulate?
+
+When you hear "protecting" or "hiding" data, you might think of security. But encapsulation is not about security. It is about managing complexity. By encapsulating data, we can ensure that the internal state of an object is consistent and valid. This makes it easier to reason about the object and reduces the likelihood of bugs.
+
+Suppose we start in a world where any attribute can be accessed or modified by any part of the program. We might find that an object will end up in a state that is inconsistent and invalid and then we have to try and track down "who done it?". As programs grow, this 'who done it' can be a proper detective novel.
+
+**Examples:**
+
+- Our cat suddenly has a negative age. That can't be right! But who did it? Without encapsulation, it could be anyone.
+- Our cat's name is 42. Well, actually that is an awesome name... but anyway, that is not a real name. Who did it? Why did we let this happen?
+
+Encapsulation lets us say:
+> "look, if you want to change some aspect of the state of the object, you have to go through a gatekeeper - a method that will ensure that the state is consistent and valid."
+
+Encapsulation doesn't just apply to attributes. It also applies to methods.
+
+We can have private methods that are only used within the class. This can help to break up the logic of a class into smaller, more manageable pieces while not exposing things that don't make sense to expose, or more importantly, that could be dangerous to expose (e.g. lead to an inconsistent state).
+
+For example, we might have a `Cat` class with a `meow` method that is public, but a `_sit_on_the_keyboard` method that is private. This method is only used when the `meow` method doesn't get the attention it deserves. It really doesn't make sense to call `_sit_on_the_keyboard` from outside the class. It should only be called by the cat itself when `meow` doesn't work.
+
+If you didn't understand the last example, don't worry: it just means you don't have a cat, you might still understand OOP. Maybe.
+
+But the point is: you don't **need** to ever make a cat sit on a keyboard, no one ever said "I want to make a cat sit on a keyboard' it is just something the cat does.
+
+##### Getters and setters
+
+Soon, we will look at `properties`, which are a more Pythonic way of handling getters and setters. But for now, we will use the more traditional approach.
+
+A getter is a method that gets the value of an attribute. A setter is a method that sets the value of an attribute. By using getters and setters, we can control how attributes are accessed and modified.
+
+```python
+class Cat:
+    def __init__(self, name):
+        self._name = name
+
+    def get_name(self):
+        return self._name
+
+    def set_name(self, name):
+        self._name = name
+```
+
+#### An even more advanced note
 
 In Python texts, the single versus double underscore is often explained as (a) a convention and (b) implies that the difference between the two is that a single underscore is somehow less private than a double underscore. This explanation can be misleading.
 
 ##### Myth 1: Underscores are just a convention
 
-In Python, attributes and methods with a single underscore are by default not imported when using `from module import *`. A double underscore is a "name mangling" feature. This means that the attribute is renamed to `_classname__attribute` to avoid name clashes. This prevents name collisions with derived classes, but this is not likely to be a practical issue for you at this stage.
+In Python, attributes and methods with a single underscore are by default not imported when using `from module import *`. A double underscore is a "name mangling" feature. This means that the attribute is renamed to `_classname__attribute` to avoid name clashes.
+
+The reason it is sometimes called a 'convention' is that Python doesn't **enforce** privacy. It is up to the programmer to respect the underscore(s). However, the leading underscores **do** have a concrete affect, unlike, say, `snake_case` or `camelCase`.
 
 ##### Myth 2: Use a double underscore when you really want to make something private
 
-Because of name mangling, a double underscore will make inadvertent (or advertent) access to a method or attribute more difficult, particularly from subclasses. However, this feature can make debugging more difficult.
+Because of name mangling, a double underscore will make inadvertent (or advertent) access to a method or attribute more difficult from outside the class and particularly from subclasses. However, this feature can make debugging more difficult (what you see, is not what you get).
 
-In a technical sense, a single underscore is 'protected', and a double underscore is 'private'. But in a practical sense, it is not a distinction you need to worry about. Generally, issues around name mangling tend to come up in framework development and are seldom encountered in day-to-day programming
+In a technical sense, a single underscore is 'protected', and a double underscore is 'private'. But in a practical sense, it is not a distinction you need to worry about. Generally, issues around name mangling tend to come up in framework development and are seldom encountered in day-to-day Python programming. Rather, Pythonistas tend to default to a single underscore because it looks better and is less likely to cause confusion. Many Python texts don't even make a distinction between private/protected; so, for our purposes, we will usually infer that a single underscore is intended to be private.
 
 ## Abstraction
 
