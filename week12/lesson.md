@@ -74,7 +74,7 @@ Semantically, we are saying, "all animals must have a name and can speak. Only c
 
 ### Overriding methods
 
-Whenever we define an attribute or method in a derived class that is already defined in the base class, those methods or attributes are overridden. That is, the derived class will use its own implementation of the method or attribute and no longer inherit the base class's implementation. In Python, this is all or nothing.
+Methods or attributes are overridden whenever we define an attribute or method in a derived class, which is already defined in the base class. The derived class will use its own implementation of the method or attribute and no longer inherit the base class's implementation. In Python, this is all or nothing.
 
 For example:
 
@@ -111,7 +111,7 @@ cat.speak() # speaks
 
 ```
 
-Notice that all animals must have a name, but only cats have a color. Try the above without calling super and note any differences!
+Notice that all animals must have a name, but only cats have a color. Try the above without calling `super`, and note any differences!
 
 ### Intermediate topics
 
@@ -135,11 +135,11 @@ class Animal:
     pass
 ```
 
-It is no longer necessary, and indeed, undesirable, to write classes that explicitly inherit from `object` (though it is still _possible_).
+It is no longer necessary, and indeed undesirable, to write classes that explicitly inherit from `object` (though it is still _possible_).
 
 #### Using `insinstance` instead of `type`
 
-You are finally ready to understand why in Python we typically **don't** use the built-in `type` function to check the type of an object. Instead, we use the `isinstance` function. This is because `isinstance` is aware of inheritance, while `type` is not.
+You are finally ready to understand why, in Python, we typically **don't** use the built-in `type` *class* to check the type of an object. Instead, we use the `isinstance` *function*. This is because `isinstance` is aware of inheritance and returns a `bool`, while `type` returns the class of an object (aka the 'type') or creates new classes ('types').
 
 For example:
 
