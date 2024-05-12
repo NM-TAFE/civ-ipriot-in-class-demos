@@ -270,7 +270,7 @@ So as much as you can keep it simple (KIS). However, sometimes it is hard to avo
 
 ### Testing for exceptions
 
-Sometimes you want to test that a function or method raises an exception. You can do this with the `assertRaises` method. This method takes the exception you expect to be raised and the function you want to test. Because the function should raise an exception, we can't just call it because it will, well raise an exception, we need to either create a safe context for the exception to be raise in, or use a `with` statement.
+Sometimes you want to test that a function or method raises an exception. You can do this with the `assertRaises` method. This method takes the exception you expect to be raised and the function you want to test. Because the function should raise an exception, we can't just call it because it will, well raise an exception, we need to either create a safe context for the exception to be raise in (`with`), or pass the function/method and its arguments as parameters to the `assertRaises` method.
 
 Consider:
 
@@ -413,7 +413,7 @@ class TestGreet(unittest.TestCase):
 
 We haven't studied lambda functions yet, but they are a way to create a function on the fly. In this case, we are creating a function that takes one argument and returns "Alice". This is a way to simulate the `input` function without actually calling it.
 
-If we must test these functions without refactoring, we can use the `unittest.mock` module to patch the `print` and `input` functions. 
+If we must test these functions without refactoring, we can use the `unittest.mock` module to patch the `print` and `input` functions.
 
 Here's an example of how you might use `unittest.mock` to test the `greet` function:
 
