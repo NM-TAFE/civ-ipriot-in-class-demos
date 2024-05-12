@@ -136,11 +136,12 @@ class Cat:
         oopsy
 
     def speak(self):
+        this_cant_possibly_work()
         self.speak()
         return f"{self.name} with {self.coat} Moos"
 ```
 
-Do you think this code will run? Write down everything that's wrong with it (there are at least seven serious errors)
+Do you think this code will run? Write down everything that's wrong with it (find at least six serious problems)
 
 Write down every error you found:
 
@@ -151,12 +152,15 @@ Write down every error you found:
 > 5.
 > 6.
 > 7.
+> 8.
 
 Without fixing the code, try running it! The result may surprise you.
 
 That's right. If you accurately copied this code, it should run without raising any exceptions. Yeaks.
 
-The very least we can do is just try and instantiate our definitions and see if that works. This will actually find a lot more bugs.
+Hopefully, this shows you how little actually gets validated by running code, particularly when it consists mostly of definitions (as it usually does in OOP).
+
+The very least we can do is just try and instantiate our definitions and see if that works. This will actually itself find a lot more bugs.
 
 ```python
 
@@ -171,7 +175,15 @@ if __name__ == '__main__':
 
 ```
 
-By adding the previous snippet, you'll now (and only now) find six of the errors above. But it is still not enough. Notice that our testing didn't reveal the fact that our cat, rather than meowing, is mooing! We need some way to _assert_ that a cat should meow! We can't just leave it to careful observation.
+By adding the previous snippet, you'll now (and only now) be able to find at least seven of the errors above. But it is still not enough.
+
+Try adding the code above and fix each error as it comes up. Did any of the errors you found not get caught by the test function?
+
+...
+
+---
+
+Our testing didn't reveal the fact that our cat, rather than meowing, is mooing! We need some way to _assert_ that a cat should meow! We can't just leave it to careful observation.
 
 ### The `assert` statement
 
@@ -224,9 +236,9 @@ class TestCat(unittest.TestCase):
         result = cat.speak()
 
         # assert
-        self.assertContains(result, "meows")
-        self.assertContains(result, "Whiskers")
-        selfassertNotContains(result, "moo")
+        self.assertIn(result, "meows")
+        self.assertIn(result, "Whiskers")
+        self.assertNotIn(result, "moo")
 
 ```
 
@@ -245,3 +257,180 @@ Alternatively you can run the tests from PyCharm by right-clicking on the `tests
 ## Activity: Define Tests
 
 Write tests for the other methods in the `Cat` class. And then create the dog class. Try the buggy cat class we create early and see how well your tests go catching the errors?
+
+## Intermediate topics
+
+Optional (but recommended) primers on more advanced topics
+
+### KISS your tests
+
+The key to writing good tests is to write simple tests and the key to writing simple tests is to write code that can be tested simply.
+
+So as much as you can keep it simple (KIS). However, sometimes it is hard to avoid some complexity, this can arrise when tests require a lot of set up, or when your program must predominantly produce side effects, or when you have to test varied and complex interactions and inputs.
+
+### Testing for exceptions
+
+Sometimes you want to test that a function or method raises an exception. You can do this with the `assertRaises` method. This method takes the exception you expect to be raised and the function you want to test. Because the function should raise an exception, we can't just call it because it will, well raise an exception, we need to either create a safe context for the exception to be raise in, or use a `with` statement.
+
+Consider:
+
+```python
+
+class Cat:
+    # other code
+    def meet(self, other):
+        if not isinstance(other, Cat):
+            raise ValueError("Only willing to meet other cats")
+        return f"{self.name} meets {other.name}"
+
+```
+
+Here we want to test that when a cat meets a non-Cat type, a `ValueError` is raised. We can do this with the following test:
+
+```python
+
+# imports...
+
+class TestCat(unittest.TestCase):
+
+    def test_meet(self):
+        # arrange
+        cat = Cat("Whiskers", "black")
+        dog = Dog("Rex", "brown")
+
+        # act and assert
+        with self.assertRaises(ValueError):
+            cat.meet(dog)
+
+```
+
+This is the preferred way to test exceptions. You can also use the `assertRaises` method without a `with` statement, but we think it is less readable:
+
+```python
+# in test class
+    def test_meet(self):
+        # arrange
+        cat = Cat("Whiskers", "black")
+        dog = Dog("Rex", "brown")
+
+        # act and assert
+        self.assertRaises(ValueError, cat.meet, dog)
+```
+
+Notice that the cat.meet method is passed to the `assertRaises` method - not called directly. This is because if we called it directly, the exception would be raised before the `assertRaises` method could catch it.
+
+### Testing fruitful and void functions/methods
+
+You may remember from introductory programming how we distinguished between functions that return a value and those that don't. Sometimes, they may be referred to as **fruitful** and **void** functions (in Python, recall, even void functions return a value – a `NoneType`).
+
+Since void functions don't exist for the purpose of returning a value, we also say that we use them for their side effects. For example, a function that prints something to the console is a void function - it produces a side effect (printing to the console) but returns `None`.
+
+As a general rule it is easier to test fruitful functions than void functions. This is because we can test the return value of a fruitful function, but we can't test the return value of a void function.
+
+The best way to test void functions is not to have them - minimize the number of void functions. Most of the time, any function that has a side effect can be rewritten to return a value instead, and then the value can be used to produce the side effect.
+
+For example:
+
+```python
+
+class Dog:
+   # other code here
+    def bark(self):
+        print(f"{self.name} barks")
+        # this function returns None and produces a side effect
+
+def main()
+    dog = Dog("Rex")
+    dog.bark()
+
+# if/name/main ... etc
+```
+
+Can be refactored as:
+
+```python
+class Dog:
+   # other code here
+    def bark(self):
+        return f"{self.name} barks"
+        # this function returns None and produces a side effect
+
+def main()
+    dog = Dog("Rex")
+    print(dog.bark())
+
+#if/name/main... etc
+```
+
+Notice that both these code snippets produce exactly the same result. But the first one is harder to test. Moreover, the second one is more flexible. We can now use the return value of the `bark` method in other parts of the program, not just when we need to print `woof, woof`. Most of the time, code that is easy to test is also more flexible and easier to maintain in general. So, in general, when you find code that is hard to test, you should first try and change the code to be easier to test, rather than trying to write tests for the hard-to-test code.
+
+**Activity**: If your code from last week is full of void functions, refactor it to return values instead of producing side effects. Then write tests for the new functions. Notice that refactoring means changing the code without changing the functionality.
+
+### If you have to: testing `print` and `input`
+
+Though print and input are introduced early in the course, they are actually difficult to test. The `print` function is a void function, the input function is a fruitful function, but with one serious side effect: it pauses the program and waits for user input. This means that it will stop an automated test dead in its tracks.
+
+Consider the following functions, for simplicity, we are going to test them in the same file, but in a real-world scenario, they would be in separate files.
+
+```python
+import unittest
+
+def greet(name):
+    print(f"Hello, {name}")
+
+def get_name():
+    return input("What is your name? ")
+
+class TestGreet(unittest.TestCase):
+    def test_greet(self):
+        self.assertEqual(greet("Alice"), "Hello, Alice")
+
+    def test_get_name(self):
+        self.assertEqual(get_name(), "Alice")
+```
+
+The first test will fail because the 'greet' function returns `None`. The second test will pause the program and wait for user input so the tests will never finish.
+
+Given this situation, we either refactor the code (best option) or we can patch the `print` and `input` functions. We can do this by using the `unittest.mock` module. This module allows us to replace functions with mock functions that we can control. We can use this to replace the `print` and `input` functions with functions that don't produce side effects.
+
+The danger with mocking is that we can end up testing the mock, not the actual code. So we should use mocking sparingly and only when we have no other choice.
+
+```python
+# refactor
+def greet(name):
+    return f"Hello, {name}" # rewrite to return - no need to test print!
+
+def get_name(_get_func=input): # use the input function as a parameter
+    return _get_func("What is your name? ") # use the input function
+
+class TestGreet(unittest.TestCase):
+    def test_greet(self):
+        self.assertEqual(greet("Alice"), "Hello, Alice")
+
+    def test_get_name(self):
+        self.assertEqual(get_name(lambda x: "Alice"), "Alice") # use a lambda function to simulate input
+```
+
+We haven't studied lambda functions yet, but they are a way to create a function on the fly. In this case, we are creating a function that takes one argument and returns "Alice". This is a way to simulate the `input` function without actually calling it.
+
+If we must test these functions without refactoring, we can use the `unittest.mock` module to patch the `print` and `input` functions. 
+
+Here's an example of how you might use `unittest.mock` to test the `greet` function:
+
+```python
+import unittest
+from unittest.mock import patch
+
+class TestGreet(unittest.TestCase):
+    @patch('builtins.print')
+    def test_greet(self, mock_print):
+        greet("Alice")
+        mock_print.assert_called_with("Hello, Alice")
+
+    @patch('builtins.input', return_value="Alice")
+    def test_get_name(self, mock_input):
+        self.assertEqual(get_name(), "Alice")
+
+```
+
+This is a more advanced topic, so we won't cover it in more detail here. But you can read more about it in the [Python documentation](https://docs.python.org/3/library/unittest.mock.html).
