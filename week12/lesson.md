@@ -139,7 +139,7 @@ It is no longer necessary, and indeed undesirable, to write classes that explici
 
 #### Using `insinstance` instead of `type`
 
-You are finally ready to understand why, in Python, we typically **don't** use the built-in `type` *class* to check the type of an object. Instead, we use the `isinstance` *function*. This is because `isinstance` is aware of inheritance and returns a `bool`, while `type` returns the class of an object (aka the 'type') or creates new classes ('types').
+You are finally ready to understand why, in Python, we typically **don't** use the built-in `type` _class_ to check the type of an object. Instead, we use the `isinstance` _function_. This is because `isinstance` is aware of inheritance and returns a `bool`, while `type` returns the class of an object (aka the 'type') or creates new classes ('types').
 
 For example:
 
@@ -234,6 +234,7 @@ Suppose we start in a world where any attribute can be accessed or modified by a
 - Our cat's name is 42. Well, actually that is an awesome name... but anyway, that is not a real name. Who did it? Why did we let this happen?
 
 Encapsulation lets us say:
+
 > "look, if you want to change some aspect of the state of the object, you have to go through a gatekeeper - a method that will ensure that the state is consistent and valid."
 
 Encapsulation doesn't just apply to attributes. It also applies to methods.
@@ -340,9 +341,9 @@ Make sure you know **when** the code above fails.
 
 Polymorphism is the biggest word, but it is not that hard a concept. Particularly if you understand inheritance and abstraction.
 
-Poly means many and morph means form. So, polymorphism means many forms. It is the ability of different classes to implement the same methods to perform different behaviors.  For example, a Bird an Airplane class can both implement a `fly` method. They both will fly very differently (different forms) but thanks to abstraction, we can handle these types uniformly.
+Poly means many and morph means form. So, polymorphism means many forms. It is the ability of different classes to implement the same methods to perform different behaviors. For example, a Bird and an Airplane class can both implement a `fly` method. They both will fly very differently (different forms) but thanks to abstraction, we can handle these types uniformly.
 
-We can achieve this through the inheritance of abstract and concrete classes (for example, we can write a function to make an animal speak that will work with both cats and dogs) and through the inheritance of interfaces (for example, we can write a function that will work with any object that has a `speak` method, regardless of type). Whenever we achieve polymorphism through some form of inheritance, it is usually called _subclass_ **polymorphism**.
+In general, we can achieve polymorphism through the inheritance of abstract and concrete classes (for example, we can write a function to make an animal speak that will work with both cats and dogs) and through the inheritance of interfaces (for example, we can write a function that will work with any object that has a `speak` method, regardless of type). Whenever we achieve polymorphism through some form of inheritance, it is usually called _subclass_ **polymorphism**.
 
 Now, let's look at the word "achieving": in statically typed languages, we need to think about our types and their relationship in order to convince the compiler to let us do things polymorphically - hence 'achieve'; whether that's subclass polymorphism or the more advanced (and not covered) _parametric_ polymorphism (_generics_).
 
