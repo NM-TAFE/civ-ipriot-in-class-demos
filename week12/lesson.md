@@ -340,15 +340,15 @@ Make sure you know **when** the code above fails.
 
 Polymorphism is the biggest word, but it is not that hard a concept. Particularly if you understand inheritance and abstraction.
 
-Poly means many and morph means form. So, polymorphism means many forms. It is the ability to handle many types uniformally, while taking on their distictive forms.
+Poly means many and morph means form. So, polymorphism means many forms. It is the ability of different classes to implement the same methods to perform different behaviors.  For example, a Bird an Airplane class can both implement a `fly` method. They both will fly very differently (different forms) but thanks to abstraction, we can handle these types uniformly.
 
 We can achieve this through the inheritance of abstract and concrete classes (for example, we can write a function to make an animal speak that will work with both cats and dogs) and through the inheritance of interfaces (for example, we can write a function that will work with any object that has a `speak` method, regardless of type). Whenever we achieve polymorphism through some form of inheritance, it is usually called _subclass_ **polymorphism**.
 
-Now, let's look at the word "achieving": in statically typed languages, we need to think about our types and their relationship in order to convince the compiler to let us do things polymorphically - hence 'achieve'; whether that's subclass polymorphism or the more advanced (and not covered) _parametric_ polymorphism (generics).
+Now, let's look at the word "achieving": in statically typed languages, we need to think about our types and their relationship in order to convince the compiler to let us do things polymorphically - hence 'achieve'; whether that's subclass polymorphism or the more advanced (and not covered) _parametric_ polymorphism (_generics_).
 
 Python and other dynamically typed languages allow for more _ad-hoc_(read: "whatev's") polymorphism.
 
-In dynamically typed languages, we don't have to explicitly define the typology: a function will be polymorphic in so far as the types that are passed to it have the necessary attributes and methods. If they don't, we will get a `runtime error`.
+In dynamically typed languages, we don't have to explicitly define the typology: a function will handle polymorphic objects in so far as the types that are passed to it have the necessary attributes and methods. If they don't, we will get a `runtime error`.
 
 This "I don't care who you are, I just care what you do" is often called `Duck Typing`:
 
