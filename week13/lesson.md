@@ -433,4 +433,4 @@ class TestGreet(unittest.TestCase):
 
 ```
 
-This is a more advanced topic, so we won't cover it in more detail here. But you can read more about it in the [Python documentation](https://docs.python.org/3/library/unittest.mock.html).
+This is a more advanced topic, so we won't cover it in more 98detail here. But you can read more about it in the [Python documentation](https://docs.python.org/3/library/unittest.mock.html).
