@@ -208,9 +208,11 @@ Okay, so so long as we drive our definitions, maybe add a couple of assert state
 
 There is no clear separation between the tests and the code. There is no standard way to run the tests, particularly as the number of modules grows. We need a better way.
 
+Keep in mind that testing code is about testing multiple pathways through the code, so just like as our code grew we needed to start organising it, we need to start organising our tests.
+
 ## The `unittest` module
 
-The `unittest` module is a testing framework that comes with Python. It makes it easy to write tests for your code. It's based on the XUnit framework, which is a testing framework for many languages. It is object-oriented and has a lot of features, but we'll only cover the basics. The fact that it is object-oriented and modeled after a framework from other languages, is why it might seem a bit unusual to Python developers.
+The `unittest` module is a testing framework that comes with Python. It makes it easy to write tests for your code. It's based on the xUnit framework, which is a testing framework for many languages. It is object-oriented and has a lot of features, but we'll only cover the basics. The fact that it is object-oriented and modeled after a framework from other languages, is why it might seem a bit unusual to Python developers.
 
 ### Writing a test case
 
@@ -220,7 +222,11 @@ Some rules for writing a test case:
 - Create a class that inherits from `unittest.TestCase`.
 - Create methods that start with `test_` that test the functionality of your code (not optional)
 - (Optional) Use the `setUp` method to create objects that are used in multiple tests (think, **arrange**). Unlike an **init** method, `setUp` is called before every test method.
-- Give your test methods descriptive names that describe exactly what you are. Each test method should test one thing.
+- Give your test methods descriptive names that describe exactly what you are testing. Your test case name should make it clear why it matters. For example:
+  - `test_speak` is better than `test_1`
+  - `test_cat_meows` is better than `test_speak`
+  - `test_plane_fly_method_when_t_equals_true` is **not** as good as `test_plane_can_fly_in_turbulence` :)
+- Each test method should test one thing.
 
 ```python
 import unittest
