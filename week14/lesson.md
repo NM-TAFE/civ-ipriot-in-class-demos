@@ -187,12 +187,12 @@ Our testing didn't reveal the fact that our cat, rather than meowing, is mooing!
 
 ### The `assert` statement
 
-The `assert` statement is used to check if a condition is true. If the condition is false, the program will stop with an `AssertionError`.
+The `assert` statement is used to _assert_ that a condition must be true. If the condition is false, the program will raise an `AssertionError`, and usually end the program.
 
 ```python
 a = 42
 assert a == 42 # True -> runs
-assert a == 43 # False -> raises an AssertionError
+assert a == 43 # False -> raises an AssertionError KA-BOOM
 ```
 
 > Add an assert statement to the `test()` function above to check that the cat meows. Only after the program **fails** fix the error and ensure you get a return code 0!
