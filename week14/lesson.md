@@ -203,12 +203,12 @@ Okay, so so long as we drive our definitions, maybe add a couple of assert state
 
 1. **It's manual**: We have to remember to run our tests every time we make a change.
 2. **We can only discover one error at a time**: If we have multiple errors, we have to fix one, run the tests, fix the next, run the tests, and so on.
-3. **It's not standardized**: Why did I create a function called `test()` and not `run_tests()`?
+3. **It's not standardized**: should we just put assertions anywhere? How do they relate to other tests? What if I just want to test the code without running the program?
 4. **I didn't test importing**: Would importing the module and then running the tests work? I don't know. I hope so.
 
 There is no clear separation between the tests and the code. There is no standard way to run the tests, particularly as the number of modules grows. We need a better way.
 
-Keep in mind that testing code is about testing multiple pathways through the code, so just like as our code grew we needed to start organising it, we need to start organising our tests.
+Keep in mind that testing code is about testing multiple pathways through the code, so just like as our code grew we needed to start organizing it, we need to start organizing our tests.
 
 ## The `unittest` module
 
@@ -222,13 +222,14 @@ Some rules for writing a test case:
 - Create a class that inherits from `unittest.TestCase`.
 - Create methods that start with `test_` that test the functionality of your code (not optional)
 - (Optional) Use the `setUp` method to create objects that are used in multiple tests (think, **arrange**). Unlike an **init** method, `setUp` is called before every test method.
-- Give your test methods descriptive names that describe exactly what you are testing. Your test case name should make it clear why it matters. For example:
+- Give your test methods descriptive names that explain exactly what you are testing. Your test case name should make it clear why it matters. For example:
   - `test_speak` is better than `test_1`
   - `test_cat_meows` is better than `test_speak`
   - `test_plane_fly_method_when_t_equals_true` is **not** as good as `test_plane_can_fly_in_turbulence` :)
 - Each test method should test one thing.
 
 ```python
+# in tests/test_cat.py
 import unittest
 from cat import Cat # will work if you have the PYTHONPATH set
 
@@ -252,7 +253,7 @@ class TestCat(unittest.TestCase):
 
 ### Running the tests
 
-To run the tests, you can run the following command in the terminal:
+To run the tests, you can execute the following command in the terminal:
 
 ```bash
 python -m unittest discover tests
