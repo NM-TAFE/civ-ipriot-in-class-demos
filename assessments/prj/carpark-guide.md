@@ -11,16 +11,16 @@ In this assessment, you must design and implement a simplified car park system u
 
 The system will be implemented in Python using the PyCharm IDE. You will use version control to manage your project and submit your work.
 
-This guide provides detailed step-by-step instructions for completing the project. You do **not** have to use this guide, but it will make your life easier and ensure you meet **all** project requirements. If you choose not to follow the guide, read the submission requirements carefully to ensure you meet all the requirements.
+This guide provides detailed step-by-step instructions for completing the project. You do **not** have to use this guide, but it will make your life easier and ensure you meet **all** project requirements. If you choose not to follow the guide, read the submission requirements *carefully* (from your Blackboard **Assessments** tab) to ensure you meet all requirements.
 
 ## Instructions
 
 ### Set up version control
 
-1. Create a new repository on GitHub. Initialize it with a `README.md`, .`gitignore`, and optionally a license.
+1. Create a new repository on GitHub. Initialize it with a `README.md`, .`gitignore`, this project guide, and optionally a license.
 2. Clone the repository to your local machine.
 3. Update the `README.md` file with a brief project description.
-4. Modify the `.gitignore` file to exclude the `.idea/` folder. Pycharm creates this folder and contains project-specific settings that should not be shared.
+4. Modify the `.gitignore` file to exclude the `.idea/` folder. Pycharm creates this folder containing project-specific settings that should not be shared.
 5. Create a virtual environment for your project. This will allow you to install packages without affecting other projects on your machine.
 
    ```bash
