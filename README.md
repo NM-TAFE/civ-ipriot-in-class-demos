@@ -4,58 +4,114 @@ The code developed in class will be uploaded here. Each semester's delivery for 
 
 ## Recommended Workflow
 
-This workflow is specifically tailored for working with this repository, which will be constantly updated by the lecturer during the class.
+This workflow is specifically tailored for working with this repository, which the lecturer will constantly update during the class.
 
-### Initial Setup
+### Initial Setup (Basic)
 
-1. Clone this repository locally:
+The easiest way to work with this repository during in class demonstrations is to clone it and then switch to the appropriate branch, pulling during the class to get the latest changes. Your own work should be in a separate folder that isn't part of this repository (e.g. `my-work`):
+
+1. Clone this repository:
 
     ```bash
     git clone https://github.com/NM-TAFE/civ-ipriot-in-class-demos.git
     cd civ-ipriot-in-class-demos
     ```
 
-2. List all available branches to find your class:
+2. Switch to the appropriate branch. For example:
 
     ```bash
-    git fetch origin
-    git branch -r
+    git switch 2024/s2/raf
     ```
 
-3. Switch to the appropriate branch for your class:
+3. Create an **untracked** folder for your own work:
 
     ```bash
-    git checkout -b local_class_branch origin/yyyy/sn/lecturer
+    mkdir ../my-work
     ```
 
-### Ongoing Work
+    This folder will be used to store your own work, and will not be tracked by git.
 
-1. If you want to experiment with the code locally, create a new branch:
+4. During the class, pull the latest changes:
 
     ```bash
-    git checkout -b local_experiments
+    git pull
     ```
 
-2. Periodically, fetch changes from the upstream repository:
+5. If needed, copy to your own work folder:
 
     ```bash
-    git fetch origin yyyy/sn/lecturer
+    cp -r * ../my-work
     ```
 
-3. Merge the changes from the upstream's class-specific branch into your local branch:
+### Initial Setup (Advanced)
+
+> These instructions are more streamlined but present more advanced git concepts in order to successfully implement. The biggest advantage is that it allows you to track your own work concurrently with the lecturers work and practice git while practicing the code.
+
+The objective of this initial setup is to make it easy for you to pull work-in-progress from your lecturer while concurrently working on your version of the same work. This is **not** a standard git workflow: usually, you try to avoid having two people work on exactly the same thing at exactly the same time. Consequently, it is a more complex setup, that isn't generally applicable. But it will make for a great git workout and ultimately optimizing git for this workflow. Note that an alternative (intermediate) approach is to set up multiple working trees, which is a bit more complex than the basic set up, but also with (IMO) fewer advantages.
+
+1. Fork this repository, ensure you *deselect* the option to copy the **main** branch only. You **will** need other branches.
+2. Clone your fork locally:
 
     ```bash
-    git checkout local_experiments
-    git merge origin/yyyy/sn/lecturer
+    git clone https://github.com/<YOUR_USER_NAME>/civ-ipriot-in-class-demos.git
+    cd civ-ipriot-in-class-demos
     ```
 
-    or, if you want to keep your local branch's history clean, you can rebase instead of merge:
+3. Set this NMTAFE repository as the **upstream**
 
     ```bash
-    git checkout local_experiments
-    git rebase origin/yyyy/sn/lecturer
+    git remote add upstream https://github.com/NM-TAFE/civ-ipriot-in-class-demos.git
     ```
 
-    If there are any conflicts, you'll need to resolve them and continue the rebase using `git rebase --continue`.
+4. Switch to the current semester's branch/lecturer. For example:
 
-4. Remember not to push your changes to the upstream repository.
+    ```bash
+    git switch 2024/s2/raf
+    ```
+
+    This branch is set to track your *origin* (your fork) but that is **not** what we want.
+
+5. Change this branch to track the *upstream* branch, not your origin:
+
+   ```bash
+   git fetch upstream 2024/s2/raf
+   git branch --set-upstream-to=upstream/2024/s2/raf
+   ```
+
+6. Create your own branch to perform your work:
+   
+    ```bash
+    git switch -c in-class-work
+    ```
+
+7. If you want to track your work on your fork, push your branch to your fork:
+
+    ```bash
+    git push -u origin in-class-work
+    ```
+
+8. During the class, if you want to pull the latest changes:
+
+    ```bash
+    git switch -
+    git pull
+    git switch -
+    ```
+
+    If you have work in progress, you may need to stash or commit your changes before pulling.
+
+#### Cool awesome tips for this workflow
+
+If you want to select what changes from 2024/s2/raf to merge into your branch, you can use `git cherry-pick` to select individual commits. Or you can use git checkout -p to select individual changes from a commit; or `git checkout <branch> -- <file>` to select individual files from a commit.
+
+Here are some examples:
+    
+    ```bash
+    git cherry-pick 2024/s2/raf # Will pick just the latest commit - e.g. if there is a new set of exercises
+    git cherry-pick 2024/s2/raf^ # Will pick the commit before the latest commit
+    git checkout -p 2024/s2/raf # Will allow you to select individual changes from the latest committed state
+    git checkout 2024/s2/raf -- <file> # Will allow you to select individual files from the latest committed state
+    ```
+
+> ⚠️ Remember not to push your changes to the upstream repository. Also GitHub may suggest a pull request to the upstream repository, but this is not the intention of this workflow. You should only push your changes to your fork.
+>
