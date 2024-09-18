@@ -49,22 +49,22 @@ The easiest way to work with this repository during in-class demonstrations is t
 
 The objective of this initial setup is to make it easy for you to pull work-in-progress from your lecturer while concurrently working on your version of the same work. This is **not** a standard git workflow: usually, you try to avoid having two people work on the same thing at exactly the same time. Consequently, it is a more complex setup that isn't generally applicable. But it will make for an excellent git workout and ultimately optimise git for this workflow. Note that an alternative (intermediate) approach is to set up multiple working trees, which is a bit more complex than the basic setup but also has (IMO) fewer advantages.
 
-1. Fork this repository, ensure you *deselect* the option to copy the **main** branch only.
-   >>You **will** need other branches.<<
-3. Clone your fork locally:
+1. Fork this repository, ensure you *deselect* the option to copy the **main** branch only. 
+⚠️ You **will** need other branches.
+2. Clone your fork locally:
 
     ```bash
     git clone https://github.com/<YOUR_USER_NAME>/civ-ipriot-in-class-demos.git
     cd civ-ipriot-in-class-demos
     ```
 
-4. Set this NMTAFE repository as the **upstream**
+3. Set this NMTAFE repository as the **upstream**
 
     ```bash
     git remote add upstream https://github.com/NM-TAFE/civ-ipriot-in-class-demos.git
     ```
 
-5. Switch to the current semester's branch/lecturer. For example:
+4. Switch to the current semester's branch/lecturer. For example:
 
     ```bash
     git switch 2024/s2/raf
@@ -107,12 +107,12 @@ If you want to select what changes from `2024/s2/raf` to merge into your branch,
 
 Here are some examples:
     
-    ```bash
-    git cherry-pick 2024/s2/raf # Will pick just the latest commit - e.g. if there is a new set of exercises
-    git cherry-pick 2024/s2/raf^ # Will pick the commit before the latest commit
-    git checkout -p 2024/s2/raf # Will allow you to select individual changes from the latest committed state
-    git checkout 2024/s2/raf -- <file> # Will allow you to select individual files from the latest committed state
-    ```
+```bash
+git cherry-pick 2024/s2/raf # Will pick just the latest commit - e.g. if there is a new set of exercises
+git cherry-pick 2024/s2/raf^ # Will pick the commit before the latest commit
+git checkout -p 2024/s2/raf # Will allow you to select individual changes from the latest committed state
+git checkout 2024/s2/raf -- <file> # Will allow you to select individual files from the latest committed state
+```
 
-> ⚠️ Remember not to push your changes to the upstream repository. Also GitHub may suggest a pull request to the upstream repository, but this is not the intention of this workflow. You should only push your changes to your fork.
->
+> ⚠️ Remember not to push your changes to the upstream repository. Also, GitHub may suggest a pull request to the upstream repository, but this is not the intention of this workflow. You should only push your changes to your fork.
+
