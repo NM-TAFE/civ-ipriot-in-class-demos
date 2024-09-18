@@ -8,7 +8,7 @@ This workflow is specifically tailored for working with this repository, which t
 
 ### Initial Setup (Basic)
 
-The easiest way to work with this repository during in class demonstrations is to clone it and then switch to the appropriate branch, pulling during the class to get the latest changes. Your own work should be in a separate folder that isn't part of this repository (e.g. `my-work`):
+The easiest way to work with this repository during in-class demonstrations is to clone it and then switch to the appropriate branch, pulling during the class to get the latest changes. Your own work should be in a separate folder that isn't part of this repository (e.g. `my-work`):
 
 1. Clone this repository:
 
@@ -29,7 +29,7 @@ The easiest way to work with this repository during in class demonstrations is t
     mkdir ../my-work
     ```
 
-    This folder will be used to store your own work, and will not be tracked by git.
+    This folder will be used to store your own work and will not be tracked by git.
 
 4. During the class, pull the latest changes:
 
@@ -45,52 +45,53 @@ The easiest way to work with this repository during in class demonstrations is t
 
 ### Initial Setup (Advanced)
 
-> These instructions are more streamlined but present more advanced git concepts in order to successfully implement. The biggest advantage is that it allows you to track your own work concurrently with the lecturers work and practice git while practicing the code.
+> These instructions are more streamlined but present more advanced git concepts to implement successfully. The most significant advantage is that it allows you to track your own work concurrently with the lecturer's work and practice git while practising coding.
 
-The objective of this initial setup is to make it easy for you to pull work-in-progress from your lecturer while concurrently working on your version of the same work. This is **not** a standard git workflow: usually, you try to avoid having two people work on exactly the same thing at exactly the same time. Consequently, it is a more complex setup, that isn't generally applicable. But it will make for a great git workout and ultimately optimizing git for this workflow. Note that an alternative (intermediate) approach is to set up multiple working trees, which is a bit more complex than the basic set up, but also with (IMO) fewer advantages.
+The objective of this initial setup is to make it easy for you to pull work-in-progress from your lecturer while concurrently working on your version of the same work. This is **not** a standard git workflow: usually, you try to avoid having two people work on the same thing at exactly the same time. Consequently, it is a more complex setup that isn't generally applicable. But it will make for an excellent git workout and ultimately optimise git for this workflow. Note that an alternative (intermediate) approach is to set up multiple working trees, which is a bit more complex than the basic setup but also has (IMO) fewer advantages.
 
-1. Fork this repository, ensure you *deselect* the option to copy the **main** branch only. You **will** need other branches.
-2. Clone your fork locally:
+1. Fork this repository, ensure you *deselect* the option to copy the **main** branch only.
+   >>You **will** need other branches.<<
+3. Clone your fork locally:
 
     ```bash
     git clone https://github.com/<YOUR_USER_NAME>/civ-ipriot-in-class-demos.git
     cd civ-ipriot-in-class-demos
     ```
 
-3. Set this NMTAFE repository as the **upstream**
+4. Set this NMTAFE repository as the **upstream**
 
     ```bash
     git remote add upstream https://github.com/NM-TAFE/civ-ipriot-in-class-demos.git
     ```
 
-4. Switch to the current semester's branch/lecturer. For example:
+5. Switch to the current semester's branch/lecturer. For example:
 
     ```bash
     git switch 2024/s2/raf
     ```
 
-    This branch is set to track your *origin* (your fork) but that is **not** what we want.
+    This branch is set to track your *origin* (your fork) but we want something else.
 
-5. Change this branch to track the *upstream* branch, not your origin:
+6. Change this branch to track the *upstream* branch, not your origin:
 
    ```bash
    git fetch upstream 2024/s2/raf
    git branch --set-upstream-to=upstream/2024/s2/raf
    ```
 
-6. Create your own branch to perform your work:
+7. Create your own branch to perform your work:
    
     ```bash
     git switch -c in-class-work
     ```
 
-7. If you want to track your work on your fork, push your branch to your fork:
+8. If you want to track your work on your fork, push your branch to your fork:
 
     ```bash
     git push -u origin in-class-work
     ```
 
-8. During the class, if you want to pull the latest changes:
+9. During the class, if you want to pull the latest changes:
 
     ```bash
     git switch -
@@ -102,7 +103,7 @@ The objective of this initial setup is to make it easy for you to pull work-in-p
 
 #### Cool awesome tips for this workflow
 
-If you want to select what changes from 2024/s2/raf to merge into your branch, you can use `git cherry-pick` to select individual commits. Or you can use git checkout -p to select individual changes from a commit; or `git checkout <branch> -- <file>` to select individual files from a commit.
+If you want to select what changes from `2024/s2/raf` to merge into your branch, you can use `git cherry-pick` to select individual commits. Or you can use `git checkout -p` to select individual changes from a commit or `git checkout <branch> -- <file>` to select individual files from a commit.
 
 Here are some examples:
     
