@@ -127,13 +127,13 @@ cat.meow()
 ## Exercises
 
 1. Add a coat color attribute to the `Cat` class. Instantiate a `Cat` instance and print the `name`, `age`, and `coat_color` attributes.
-
+DONE
 2. Add a purr method to the `Cat` class that prints &lt;name&gt; purrs. Call the purr method on the `Cat` instance.
-
+DONE
 3. Define a class `Dog` that has a `name` and an `age` attribute. Instantiate a `Dog` instance and print the `name` and `age` attributes.
 
 4. Add a `bark` method to the `Dog` class that prints &lt;name&gt; barks. Call the `bark` method on the `Dog` instance.
-
+DONE
 ### Challenge exercise
 
 1. Define a method in both the Cat and Dog class called "meet" when a cat gets passed a cat or a dog it will "hisses at &lt;other's name&gt;".
