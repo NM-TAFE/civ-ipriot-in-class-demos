@@ -36,12 +36,27 @@ The easiest way to work with this repository during in-class demonstrations is t
     ```bash
     git pull
     ```
-
 5. If needed, copy to your own work folder:
 
     ```bash
     cp -r * ../my-work
     ```
+
+#### Opening in PyCharm
+
+To use in PyCharm, you are going to need a `venv`. Let's create one from the command line:
+
+In the repository root, 
+
+```bash
+python -m venv venv
+# optionally, activate (Git Bash)
+
+source venv/Scripts/activate
+
+```
+Now in PyCharm, go to File > Open and select the root folder.
+
 
 ### Initial Setup (Advanced)
 
