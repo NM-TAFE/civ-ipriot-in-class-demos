@@ -1,6 +1,5 @@
 # Problem
 # I want to look up results based on student numbers
-
 # Solution using a list
 results =    [['2001234', 'CO'],
                        ['2001235', 'CO'],
