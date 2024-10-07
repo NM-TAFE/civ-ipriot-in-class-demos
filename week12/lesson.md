@@ -226,7 +226,7 @@ While not essential for the course, the following sections provide a deeper unde
 
 When you hear "protecting" or "hiding" data, you might think of security. But encapsulation is not about security. It is about managing complexity. By encapsulating data, we can ensure that the internal state of an object is consistent and valid. This makes it easier to reason about the object and reduces the likelihood of bugs.
 
-Suppose we start in a world where any attribute can be accessed or modified by any part of the program. We might find that an object will end up in a state that is inconsistent and invalid and then we have to try and track down "who done it?". As programs grow, this 'who done it' can be a proper detective novel.
+Suppose we start in a world where any attribute can be accessed or modified by any part of the program. We might find that an object will end up in a state that is inconsistent and invalid, and then we have to try and track down "who done it?". As programs grow, this 'who done it' can be a proper detective novel.
 
 **Examples:**
 
@@ -341,7 +341,7 @@ Make sure you know **when** the code above fails.
 
 Polymorphism is the biggest word, but it is not that hard a concept. Particularly if you understand inheritance and abstraction.
 
-Poly means many and morph means form. So, polymorphism means many forms. It is the ability of different classes to implement the same methods to perform different behaviors. For example, a Bird and an Airplane class can both implement a `fly` method. They both will fly very differently (different forms) but thanks to abstraction, we can handle these types uniformly.
+Poly means many and morph means form. So, polymorphism means many forms. It is the ability of different classes to implement the same methods to perform different behaviours. For example, a Bird and an Airplane class can both implement a `fly` method. They both will fly very differently (different forms) but thanks to abstraction, we can handle these types uniformly.
 
 In general, we can achieve polymorphism through the inheritance of abstract and concrete classes (for example, we can write a function to make an animal speak that will work with both cats and dogs) and through the inheritance of interfaces (for example, we can write a function that will work with any object that has a `speak` method, regardless of type). Whenever we achieve polymorphism through some form of inheritance, it is usually called _subclass_ **polymorphism**.
 
@@ -378,6 +378,20 @@ def talk_to_an_animal(animal):
 
 Try removing the inheritance from the `Dog` and `Cat` classes and see what happens.
 
+### A real-world example of Polymorphism in Python
+
+Probably the best and most useful example of subclass polymorphism (and maybe a bit of 'whatev's' thrown in) is the `__str__` method. You haven't heard of `__str__`? 
+
+Well, you have sure have been using it, and polymorphically at that!
+
+In Python, every class inherits from the `object` class (thus 'everything is an **object**'). The class '`object`' contains a special method called `__str__`. 
+
+Thanks to `__str__` (and its lesser-known co-conspirator `__repr__`), every object in Python can be printed, even though what a given object looks like as a string can be quite different! For example, an `int` represents itself as a whole decimal number when printed, a float represents itself as a number with a decimal point. Totally different!
+
+The default implementation of `__str__` isn't particularly useful (to see it, try printing your cat instance), but any class can override `__str__` to return a string of their choosing. This allows us to have strings for ints, floats, lists, bools, tuples, dictionaries and even our own types. Thus every object has a string representation, but how it is represented as a string is polymorphically defined by how its `__str__` method is implemented.
+
+
+ 
 ## Relationships between objects
 
 In object-oriented programming, objects can have relationships with other objects. There are several types of relationships, including:
@@ -401,7 +415,7 @@ These two are often confused, but the difference is significant, if subtle.
 
 Refers to an object having a reference to another object (or objects). The objects are independent of each other, and the child object can exist without the parent object.
 
-Examples of aggregation include a `Garage`-type having a `Car`-type object; a `Library`-type object having a `Book`-type object; a `Classroom`-type object having a `Student`-type objects, and so forth. Cars, books, and students can all exist independently of their 'container'.
+Examples of aggregation include a `Garage`-type having a `Car`-type object, a `Library`-type object having a `Book`-type object, a `Classroom`-type object having a `Student`-type object, and so forth. Cars, books, and students can all exist independently of their 'container'.
 
 #### Composition
 
@@ -471,7 +485,7 @@ classDiagram
 
 ## Exercises
 
-1. Create a class `Shape` with an abstract method `area`. Create two subclasses `Circle` and `Rectangle` that inherit from `Shape`. Implement the `area` method for each subclass.
+1. Create a class `Shape` with an abstract method `area`. Create two subclasses, `Circle` and `Rectangle`, that inherit from `Shape`. Implement the `area` method for each subclass.
 
 2. Create a `BankAccount` class with private attributes for `account_number` and `balance`. Implement methods to `deposit`, `withdraw`, and view the current `balance`.
 
