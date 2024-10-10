@@ -285,7 +285,9 @@ In a technical sense, a single underscore is 'protected', and a double underscor
 
 Abstraction is the process of identifying and exposing the essential characteristics of an object while ignoring the irrelevant details, thus making it easier to use and allowing generalization of the kind of objects that can be handled in the same way (see, Polymorphism).
 
-In practice, Abstraction is usually realised through inheritance from `abstract` classes or `interfaces`.
+Using a car analogy, think about the vehicle **Start** button: the `start` action is an abstraction that represents what we want to do with the car, but has little relationship to how the car implements this behavior (or even the fact that it is composed of multiple discrete actions). In addition to making it easier to map intention to action, i.e. making it easier to use the object, it also opens the road to providing common *interfaces* to fundamentally different behaviors: think **Start** on a combustion car versus an electric car.
+
+Since abstraction opens the door to generalization, we may as well talk about `abstract` classes and `interfaces` here. 
 
 An abstract class is a class that cannot be instantiated and is used **only** to define a blueprint for other classes. An interface is a class that contains abstract methods (methods without a concrete implementation) and is used to define a contract for other classes.
 
