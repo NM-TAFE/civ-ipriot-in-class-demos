@@ -41,5 +41,5 @@ class Person:
 from person import Person
 person = Person()
 post = person.create_post("Hello, world!")
-print(post.content)
+post.display_post()
 ```
