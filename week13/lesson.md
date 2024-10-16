@@ -16,7 +16,7 @@ Before you begin write down what each of the relationships mean and try and reca
 - Aggregation: ...
 - Composition: ...
 
-What is cardinality and how it represented in UML?
+What is cardinality and how is it represented in UML? Try and think of a few examples.
 
 ## Tips
 
