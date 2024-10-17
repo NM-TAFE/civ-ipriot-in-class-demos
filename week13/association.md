@@ -39,8 +39,8 @@ class Post:
     def display_post(self):
         print(self.content)
 
-# person.py
-class Person:
+# user.py
+class User:
     def __init__(self, username, email):
         self.username = username
         self.email = email
@@ -49,8 +49,8 @@ class Person:
         return Post(content)
 
 # main.py
-from person import Person
-person = Person()
-post = person.create_post("Hello, world!")
+from user import User
+user = User('my_name', 'my_name@name.com')
+post = user.create_post("Hello, world!")
 post.display_post()
 ```
