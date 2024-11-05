@@ -16,6 +16,7 @@ This guide provides detailed step-by-step instructions for completing the projec
 ## Instructions
 
 ### Set up version control
+> Note: You must follow the [NMS Git Onboarding Guide](https://github.com/NM-TAFE/ipriot-nms-org-template/blob/main/org/git-onboarding-guide.md)
 
 1. Create a new repository on GitHub. Initialize it with a `README.md`, .`gitignore`, and optionally a license.
 2. Clone the repository to your local machine.
@@ -24,16 +25,16 @@ This guide provides detailed step-by-step instructions for completing the projec
 5. Create a virtual environment for your project. This will allow you to install packages without affecting other projects on your machine.
 
    ```bash
-   python -m venv venv
-   
+   python -m venv .venv
+
    # On Windows cmd:
-   venv\Scripts\activate.bat
-   
+   .\.venv\Scripts\activate.bat
+
    # On Git Bash:
-   source venv/Scripts/activate
-   
+   source .venv/Scripts/activate
+
    # On any other OS:
-   source venv/bin/activate
+   source .venv/bin/activate
    ```
 
 6. Open the project folder in Pycharm. Pycharm will detect the virtual environment and use it for the project.
@@ -61,7 +62,7 @@ This guide provides detailed step-by-step instructions for completing the projec
       git push
       ```
 
-**Evidencing:**
+**Additional evidencing:**
 Include a screenshot of your GitHub repository **after** you have pushed your initial commit.
 
 ```markdown
@@ -78,7 +79,7 @@ After reading the task requirements, you should be able to identify the classes,
 | `Sensor`     |            |         |
 | `Display`    |            |         |
 
-**Evidencing:**
+**Additional evidencing:**
 Ensure you have completed the previous table and include at least two methods and attributes for each.
 
 ### Implement stubs for the classes
@@ -97,11 +98,11 @@ Ensure you have completed the previous table and include at least two methods an
 
       ```bash
       git add .
-      git commit -m "Added stubs for classes"
+      git commit <<appropriate commit message>>
       git push
       ```
 
-**Evidencing:**
+**Additional evidencing:**
 Include a screenshot of your GitHub repository `src/` directory **after** you have pushed your changes.
 
 ```markdown
@@ -130,7 +131,7 @@ Include a screenshot of your GitHub repository `src/` directory **after** you ha
          self.location = location
          self.sensors = sensors or [] # uses the first value if not None, otherwise uses the second value
          ... # Add the other parameters here
-      
+
       def __str__(self):
          ... # Return a string containing the car park's location and capacity
    ```
@@ -139,7 +140,7 @@ Include a screenshot of your GitHub repository `src/` directory **after** you ha
 
    ```bash
    git add .
-   git commit -m "Added constructors and attributes to the car park class"
+   git commit <<appropriate commit message>>
    git tag -a "s1" -m "Added a constructor and attributes to the car park class"
    ```
 
@@ -188,7 +189,7 @@ Do the same for the `ExitSensor` class.
 
    ```bash
    git add .
-   git commit -m "Added constructors and attributes to the display and sensor classes"
+   git commit <<appropriate commit message>>
    git tag -a "s2" -m "Added constructors and attributes to the display and sensor classes"
    ```
 
@@ -203,7 +204,7 @@ Do the same for the `ExitSensor` class.
 You realize that you need a way to configure the car park system. You decide to create a `Config` class to store the configuration data. However, you want to have a firmer grasp of the requirements before you implement the class. So you skip this step for now.
 
 --------
-**Evidencing:**
+**Additional evidencing:**
 Ensure that you have completed the previous steps and created the appropriate tags. Confirm that the tags have been created by running `git tag` in the terminal and provide a screenshot of the output.
 
 ```bash
@@ -243,8 +244,8 @@ classDiagram
       CarPark "1" o-- "0..*" Display
       CarPark "1" *-- "0..*" Sensor
       Sensor <|-- EntrySensor
-      Sensor <|-- ExitSensor 
-      
+      Sensor <|-- ExitSensor
+
 
       class CarPark {
          - sensors: Sensor[]
@@ -252,7 +253,7 @@ classDiagram
          - plates: String[]
          + register(obj: Sensor | Display) void
          + add_car(plate: str) void
-         + remove_car(plate: str) void 
+         + remove_car(plate: str) void
          + update_displays() void
       }
       class Sensor {
@@ -332,12 +333,12 @@ Now, we can add the code to add the `component` to the appropriate list. Add the
    # TODO: add an elif to check if the component is a Display - MUST
    ```
 
-**Evidencing:**
+**Additional evidencing:**
 After you have implemented the required code, commit your changes to the local repository and add a tag so your lecturer can find it:
 
    ```bash
    git add .
-   git commit -m "Added a register method to the car park class"
+   git commit << appropriate commit message >>
    git tag -a "s3" -m "Added a register method to the car park class"
    ```
 
@@ -423,12 +424,12 @@ The `update_displays` method shall send status information: available bays, temp
          print(f"{key}: {value}")
    ```
 
-**Evidencing:**
+**Additional evidencing:**
 After you have implemented the required code, commit your changes to the local repository and add a tag so your lecturer can find it:
 
    ```bash
    git add .
-   git commit -m "Added methods to the car park class"
+   git commit  << appropriate commit message >>
    git tag -a "s4" -m "Added methods to the car park class"
    ```
 
@@ -448,17 +449,17 @@ Answer the following questions:
 > **Review Questions**
 >
 > 1. **Which class is responsible for each of the following pieces of information (and why)?**
->    - _The number of available bays_  
+>    - _The number of available bays_
 >      `Answer here...`
->    - _The current temperature_  
+>    - _The current temperature_
 >      `Answer here...`
->    - _The time_  
+>    - _The time_
 >      `Answer here...`
 >
-> 2. **What is the difference between an attribute and a property?**  
+> 2. **What is the difference between an attribute and a property?**
 >    `Answer here...`
 >
-> 3. **Why do you think we used a dictionary to hold the data we passed the display? List at least one advantage and one disadvantage of this approach.**  
+> 3. **Why do you think we used a dictionary to hold the data we passed the display? List at least one advantage and one disadvantage of this approach.**
 >    `Answer here...`
 
 #### Add a detect vehicle method to the Sensor class
@@ -477,7 +478,7 @@ classDiagram
         +detect_vehicle()
     }
     note "calls subclass update_car_park"
-    
+
     class EntrySensor {
         +update_car_park()
     }
@@ -491,7 +492,6 @@ classDiagram
 1. Open `sensor.py`, and add the following import statement to the top of the file:
 
    ```python
-   from car_park import CarPark
    from abc import ABC, abstractmethod
    ```
 
@@ -554,12 +554,12 @@ def _scan_plate(self):
    return random.choice(self.car_park.plates)
 ```
 
-**Evidencing:**
+**Additional evidencing:**
 After you have implemented the required code, commit your changes to the local repository and add a tag so your lecturer can find it:
 
    ```bash
    git add .
-   git commit -m "Created core methods for the classes"
+   git commit << appropriate commit message >>
    git tag -a "s5" -m "Core methods completed"
    ```
 
@@ -586,7 +586,7 @@ classDiagram
         add_car(plate: string)
         remove_car(plate: string)
         update_displays()
-        property: available_bays: int 
+        property: available_bays: int
     }
 
     class Sensor {
@@ -603,7 +603,7 @@ classDiagram
     class EntrySensor {
         inherit Sensor
         update_car_park(plate: string)
-        
+
     }
 
     class ExitSensor {
@@ -623,8 +623,8 @@ classDiagram
 
     CarPark "1" o-- "0..*" Display : contains
     CarPark "1" *-- "0..*" Sensor : contains
-    Sensor <|-- EntrySensor
-    Sensor <|-- ExitSensor 
+    Sensor <|.. EntrySensor
+    Sensor <|..  ExitSensor
 
 ```
 
@@ -645,7 +645,7 @@ from car_park import CarPark
 class TestCarPark(unittest.TestCase):
       def setUp(self):
          self.car_park = CarPark("123 Example Street", 100)
-   
+
       def test_car_park_initialized_with_all_attributes(self):
          self.assertIsInstance(self.car_park, CarPark)
          self.assertEqual(self.car_park.location, "123 Example Street")
@@ -654,12 +654,12 @@ class TestCarPark(unittest.TestCase):
          self.assertEqual(self.car_park.sensors, [])
          self.assertEqual(self.car_park.displays, [])
          self.assertEqual(self.car_park.available_bays, 100)
-   
+
       def test_add_car(self):
          self.car_park.add_car("FAKE-001")
          self.assertEqual(self.car_park.plates, ["FAKE-001"])
          self.assertEqual(self.car_park.available_bays, 99)
-   
+
       def test_remove_car(self):
          self.car_park.add_car("FAKE-001")
          self.car_park.remove_car("FAKE-001")
@@ -674,14 +674,14 @@ class TestCarPark(unittest.TestCase):
          # Overfilling the car park should not change the number of available bays
          self.assertEqual(self.car_park.available_bays, 0)
 
-         # Removing a car from an overfilled car park should not change the number of available bays   
+         # Removing a car from an overfilled car park should not change the number of available bays
          self.car_park.remove_car("FAKE-100")
          self.assertEqual(self.car_park.available_bays, 0)
 
       def test_removing_a_car_that_does_not_exist(self):
          with self.assertRaises(ValueError):
             self.car_park.remove_car("NO-1")
-         
+
 
 if __name__ == "__main__":
    unittest.main()
@@ -699,7 +699,7 @@ if __name__ == "__main__":
 3. Run the above unit tests in PyCharm.
 4. Fix any errors you encounter.
 
-**Evidencing:**
+**Additional evidencing:**
 
 1. Add a screenshot of the output of the unit tests. If any failed, add a screenshot of the error message and a screenshot after you have fixed the errors:
 
@@ -758,7 +758,7 @@ Next, we'll create tests for the `Display` class. These tests will test the `__i
 7. Run the unit test in PyCharm.
 8. Fix any errors you encounter.
 
-**Evidencing:**
+**Additional evidencing:**
 
 1. Add a screenshot of the output of the unit tests. If any failed, add a screenshot of the error message and a screenshot after you have fixed the errors:
 
@@ -793,7 +793,7 @@ with self.assertRaises(TypeError):
    self.car_park.register("Not a Sensor or Display")
 ```
 
-**Evidencing:**
+**Additional evidencing:**
 
 Commit your original test cases for the sensor class to the local repository. Tag the commit with `s8` so your lecturer can find it.
 
@@ -879,10 +879,10 @@ Notice how we have inadvertently made our test code hard to maintain (if we chan
       self.car_park.add_car("NEW-001")
       with self.car_park.log_file.open() as f:
          last_line = f.readlines()[-1]
-      self.assertIn(last_line, "NEW-001") # check plate entered
-      self.assertIn(last_line, "entered") # check description
-      self.assertIn(last_line, "\n") # check entry has a new line
-   
+      self.assertIn("NEW-001", last_line) # check plate entered
+      self.assertIn("entered", last_line) # check description
+      self.assertIn("\n", last_line) # check entry has a new line
+
    def test_car_logged_when_exiting(self):
       new_carpark = CarPark("123 Example Street", 100, log_file = "new_log.txt") # TODO: change this to use a class attribute or new instance variable
       self.car_park.add_car("NEW-001")
@@ -897,7 +897,7 @@ Notice how we have inadvertently made our test code hard to maintain (if we chan
 6. Run the unit tests in PyCharm. Confirm that they fail!
 
 7. Commit your changes to the local repository. You do not need to tag them:
-   
+
       ```bash
       git add .
       git commit -m "Added unit tests for logging car activity"
@@ -946,7 +946,7 @@ Let's now implement the functionality to make the unit tests pass (if you have w
 
 6. If you have created the unit tests, run them in PyCharm. Confirm that they now pass.
 
-**Evidencing:**
+**Additional evidencing:**
 
 1. Add and commit your changes to the branch
 2. Now we are going to merge the branch back into the main branch. First, switch to the main branch:
@@ -1003,7 +1003,7 @@ We are going to do the latter:
    # ... inside the CarPark class
    def write_config(self):
       with open("config.json", "w") as f: # TODO: use self.config_file; use Path; add optional parm to __init__
-         json.dump({"location": self.location, 
+         json.dump({"location": self.location,
                     "capacity": self.capacity,
                     "log_file": str(self.log_file)}, f)
    ```
@@ -1026,7 +1026,7 @@ We are going to do the latter:
 
 5. If you have created the unit tests, run them in PyCharm. Confirm that they now pass.
 
-**Evidencing:**
+**Additional evidencing:**
 After you have merged your branch to main, push to your remote with the s10 tag. Add a screenshot of the GitHub repository after pushing the tag, showing the CarPark class with the new methods:
 
 ```markdown
@@ -1062,7 +1062,7 @@ In your final submission, you must include any files you created or modified. Th
 
 4. Run the `main.py` file in PyCharm. Confirm that the car park is working as expected.
 
-**Evidencing:**
+**Additional evidencing:**
 
 1. Add a screenshot of the output of the `main.py` file:
 
