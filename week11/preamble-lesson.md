@@ -129,9 +129,9 @@ In ICTPRG302, we looked at how to write programs to solve problems. While someti
 
 - How do you print out the lyrics of Baby Shark as efficiently as possible?
 
-Every time we learned a new syntax, we were able to solve more complex problems or solve these problems in a more straightforward way. In this sense *why* we were learning certain aspects of programming was clear.
+Every time we learned about some new capability or syntax, we were able to solve more complex problems or solve these problems in a more straightforward way. In this sense *why* we were learning certain aspects of programming was generally clear cut.
 
-However, as programming scales up we realize that programming itself presents its own problems (i.e. "Second-order problems"). 
+However, as programming scales up, we realize that programming itself presents its own problems (i.e. "Second-order problems").
 
 For example:
 
@@ -156,7 +156,7 @@ But as the projects you will be working on become larger and more complex, and y
 
 ### Reflection
 
-Jot down som[e strategies you can think of to addressing some of the questions above.
+Jot down some strategies you can think of to addressing some of the second-order problems above.
 > a. Answer here
 > b. Answer here
 > c. Answer here
