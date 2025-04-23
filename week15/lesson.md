@@ -243,9 +243,9 @@ class TestCat(unittest.TestCase):
         result = cat.speak()
 
         # assert
-        self.assertIn(result, "meows")
-        self.assertIn(result, "Whiskers")
-        self.assertNotIn(result, "moo")
+        self.assertIn("meows", result)
+        self.assertIn("Whiskers", result)
+        self.assertNotIn("moo", result)
 
 ```
 
