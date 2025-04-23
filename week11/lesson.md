@@ -76,19 +76,33 @@ Say what?
 
 ## Meet `self`
 
-Some OOP languages explicitly reference instances in their class definition (Python, Ruby, PHP) others do not (or use some hybrid approach).
+All object-oriented programming (OOP) languages create definitions at the class level: "what attributes can an object of this type have?" "what behaviors (methods) can an object of this type perform?". However, when you create an instance of an object, ths instance only needs to contain the values for its attributes. Notice we don't need to copy the methods into the instance. since the methods are the same: they just might act differently depending on the values of the attributes for a given instance.
 
-When defining a class in Python, methods receive as their first parameter the instance of the class. A very strong convention (think: **rule**) is that we name the first parameter `self`. Other languages could use `this` as the name but many languages (such as C#) do not require this because the instance is implicitly acted on depending on context.
+That is, while conceptually and semantically it might make more sense to think of a method like "meow" as being something my cat (or a **particular** cat) does, in reality its more accurate to say that the type `Cat` performs behaviors on instances of cats.  That is, `my_cat.meow()` really means "call the `meow` method on the `Cat` class and get the class to make the specific cat, `my_cat`, meow.
 
-In Python, we must explicitly reference that instance - always.
+This is rather unintuitive. Different languages deal with this unintuitive fact in different ways.
 
-Why?
+- Some languages, like Python, Ruby, and PHP, explicitly pass and reference the instance within methods. That is, no smoke and mirrors: what you see is what you get. But the price you pay is you have to always be explicitly referencing the instance even when that's clearly what you mean.
+- Others, such as C# or Java, implicitly refer to the instance, making an explicit reference unnecessary. This is often more intuitive (at first) but gets more confusing and less flexible as your programs get more complex.
 
-This is because _conceptually_ we think of the object as having behaviors "my cat meows". However, while my cat meowing is a behavior of my cat, in reality when we program it makes no sense to copy the behavior into every instance of a class (since the procedure for meowing is the same, it is only the attributes that change).
+In Python, when you define methods in a class, the first parameter always explicitly refers to the object instance. By a very strong convention (think: rule), this parameter is named `self`. Unlike languages that implicitly use the object instance, Python explicitly requires this reference.
 
-Instead, we define the behavior once in the class and then pass the instances to the class.
+For example:
 
-In that sense, it is as though we are asking the class Cat to meow my cat.
+```python
+class Cat:
+    def meow(self):
+        print("Meow!")
+
+my_cat = Cat()
+my_cat.meow()  # Python internally calls Cat.meow(my_cat)
+
+# in fact you can do exactly that, and the two are equivalent:
+Cat.meow(my_cat)
+
+```
+
+Notice that when you want to associate attributes with an instance, you use `self` to refer to that instance. When you want to call a method **for** an instance, you must also use `self` since that tells Python to pass this particular instance to the method.
 
 ## Using the `__init__` method
 
@@ -104,7 +118,7 @@ cat2 = Cat('Kenny') # Error! We must pass the age
 
 ## Defining methods
 
-Okay, we keep talking about meowing let's finally make a cat that can meow:
+Okay, we keep talking about meowing let's finally make a cat that can perform their own **individual** meow:
 
 ```python
   class Cat:
