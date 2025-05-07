@@ -15,7 +15,7 @@ classDiagram
     class BankAccount {
         +String accountNumber
         +String accountHolder
-        +float balance
+        +Float balance
         +withdraw(float amount)
         +deposit(float amount)
     }
