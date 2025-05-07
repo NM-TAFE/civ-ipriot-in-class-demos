@@ -30,8 +30,9 @@ The business requirements are:
 
 Do the following in a main function:
 
-- Create two instance of the bank account class
+- Create two instances of the bank account class
 - Deposit 1000 into the first account
 - Deposit 500 into the second account
 - Withdraw 200 from the first account
 - Print the balance of both accounts
+
