@@ -369,9 +369,13 @@ Make sure you know **when** the code above fails.
 
 Polymorphism is the biggest word, but it is not that hard a concept. Particularly if you understand inheritance and abstraction.
 
-Poly means many and morph means form. So, polymorphism means many forms. It is the ability of different classes to implement the same methods to perform different behaviors. For example, a Bird and an Airplane class can both implement a `fly` method. They both will fly very differently (different forms) but thanks to abstraction, we can handle these types uniformly.
+Poly means many and morph means form. So, polymorphism means many forms. It is the ability of different classes to implement the "same" methods to perform different behaviors. For example, a Bird and an Airplane class can both implement a `fly` method. They both will fly very differently (different forms) but thanks to abstraction, we can handle these types uniformly.
 
-In general, we can achieve polymorphism through the inheritance of abstract and concrete classes (for example, we can write a function to make an animal speak that will work with both cats and dogs) and through the inheritance of interfaces (for example, we can write a function that will work with any object that has a `speak` method, regardless of type). Whenever we achieve polymorphism through some form of inheritance, it is usually called _subclass_ **polymorphism**.
+In general, we can achieve polymorphism through the inheritance of abstract and concrete classes. 
+
+For example, if every animal can speak (but each animal speaks differently), then polymorphism allows us to create functions and methods for "animals" that work on any type of animal even if they behave differently.
+
+Whenever we achieve polymorphism through some form of inheritance, it is usually called _subclass_ **polymorphism**.
 
 Now, let's look at the word "achieving": in statically typed languages, we need to think about our types and their relationship in order to convince the compiler to let us do things polymorphically - hence 'achieve'; whether that's subclass polymorphism or the more advanced (and not covered) _parametric_ polymorphism (_generics_).
 
@@ -404,7 +408,8 @@ def talk_to_an_animal(animal):
 
 ```
 
-Try removing the inheritance from the `Dog` and `Cat` classes and see what happens.
+**Exercise**: Create a Robot class (doesn't inherit from Animal) that implements a `speak` method. Does `talk_to_an_animal` work with the Robot class? Why or why not? 
+> **Clue**: in a statically typed language, you would get a compile-time error. Python however, is duck-typed.
 
 ## Relationships between objects
 
