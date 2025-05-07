@@ -6,7 +6,7 @@ This lesson is designed to support the slide material presented on Blackboard.
 
 ## Revision
 
-To help you with KBA part 2, here is some quick revision from last term:
+To help you with an upcoming assessment, here is some quick revision from last term:
 
 - **Sequence**: In our context, refers to the order in which statements are executed in a program. A sequence usually means statements are executed one after the other. Do not confuse this with the `list` data type in Python.
 
@@ -43,7 +43,9 @@ class Cat(Animal):
 
 In this example, `Cat` is a derived class inherited from the base class `Animal`. The `Cat` class will inherit all the attributes and methods of the `Animal` class (currently, there aren't any).
 
-Before we go into the mechanics of subclassing and overriding, we must understand what we have said. By saying that `Cat` inherits from `Animal`, we are saying that `Cat` **is a** `Animal`. Specifically, any cat we instantiate is **both** a `Cat` and an `Animal`. All cats are animals, but not all animals are cats. This is the essence of inheritance.
+Before we go into the mechanics of subclassing and overriding, we must understand what we have said:
+
+ By saying that `Cat` inherits from `Animal`, we are saying that `Cat` **is a** `Animal`. Specifically, any cat we instantiate is **both** a `Cat` and an `Animal`. All cats are animals, but not all animals are cats. This is the essence of inheritance.
 
 ### Inheriting methods and attributes
 
@@ -71,6 +73,30 @@ cat.purr() # purrs
 ```
 
 Semantically, we are saying, "all animals must have a name and can speak. Only cats can purr."
+
+**Exercise**: Examine the following code and explain what it expresses about the business domain:
+
+```python
+class Course:
+    def __init__(self, name):
+        self.name = name
+
+    def enroll(self):
+        print(f"Enrolling in {self.name}")
+
+class Programming(Course):
+    def have_fun(self):
+        print(f"Having fun in {self.name}")
+
+class Networking(Course):
+    def be_bored(self):
+        print(f"Being bored in {self.name}")
+
+```
+
+**Answer template:**
+
+> All courses must have a _____ and can be ________ in. Only programming courses can be ___, and only networking courses can be ______.
 
 ### Overriding methods
 
@@ -129,7 +155,7 @@ In older versions of Python, we had to explicitly inherit from `object`:
 class Animal(object):
     pass
 
-# Since it is **exactly** equivalent to the more succint:
+# Since it is **exactly** equivalent to the more succinct:
 
 class Animal:
     pass
@@ -137,7 +163,7 @@ class Animal:
 
 It is no longer necessary, and indeed undesirable, to write classes that explicitly inherit from `object` (though it is still _possible_).
 
-#### Using `insinstance` instead of `type`
+#### Using `isinstance` instead of `type`
 
 You are finally ready to understand why, in Python, we typically **don't** use the built-in `type` _class_ to check the type of an object. Instead, we use the `isinstance` _function_. This is because `isinstance` is aware of inheritance and returns a `bool`, while `type` returns the class of an object (aka the 'type') or creates new classes ('types').
 
@@ -145,7 +171,7 @@ For example:
 
 ```python
 
-cat = Cat('Whiskers', 'black')
+cat = Cat('Kenny', 'black')
 
 print(type(cat) is Cat) # True
 print(type(cat) is Animal) # False!
@@ -160,7 +186,7 @@ The `cat` instance **is** an `Animal`, but only `isinstance` reveals this. The `
 
 Inheritance used to be synonymous with OOP. However, in modern software development practices, it is now considered a last resort. This is because inheritance is a very strong relationship. Another term for it is 'coupling' - anything we do to the base class will affect every derived class and every class that derives from those classes, and so on. This can lead to a lot of unintended consequences.
 
-In modern software development, we prefer composition over inheritance. Composition is a `has-a` relationship. Instead of saying a class 'is-a' another type, we try to form relationships that a class 'has-a' another type. This is a much looser relationship and is more flexible but still allows for reuse and code organization.
+In modern software development, we "favor composition over inheritance". Composition is a `has-a` relationship. Instead of saying a class 'is-a' another type, we try to form relationships that a class 'has-a' another type. This is a much looser relationship and is more flexible but still allows for reuse and code organization.
 
 Composition involves passing (or instantiating) an instance of one class to/in another class.
 
@@ -382,6 +408,8 @@ Try removing the inheritance from the `Dog` and `Cat` classes and see what happe
 
 ## Relationships between objects
 
+> **Note**: This is covered in more detail in next week's lesson.
+
 In object-oriented programming, objects can have relationships with other objects. There are several types of relationships, including:
 
 - Inheritance
@@ -477,7 +505,7 @@ classDiagram
 
 2. Create a `BankAccount` class with private attributes for `account_number` and `balance`. Implement methods to `deposit`, `withdraw`, and view the current `balance`.
 
-3. Complete the KBA exercises.
+3. Review the upcoming assessment.
 
 ### Advanced exercises
 
