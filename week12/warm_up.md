@@ -1,5 +1,21 @@
 # Revision from week 11
 
+## Revision questions
+
+Answer the following questions:
+
+1. What is the main point of OOP in Python?
+2. What is the difference between a class object and an instance object?
+3. Why is the first argument in a class’s method function special?
+4. What is the __init__ method used for?
+5. How do you create a class instance?
+6. How do you create a class?
+
+ > Questions taken from the following reference (includes answers):
+
+[Link](https://learning.oreilly.com/library/view/learning-python-6th/9781098171292/ch26.html)
+
+
 ## Considerations
 
 - Ensure you implement using PEP8
