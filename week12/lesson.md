@@ -67,7 +67,7 @@ class Cat(Animal):
 
 # Any cat must have a name and can speak and purr!
 
-cat = Cat('Whiskers')
+cat = Cat('Kenny')
 cat.speak() # speaks
 cat.purr() # purrs
 ```
@@ -113,7 +113,7 @@ class Cat(Animal):
     def speak(self):
         print(f"{self.name} meows")
 
-cat = Cat('Whiskers')
+cat = Cat('Kenny')
 dog = Dog('Rover')
 
 cat.speak() # meows
@@ -132,7 +132,7 @@ class Cat(Animal):
         super().__init__(name)
         self.color = color
 
-cat = Cat('Whiskers', 'black')
+cat = Cat('Kenny', 'tuxedo')
 cat.speak() # speaks
 
 ```
@@ -239,7 +239,7 @@ class Cat:
         print(f"{self._name} meows") # this is fine.
 
 
-cat = Cat('Whiskers')
+cat = Cat('Kenny')
 
 cat._name = 'Rover' # this can be done but shouldn't be done.
 ```
@@ -359,7 +359,7 @@ class Cat(Animal):
 
 dog = Dog('Rover')
 dog.speak()
-cat = Cat('Whiskers')
+cat = Cat('Kenny')
 cat.speak()
 ```
 
