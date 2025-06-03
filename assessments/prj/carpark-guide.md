@@ -24,7 +24,7 @@ Notes on using this guide:
 ### Set up version control
 
 1. Create a new repository on GitHub by selecting **Use this template** under the [NMS Org Template](https://github.com/NM-TAFE/ipriot-nms-org-template/tree/main)
-   1. Call the repo `ipriot-car_park-prj`   
+   1. Call the repo `ipriot-car-park-prj`   
 2. Clone the repository to your local machine.
 3. Update the `README.md` file with a brief project description.
 4. Modify the `.gitignore` file to exclude the `.idea/` folder. PyCharm creates this folder containing project-specific settings that generally should not be shared.
@@ -47,7 +47,7 @@ Notes on using this guide:
 7. Create a `src` and `tests` directories in your project. The `src` directory will contain your Python scripts, and the `tests` directory will contain your unit tests. Your project structure should look like this:
 
    ```bash
-   ipriot-car_park-prj/  # >> This is your project root folder
+   ipriot-car-park-prj/  # >> This is your project root folder
    ├── .idea/
    ├── .git/
    ├── venv/
@@ -64,7 +64,7 @@ Notes on using this guide:
 
       ```bash
       git add .
-      git commit -m "Initial commit"
+      git commit -m "chore: initial commit"
       git push
       ```
 
@@ -239,24 +239,24 @@ sequenceDiagram
     c->>d: update_display()
 ```
 
-Notice a sensor detects cars and notifies a car park. The car park then updates the displays. Sensors connect **to** a car park, and a car park connects **to** displays.
+Notice a sensor detects cars and notifies a car park. The car park then updates the displays. Sensors connect **to** a car park, and a car park connects **to** its displays.
 
-In other words, a sensor needs to know about a car park, and a car park needs to know about displays. This is an example of aggregation, where one object holds a reference to another object. In this case, the `CarPark` class holds a reference to instances of the `Display` classes (aggregation); sensors, for their part, hold a reference to a car park.
+In other words, a sensor needs to know about a car park, and a car park needs to hold displays displays. This is an example of aggregation, where one object holds a reference to another object. In this case, the `CarPark` class holds a reference to instances of the `Display` classes (aggregation) and has some ownership over them; sensors while technically holding a reference to car park do so primarily to notify (update) the car park but conceptually they don't "posses" a car park, so association may be more suitable.
 
 The following class diagram presents this relationship:
 
 ```mermaid
 classDiagram
       CarPark "1" o-- "0..*" Display
-      CarPark "1" *-- "0..*" Sensor
-      Sensor <|.. EntrySensor
+      CarPark "1" <-- "0..*" Sensor : notifies
+      Sensor <-- EntrySensor
       Sensor <|.. ExitSensor
 
 
       class CarPark {
          - sensors: Sensor[]
          - displays: Display[]
-         - plates: String[]
+         - plates: list[str]
          + register(obj: Sensor | Display) void
          + add_car(plate: str) void
          + remove_car(plate: str) void
@@ -269,11 +269,11 @@ classDiagram
          + detect_car() void
       }
       class EntrySensor{
-         - update_car_park(plate: str) void
+         # update_car_park(plate: str): void
 
       }
       class ExitSensor{
-         - update_car_park(plate: str) void
+         # update_car_park(plate: str): void
       }
       class Display {
          - car_park: CarPark
@@ -283,7 +283,6 @@ classDiagram
 
 The diagram omits methods and attributes irrelevant to the relationship between the classes. Notice that the `CarPark` class has a `register` method that allows it to register sensors and displays.
 
-Notice also that displays and sensors reference a car park, and a car park references displays. This kind of two-way relationship is only sometimes advisable. But for this project, it is acceptable.
 
 ### Implement methods for the CarPark class
 
