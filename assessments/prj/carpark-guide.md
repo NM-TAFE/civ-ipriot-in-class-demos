@@ -13,15 +13,21 @@ The system will be implemented in Python using the PyCharm IDE. You will use ver
 
 This guide provides detailed step-by-step instructions for completing the project. You do **not** have to use this guide, but it will make your life easier and ensure you meet **all** project requirements. If you choose not to follow the guide, read the submission requirements *carefully* (from your Blackboard **Assessments** tab) to ensure you meet all requirements.
 
+Notes on using this guide:
+
+- This guide is designed to complement the assessment on Blackboard. You must read and complete all the requirements outlined there.
+- The guide has callouts to evidence your work. If you are following this guide, it is recommended that you complete these sections as they will help you use the guide effectively as well as evidence the authenticity of your work, should authentication/validation be required.
+- You do not have to follow the guide to the letter, all assessment requirements are on Blackboard. However, if you follow the guide, it will ensure you meet all the requirements and help you complete the project successfully.
+
 ## Instructions
 
 ### Set up version control
-> Note: You must follow the [NMS Git Onboarding Guide](https://github.com/NM-TAFE/ipriot-nms-org-template/blob/main/org/git-onboarding-guide.md)
 
-1. Create a new repository on GitHub. Initialize it with a `README.md`, .`gitignore`, this project guide, and optionally a license.
+1. Create a new repository on GitHub by selecting **Use this template** under the [NMS Org Template](https://github.com/NM-TAFE/ipriot-nms-org-template/tree/main)
+   1. Call the repo `ipriot-car_park-prj`   
 2. Clone the repository to your local machine.
 3. Update the `README.md` file with a brief project description.
-4. Modify the `.gitignore` file to exclude the `.idea/` folder. Pycharm creates this folder containing project-specific settings that should not be shared.
+4. Modify the `.gitignore` file to exclude the `.idea/` folder. PyCharm creates this folder containing project-specific settings that generally should not be shared.
 5. Create a virtual environment for your project. This will allow you to install packages without affecting other projects on your machine.
 
    ```bash
@@ -37,7 +43,7 @@ This guide provides detailed step-by-step instructions for completing the projec
    source .venv/bin/activate
    ```
 
-6. Open the project folder in Pycharm. Pycharm will detect the virtual environment and use it for the project.
+6. Open the project folder in PyCharm. PyCharm will detect the virtual environment and use it for the project.
 7. Create a `src` and `tests` directories in your project. The `src` directory will contain your Python scripts, and the `tests` directory will contain your unit tests. Your project structure should look like this:
 
    ```bash
@@ -52,7 +58,7 @@ This guide provides detailed step-by-step instructions for completing the projec
    ```
 
 8. Create a new Python file in the `src` directory called `main.py`. This will be the main script for your car park system.
-9. Create a new Python file in the `tests` directory called `test_car_park.py`. This will be the main script for your unit tests.
+9.  Create a new Python file in the `tests` directory called `test_car_park.py`. This will be the main script for your unit tests.
 10. In PyCharm, mark the `src` directory as a source root. This will allow you to import modules from the `src` directory in your unit tests; mark the `tests` directory as a test root. This will enable you to run your unit tests from the IDE, without having to mess around with relative imports (long story!).
 11. Commit your changes to the repository, both locally and remotely:
 
