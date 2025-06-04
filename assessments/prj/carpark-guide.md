@@ -24,7 +24,7 @@ Notes on using this guide:
 ### Set up version control
 
 1. Create a new repository on GitHub by selecting **Use this template** under the [NMS Org Template](https://github.com/NM-TAFE/ipriot-nms-org-template/tree/main)
-   1. Call the repo `ipriot-car-park-prj`   
+   1. Call the repo `ipriot-car-park-prj`
 2. Clone the repository to your local machine.
 3. Update the `README.md` file with a brief project description.
 4. Modify the `.gitignore` file to exclude the `.idea/` folder. PyCharm creates this folder containing project-specific settings that generally should not be shared.
@@ -58,7 +58,7 @@ Notes on using this guide:
    ```
 
 8. Create a new Python file in the `src` directory called `main.py`. This will be the main script for your car park system.
-9.  Create a new Python file in the `tests` directory called `test_car_park.py`. This will be the main script for your unit tests.
+9. Create a new Python file in the `tests` directory called `test_car_park.py`. This will be the main script for your unit tests.
 10. In PyCharm, mark the `src` directory as a source root. This will allow you to import modules from the `src` directory in your unit tests; mark the `tests` directory as a test root. This will enable you to run your unit tests from the IDE, without having to mess around with relative imports (long story!).
 11. Commit your changes to the repository, both locally and remotely:
 
@@ -84,7 +84,6 @@ git switch -c feature/mvp
 git push -u origin feature/mvp
 ```
 
-
 ### Identify classes, methods, and attributes
 
 After reading the task requirements, you should be able to identify the classes, methods, and attributes required for the car park system. Complete the following table with the classes, methods, and attributes you must implement.
@@ -102,7 +101,7 @@ Ensure you have completed the previous table and include at least two methods an
 
 1. In your `src/` directory, create a new Python file for each class you identified in the previous step. For example, `car_park.py`, `sensor.py`, and `display.py`.
    Notice that the file names are all lowercase and use underscores to separate words. This is a common convention for Python file names. In general, Python files are named like variables, using lowercase and underscores to separate words.
-2. In _each_ file, create a class with the same name as the file. For example, the `car_park.py` file should contain a `CarPark` class. Notice that the class name is capitalized and uses PascalCase to separate words. This is a common convention for Python class names. An example class definition is shown below:
+2. In *each* file, create a class with the same name as the file. For example, the `car_park.py` file should contain a `CarPark` class. Notice that the class name is capitalized and uses PascalCase to separate words. This is a common convention for Python class names. An example class definition is shown below:
 
    ```python
    class CarPark:
@@ -263,10 +262,10 @@ classDiagram
 
 
       class CarPark {
-         - sensors: Sensor[]
-         - displays: Display[]
+         - sensors: list[Sensor]
+         - displays: list[Display]
          - plates: list[str]
-         + register(obj: Sensor | Display) void
+         + register(obj: Display | _Sensor_) void
          + add_car(plate: str) void
          + remove_car(plate: str) void
          + update_displays() void
@@ -291,7 +290,6 @@ classDiagram
 ```
 
 The diagram omits methods and attributes irrelevant to the relationship between the classes. Notice that the `CarPark` class has a `register` method that allows it to register the displays (you can also add a registry for sensors).
-
 
 ### Implement methods for the CarPark class
 
@@ -398,7 +396,7 @@ Now consider, between the `CarPark`, `Sensor`, and `Display` classes, which clas
 
 You realize that you need to maintain the number of available bays. The number of available bays is a curious case. On the one hand, this value is an attribute of the car park. However, it is also a **property** of the car park's capacity and the number of cars in the car park. In other words, it is a **derived** value. We can calculate the number of available bays by subtracting the number of cars from the capacity. We can do this in the `CarPark` class by adding a `get_available_bays` method. This method will return the number of available bays.
 
-But you're uncomfortable with this because even though you derive the value through a calculation, it still seems conceptually like an attribute. Python has a built-in way of treating a simple method that represents a property of an object as an attribute. We can use it to protect values and make attributes derived via simple calculations easier to access. Fittingly, it is called a **property**. We can create a property by adding a `@property` decorator (we'll learn more about decorators in the diploma) to a method. While decorators can have a wide range of uses, there are only a few you need to use right now, and you just have to remember what they do rather than how they do it. A `property` decorator will make a method behave like an attribute (i.e. we access it rather than call it). 
+But you're uncomfortable with this because even though you derive the value through a calculation, it still seems conceptually like an attribute. Python has a built-in way of treating a simple method that represents a property of an object as an attribute. We can use it to protect values and make attributes derived via simple calculations easier to access. Fittingly, it is called a **property**. We can create a property by adding a `@property` decorator (we'll learn more about decorators in the diploma) to a method. While decorators can have a wide range of uses, there are only a few you need to use right now, and you just have to remember what they do rather than how they do it. A `property` decorator will make a method behave like an attribute (i.e. we access it rather than call it).
 
 Let's add `available_bays` as a property now:
 
@@ -421,7 +419,7 @@ O-oh!
 
 You recognize an issue: **What if the number of cars that enter exceeds capacity?**
 
-We might not be able to stop this from happening! Recall that there is no boom gate or access control in the car park, so cars can still come in even if the car park is full. 
+We might not be able to stop this from happening! Recall that there is no boom gate or access control in the car park, so cars can still come in even if the car park is full.
 
 But what should our car park do when this happens? Do we want to allow the number of available bays to be negative? Should we set it to zero? Should we raise an exception? Something else?
 
@@ -472,11 +470,11 @@ Answer the following questions:
 > **Review Questions**
 >
 > 1. **Which class is responsible for each of the following pieces of information (and why)?**
->    - _The number of available bays_
+>    - *The number of available bays*
 >      `Answer here...`
->    - _The current temperature_
+>    - *The current temperature*
 >      `Answer here...`
->    - _The time_
+>    - *The time*
 >      `Answer here...`
 >
 > 2. **What is the difference between an attribute and a property?**
@@ -608,7 +606,7 @@ classDiagram
         add_car(plate: str)
         remove_car(plate:  str)
         update_displays()
-        <<property: available_bays: int
+        property: available_bays: int
     }
 
 
@@ -841,11 +839,11 @@ Create a new local branch named `feature/log-car-activity`. You can do this eith
 #### Log cars entering and leaving in a file called `log.txt`
 
 **Detour – Python file handling:**
-Python is a multi-platform language. This means that it can run on different operating systems. However, different operating systems have different ways of representing files and paths. We, therefore, want to _abstract_ this representation away from our code. We can do this using the `pathlib` module. This module provides a platform-independent way to represent files and paths. We can use it to create a `Path` object representing a file or directory. We can then use this object to create, read, write, and delete files and directories.
+Python is a multi-platform language. This means that it can run on different operating systems. However, different operating systems have different ways of representing files and paths. We, therefore, want to *abstract* this representation away from our code. We can do this using the `pathlib` module. This module provides a platform-independent way to represent files and paths. We can use it to create a `Path` object representing a file or directory. We can then use this object to create, read, write, and delete files and directories.
 
 Typically, we import the `Path` class from the `pathlib` module. We can then use the `Path` class to create a `Path` object. For example, `Path("log.txt")` creates a `Path` object that represents a file called `log.txt`. We can then use the `Path` object to create, read, write, and delete files and directories.
 
-**Add test cases: (optional but recommended)**
+##### Add test cases: (optional but recommended)
 
 1. In your `test_car_park.py` file, add the following import statement to the top of the file:
 
@@ -881,8 +879,6 @@ When a test creates a file, it is **not** cleaned up automatically. So, we want 
    def tearDown(self):
       Path("new_log.txt").unlink(missing_ok=True)
    ```
-
-
 
 ---
 
@@ -926,7 +922,8 @@ Notice how we have inadvertently made our test code hard to maintain (if we chan
       git commit -m "Added unit tests for logging car activity"
       ```
 
-**Add the functionality: (mandatory)**
+##### Add the functionality (required)
+
 Let's now implement the functionality to make the unit tests pass (if you have written them):
 
 1. Open the `car_park.py` file and add the following import statement to the top of the file:
@@ -996,7 +993,7 @@ Let's now implement the functionality to make the unit tests pass (if you have w
 
 #### Store the configuration of a car park in a file called `config.json`
 
-**Detour – JSON:** JavaScript Object Notation (JSON) is a standard format for storing data. It is a text-based format that is easy for humans to read and write. It is also easy for computers to parse and generate. JSON is often used for storing configuration data (though `yaml` and `toml` are increasingly popular). It is also a standard format for exchanging data between applications. Like most high-level languages, Python has built-in support for JSON.
+**Detour – JSON:** [JavaScript Object Notation (JSON)](https://www.json.org/json-en.html) is a standard format for storing data. It is a text-based format that is easy for humans to read and write. It is also easy for computers to parse and generate. JSON is often used for storing configuration data (though `yaml` and `toml` are increasingly popular). It is also a standard format for exchanging data between applications. Like most high-level languages, Python has built-in support for JSON.
 
 Now that you're becoming familiar with the process. Try and do the following:
 
@@ -1056,14 +1053,14 @@ After you have merged your branch to main, push to your remote with the s10 tag.
 ![Added methods to the car park class](screenshots/methods-to-car-park.png)
 ```
 
-### Final step: build a car park!
+### Final step: build a car park
 
 In the final step, you will create a `main.py` file that 'drives' a car park. This file will create a car park, add sensors and displays, and simulate cars entering and exiting the car park. You will then run the file to see the car park in action.
 In your final submission, you must include any files you created or modified. The submission must include the `main.py` file, the `config.json` file, and the `log.txt` file.
 
 #### Create a main.py file
 
-1. Create a new file in the `src/` directory called `main.py`.
+1. If you haven't already, create a new file in the `src/` directory called `main.py`.
 2. Add the following import statements to the top of the file:
 
    ```python
@@ -1076,16 +1073,21 @@ In your final submission, you must include any files you created or modified. Th
 
    ```python
    # TODO: create a car park object with the location moondalup, capacity 100, and log_file "moondalup.txt"
+   # TODO: Write the car park configuration to a file called "moondalup_config.json"
+   # TODO: Reinitialize the car park object from the "moondalup_config.json" file
    # TODO: create an entry sensor object with id 1, is_active True, and car_park car_park
    # TODO: create an exit sensor object with id 2, is_active True, and car_park car_park
    # TODO: create a display object with id 1, message "Welcome to Moondalup", is_on True, and car_park car_park
    # TODO: drive 10 cars into the car park (must be triggered via the sensor - NOT by calling car_park.add_car directly)
    # TODO: drive 2 cars out of the car park (must be triggered via the sensor - NOT by calling car_park.remove_car directly)
+   
    ```
 
 4. Run the `main.py` file in PyCharm. Confirm that the car park is working as expected.
 
-**Additional evidencing:**
+## Finalize the project
+
+> Required for authentication:
 
 1. Add a screenshot of the output of the `main.py` file:
 
@@ -1093,22 +1095,36 @@ In your final submission, you must include any files you created or modified. Th
    ![Main.py output](screenshots/main-py.png)
    ```
 
-2. Commit your changes to the local repository. Tag the commit with `v1`, so your lecturer can find it. Ensure the commit includes the log and config files (though you would typically ignore them).
-3. Push the tag to the remote repository.
+> Required for evidencing competency:
+
+2. Push the changes to the remote repository and create a PR (recommended you use the PR template in NorthMetro Software's repository).
+
+3. Merge the PR on GitHub.
+
+4. Pull the changes to your local main branch:
+
+   ```bash
+   git switch main
+   git pull origin main
+   ```
+
+5. Add an annotated tag to the commit with `v1` so your lecturer can find it:
+
+   ```bash
+   git tag -a "v1" -m "Final submission"
+   ```
+
+6. Push the tag to the remote repository.
 
    ```bash
    git push --tags
    ```
 
-4. Release your code on GitHub. You can do this by going to the releases section and selecting "Create a new release". Give the release a title ("Project Submission") and description. Then click "Publish release". Include a screenshot of the release:
+7. Release your code on GitHub. You can do this by going to the releases section and selecting "Create a new release":
+   1. Give the release a title (for example, "Car Park Prototype") and include a brief description
+   2. Select "Publish release"
 
-   ```markdown
-   ![Create a release](screenshots/create-release.png)
-
-   ![Publish a release](screenshots/publish-release.png)
-   ```
-
-5. Congratulations! You have completed the project. You can now submit the assignment via Blackboard. Take the time to reflect on your work and write any notes and observations down.
+8. Congratulations! You have completed the project. You can now submit the assignment via Blackboard. Take the time to reflect on your work and write any notes and observations down.
 
 --------
 
