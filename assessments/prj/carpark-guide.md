@@ -3,7 +3,7 @@
 > **Assessment Guide:**
 > A step-by-step worksheet you can use to complete all the project's coding and version control requirements. Please raise any issues you identify with the guide [here](https://github.com/NM-TAFE/civ-ipriot-in-class-demos/issues) using the tag `project-guide`.
 
-![Image of a modern car park](images/new_car_park.png)
+![Image of a modern car park](screenshots/new_car_park.png)
 
 ## Overview
 
@@ -72,8 +72,18 @@ Notes on using this guide:
 Include a screenshot of your GitHub repository **after** you have pushed your initial commit.
 
 ```markdown
-![Initial commit](images/mu_image.png)
+![Initial commit](screenshots/image-of-github-after-push.png)
 ```
+
+### Create a branch for your work
+
+Create a new branch for your work. This will allow you to create a PR for the "MVP". You can refer to the work as `feature/` with `mvp` or `basic-car-park-system` as possible branch names. Don't forget to also set up a remote tracking branch so you can push your changes to GitHub.
+
+```bash
+git switch -c feature/mvp
+git push -u origin feature/mvp
+```
+
 
 ### Identify classes, methods, and attributes
 
@@ -112,7 +122,7 @@ Ensure you have completed the previous table and include at least two methods an
 Include a screenshot of your GitHub repository `src/` directory **after** you have pushed your changes.
 
 ```markdown
-![Added stubs for classes](images/stubs-for-classes.png)
+![Added stubs for classes](screenshots/stubs-for-classes.png)
 ```
 
 ### Add constructors and attributes to the classes
@@ -123,19 +133,18 @@ Include a screenshot of your GitHub repository `src/` directory **after** you ha
    - `location`
    - `capacity`
    - `plates`
-   - `sensors`
    - `displays`
 2. Add instance variables for each of the parameters. For example, `self.location = location`.
-3. Add a default value for each parameter. For example, `location = "Unknown"`.
-4. Notice that plates, sensors, and displays are lists ("plurals"). Sensors/Displays, hold references to instances of sensors/displays. The `plates` attribute holds references to license plates represented as strings (built-in/primitive types). Specifying these at initialization is optional, but we don't want to use an empty list as the default. For example, `self.sensors = []`. Lists are **mutable**, and we must never set mutable defaults for parameters. Thus we make the defaults `None`.
-5. Add a `__str__` method to the `CarPark` class. When you print a `Car park` object, this method will be called. The method should return a string containing the car park's location and capacity. For example, `"Car park at 123 Example Street, with 100 bays."`.
+3. Consider if default values are appropriate for any of the parameters. For example, would you have a default `location = "Unknown"`? (You decide!)
+4. Notice that plates and displays are lists (and we usually just use plurals to indicate this). The `displays` attribute holds references to instances of displays. The `plates` attribute holds references to license plates represented as strings (built-in/primitive types). Specifying these at initialization is optional, but we don't want to use an empty list as the default. For example, `self.sensors = []`. Lists are **mutable**, and we must never set mutable defaults for parameters. Thus we make the defaults `None`.
+5. Add a `__str__` method to the `CarPark` class. When you print a `CarPark` object, this method will be called. The method should return a string containing the car park's location and capacity. For example, `"Car park at 123 Example Street, with 100 bays."`.
 6. Your car park class should now look similar to this:
 
    ```python
    class CarPark:
-      def __init__(self, location, capacity, plates=None, sensors=None, displays=None):
+      def __init__(self, location, capacity, plates=None, displays=None):
          self.location = location
-         self.sensors = sensors or [] # uses the first value if not None, otherwise uses the second value
+         self.displays = displays or [] # uses the first value if not None, otherwise uses the second value
          ... # Add the other parameters here
 
       def __str__(self):
@@ -156,7 +165,7 @@ Include a screenshot of your GitHub repository `src/` directory **after** you ha
    - `id`
    - `message`
    - `is_on`
-   - `car_park`
+
 2. Add instance variables for each of the parameters. For example, `self.id = id`.
 3. Add default values for parameters, such that there is no default for id or car park, but there is a default for message and status. For example, `message = ""` and `is_on = False`.
 4. Create a `__str__` method for the `Display` class. This method will be called when you print a `Display` object. The method should return a string containing the display's ID and message. For example, `"Display 1: Welcome to the car park."`.
@@ -168,7 +177,7 @@ Include a screenshot of your GitHub repository `src/` directory **after** you ha
    - `is_active`
    - `car_park`
 
-   You realize that you need to distinguish between entry and exit sensors. Since each of those sensors will need different methods, you decide to subclass the `Sensor` class.
+  ⚠️⚠️⚠️ You realize that you need to distinguish between entry and exit sensors! Since each of those sensors will need different methods, you decide to subclass the `Sensor` class.
 
 2. Create a new class called `EntrySensor` that inherits from `Sensor`. The `EntrySensor` class should **not** have an `__init__` method.
 Do the same for the `ExitSensor` class.
@@ -241,7 +250,7 @@ sequenceDiagram
 
 Notice a sensor detects cars and notifies a car park. The car park then updates the displays. Sensors connect **to** a car park, and a car park connects **to** its displays.
 
-In other words, a sensor needs to know about a car park, and a car park needs to hold displays displays. This is an example of aggregation, where one object holds a reference to another object. In this case, the `CarPark` class holds a reference to instances of the `Display` classes (aggregation) and has some ownership over them; sensors while technically holding a reference to car park do so primarily to notify (update) the car park but conceptually they don't "posses" a car park, so association may be more suitable.
+In other words, a sensor needs to know about a car park, and a car park needs to hold displays. This is an example of aggregation, where one object holds a reference to another object. In this case, the `CarPark` class holds a reference to instances of the `Display` classes (aggregation) and has some ownership over them; sensors while technically holding a reference to car park do so primarily to notify (update) the car park but conceptually they don't "posses" a car park, so association may be more suitable than aggregation to represent this relationship (art not science).
 
 The following class diagram presents this relationship:
 
@@ -281,7 +290,7 @@ classDiagram
       }
 ```
 
-The diagram omits methods and attributes irrelevant to the relationship between the classes. Notice that the `CarPark` class has a `register` method that allows it to register sensors and displays.
+The diagram omits methods and attributes irrelevant to the relationship between the classes. Notice that the `CarPark` class has a `register` method that allows it to register the displays (you can also add a registry for sensors).
 
 
 ### Implement methods for the CarPark class
@@ -305,9 +314,12 @@ We will focus on these key principles to guide the need for additional methods a
 
 #### Register method
 
-1. Create a `register` method for the `CarPark` class. This method should accept a single parameter, `component`. This parameter will be either a `Sensor` or `Display` object.
-2. If the `component` is a `Sensor`, add it to the `sensors`. If the `component` is a `Display`, add it to the `displays` list.
-3. If the `component` is neither a `Sensor` nor a `Display`, raise a `TypeError` with the message `"Object must be a Sensor or Display"`.
+> **Note:** These instructions were written on the assumption that you wish to store references from sensors to car parks **and** from car parks to sensors. This kind of two-way association adds complexity and typically we would handle it by having some "mediating" class. In this project you can **choose* to follow these instructions or simplify things a bit and only register displays with the car park (and the car park will accept updates from any sensor that knows about it)
+>
+
+1. Create a `register` method for the `CarPark` class. This method should accept a single parameter, `component`. This parameter will be a `Sensor` (optional) or `Display` object.
+2. If the `component` is a `Sensor`, add it to the `sensors` (optional). If the `component` is a `Display`, add it to the `displays` list.
+3. If the `component` is neither a `Sensor` nor a `Display`, raise a `TypeError` with the message `"Object must be a Sensor or Display"`. Be sure to set an appropriate message for your implementation.
 
 **Stuck?**
 Here are some some hints to help you complete this task:
@@ -370,7 +382,7 @@ When a car enters the car park, we record its plate number and update the displa
 
 Finally, we are going to create the `update_displays` method. This method will iterate through the `displays` list and call the `update` method on each display. Before we proceed, consider, as a driver, what information you would like to see when you enter a car park.
 
-You may want to see the number of available bays, the current temperature, and the time.
+For example, you may want to see the number of available bays, the current temperature, and the time.
 
 Now consider, between the `CarPark`, `Sensor`, and `Display` classes, which class is responsible for each piece of information? There's no right or wrong answer here. But you should be able to justify your answer.
 
@@ -401,6 +413,8 @@ Notice that we did **not** use a verb in a property name. This is because, again
 
 A bonus is that if someone accidentally tries to set the value to this property, they will get an error. This is because we have not defined a property setter, which is good in this case.
 
+Without a property, python would not raise an error if someone "outside" the class created (or clobbered) an `available_bays` attribute by just assigning a value to it at runtime!
+
 ***
 
 O-oh!
@@ -413,7 +427,7 @@ But what should our car park do when this happens? Do we want to allow the numbe
 
 You discussed with the senior developer and decided that if the number of plates exceeds the capacity, you will return 0.
 
-> Modify the `available_bays` property to return 0 if the number of plates exceeds the capacity.
+> Modify the `available_bays` property to return 0 if the number of plates exceeds the capacity (hint: the `max` function allows you to solve this very elegantly).
 
 ***
 
@@ -451,7 +465,7 @@ This time, we will push the tag to the remote repository:
 Add a screenshot of the GitHub repository after pushing the tag, showing the CarPark class with the new methods:
 
 ```markdown
-![Added methods to the car park class](images/methods-to-car-park.png)
+![Added methods to the car park class](screenshots/methods-to-car-park.png)
 ```
 
 Answer the following questions:
@@ -585,55 +599,54 @@ Let's take stock of what we've done up till now. Diagrammatically, here is a rep
 ```mermaid
 classDiagram
     class CarPark {
-        -location: string
+        -location: str
         -capacity: int
-        -plates: str[]
-        -sensors: Sensor[]
-        -displays: Display[]
-        __init__(location, capacity, plates, sensors, displays)
-        register(component: Sensor | Display)
-        add_car(plate: string)
-        remove_car(plate: string)
+        -plates: list[str]
+        -displays: list[Display]
+        \_\_init__(location, capacity, plates, displays)
+        register(component: Display)
+        add_car(plate: str)
+        remove_car(plate:  str)
         update_displays()
-        property: available_bays: int
+        <<property: available_bays: int
     }
+
 
     class Sensor {
         <<abstract>>
         -id: int
         -is_active: bool
         -car_park: CarPark
-        __init__(id, is_active, car_park)
-        -scan_plate(): string
+        \_\_init__(id, is_active, car_park)
+        -scan_plate(): str 
         detect_vehicle()
-        update_car_park(plate: string)
+        update_car_park(plate:  str)
     }
 
     class EntrySensor {
-        inherit Sensor
-        update_car_park(plate: string)
+        # update_car_park(plate:  str)
 
     }
 
     class ExitSensor {
-        inherit Sensor
-        +update_car_park(plate: string)
-        -scan_plate() string
+        
+        # update_car_park(plate:  str)
+        # scan_plate() str 
     }
 
     class Display {
         -id: int
-        -message: string
+        -message: str 
         -is_on: bool
-        -car_park: CarPark
-        __init__(id, message, is_on, car_park)
-        update(data: dictionary)
+        \_\_init__(id, message, is_on, car_park)
+        update(data: dict)
     }
 
+   
     CarPark "1" o-- "0..*" Display : contains
-    CarPark "1" *-- "0..*" Sensor : contains
-    Sensor <|.. EntrySensor
-    Sensor <|..  ExitSensor
+    CarPark "1" <-- "0..*" Sensor : notifies
+    Sensor <|.. EntrySensor: inherits
+    Sensor <|..  ExitSensor: inherits
 
 ```
 
@@ -660,7 +673,6 @@ class TestCarPark(unittest.TestCase):
          self.assertEqual(self.car_park.location, "123 Example Street")
          self.assertEqual(self.car_park.capacity, 100)
          self.assertEqual(self.car_park.plates, [])
-         self.assertEqual(self.car_park.sensors, [])
          self.assertEqual(self.car_park.displays, [])
          self.assertEqual(self.car_park.available_bays, 100)
 
@@ -713,7 +725,7 @@ if __name__ == "__main__":
 1. Add a screenshot of the output of the unit tests. If any failed, add a screenshot of the error message and a screenshot after you have fixed the errors:
 
    ```markdown
-   ![Unit tests](images/unit-tests.png)
+   ![Unit tests](screenshots/unit-tests.png)
    ```
 
 2. Commit your changes to the local repository. Tag the commit with `s6` so your lecturer can find it:
@@ -752,7 +764,6 @@ Next, we'll create tests for the `Display` class. These tests will test the `__i
       self.assertEqual(self.display.id, 1)
       self.assertEqual(self.display.message, "Welcome to the car park")
       self.assertEqual(self.display.is_on, True)
-      self.assertIsInstance(self.display.car_park, CarPark)
    ```
 
 6. Now create a `test_update` method. This method should test that the `update` method updates the `message` attribute. Here is a sample implementation:
@@ -772,7 +783,7 @@ Next, we'll create tests for the `Display` class. These tests will test the `__i
 1. Add a screenshot of the output of the unit tests. If any failed, add a screenshot of the error message and a screenshot after you have fixed the errors:
 
    ```markdown
-   ![Unit tests](images/unit-tests-display.png)
+   ![Unit tests](screenshots/unit-tests-display.png)
    ```
 
 2. Commit your changes to the local repository. Tag the commit with `s7` so your lecturer can find it.
@@ -790,7 +801,7 @@ Finally, we'll create tests for the `Sensor` class. These tests will test the `_
 
 ### Test the car park register method
 
-The car park register method should accept a `Sensor` or `Display` object. It should raise a `TypeError` if the object is neither a `Sensor` nor a `Display`. Before proceeding, think about where you would test this behaviour. Should you test it in the `CarPark` unit tests or the `Sensor` unit tests? Why?
+The car park register method should accept a `Sensor` (optional) or `Display` object. It should raise a `TypeError` if the object is neither a `Sensor` nor a `Display`. Before proceeding, think about where you would test this behaviour. Should you test it in the `CarPark` unit tests or the `Display`/`Sensor` unit tests? Why?
 
 > Answer here...
 
@@ -1042,7 +1053,7 @@ We are going to do the latter:
 After you have merged your branch to main, push to your remote with the s10 tag. Add a screenshot of the GitHub repository after pushing the tag, showing the CarPark class with the new methods:
 
 ```markdown
-![Added methods to the car park class](images/methods-to-car-park.png)
+![Added methods to the car park class](screenshots/methods-to-car-park.png)
 ```
 
 ### Final step: build a car park!
@@ -1079,7 +1090,7 @@ In your final submission, you must include any files you created or modified. Th
 1. Add a screenshot of the output of the `main.py` file:
 
    ```markdown
-   ![Main.py output](images/main-py.png)
+   ![Main.py output](screenshots/main-py.png)
    ```
 
 2. Commit your changes to the local repository. Tag the commit with `v1`, so your lecturer can find it. Ensure the commit includes the log and config files (though you would typically ignore them).
@@ -1092,13 +1103,13 @@ In your final submission, you must include any files you created or modified. Th
 4. Release your code on GitHub. You can do this by going to the releases section and selecting "Create a new release". Give the release a title ("Project Submission") and description. Then click "Publish release". Include a screenshot of the release:
 
    ```markdown
-   ![Create a release](images/create-release.png)
+   ![Create a release](screenshots/create-release.png)
 
-   ![Publish a release](images/publish-release.png)
+   ![Publish a release](screenshots/publish-release.png)
    ```
 
 5. Congratulations! You have completed the project. You can now submit the assignment via Blackboard. Take the time to reflect on your work and write any notes and observations down.
 
 --------
 
-![Image of a car park on the moon](images/moon_park.png)
+![Image of a car park on the moon](screenshots/moon_park.png)
