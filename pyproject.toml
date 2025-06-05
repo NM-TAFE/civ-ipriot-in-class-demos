@@ -1,0 +1,7 @@
+[project]
+name = "ip4riot-demos"
+version = "0.2.0"
+description = "contains ad-hoc demos and supporting info for ip4riot"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
