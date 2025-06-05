@@ -3,7 +3,7 @@
 > **Assessment Guide:**
 > A step-by-step worksheet you can use to complete all the project's coding and version control requirements. Please raise any issues you identify with the guide [raise an issue](https://github.com/NM-TAFE/civ-ipriot-in-class-demos/issues) using the tag `project-guide`.
 
-![Image of a modern car park](screenshots/new_car_park.png)
+![Image of a modern car park](images/new_car_park.png)
 
 ## 1. Overview
 
@@ -291,7 +291,7 @@ classDiagram
       }
 ```
 
-The diagram omits methods and attributes irrelevant to the relationship between the classes. Notice that the `CarPark` class has a `register` method that allows it to register the displays (you can also add a registry for sensors).
+The diagram omits methods and attributes irrelevant to the relationship between the classes. Notice that the `CarPark` class has a `register` method that allows it to register the displays (you can also set it up to register sensors, but this is no longer required).
 
 ### 2.7. Implement methods for the CarPark class
 
@@ -314,8 +314,12 @@ We will focus on these key principles to guide the need for additional methods a
 
 #### 2.7.1. Register method
 
-> **Note:** These instructions were written on the assumption that you wish to store references from sensors to car parks **and** from car parks to sensors. This kind of two-way association adds complexity and typically we would handle it by having some "mediating" class. In this project you can **choose* to follow these instructions or simplify things a bit and only register displays with the car park (and the car park will accept updates from any sensor that knows about it)
+> **Note:** These instructions were written on the assumption that you wish to store references from sensors to car parks **and** from car parks to sensors.
+> 
+> This kind of bidirectional association adds complexity and typically we would handle it by having some "mediating" class. In this project you can **choose* whether to have only one-way associations or bidirectional associations.
 >
+> If you choose to have only one-way associations, then your register method only needs to support a display.
+
 
 1. Create a `register` method for the `CarPark` class. This method should accept a single parameter, `component`. This parameter will be a `Sensor` (optional) or `Display` object.
 2. If the `component` is a `Sensor`, add it to the `sensors` (optional). If the `component` is a `Display`, add it to the `displays` list.
@@ -1130,4 +1134,4 @@ In your final submission, you must include any files you created or modified. Th
 
 --------
 
-![Image of a car park on the moon](screenshots/moon_park.png)
+![Image of a car park on the moon](images/moon_park.png)
