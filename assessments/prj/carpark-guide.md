@@ -259,7 +259,7 @@ The following class diagram presents this relationship:
 classDiagram
       CarPark "1" o-- "0..*" Display
       CarPark "1" <-- "0..*" Sensor : notifies
-      Sensor <-- EntrySensor
+      Sensor <|.. EntrySensor
       Sensor <|.. ExitSensor
 
 
