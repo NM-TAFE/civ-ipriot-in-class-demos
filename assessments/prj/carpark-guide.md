@@ -236,9 +236,9 @@ Let's consider how the classes relate to each other. We can start by using a seq
 ```mermaid
 sequenceDiagram
     actor v as Vehicle
-    participant s as Sensor
-    participant c as CarPark
-    participant d as Display
+    participant s as :Sensor
+    participant c as :CarPark
+    participant d as :Display
     v->>s: enters (detect_car())
     s->>s: scan_plate()
     s->>c: update_car_park(+1)
@@ -504,7 +504,6 @@ classDiagram
         -scan_plate()
         +detect_vehicle()
     }
-    note "calls subclass update_car_park"
 
     class EntrySensor {
         +update_car_park()
@@ -512,8 +511,8 @@ classDiagram
     class ExitSensor {
         +update_car_park()
     }
-    Sensor <|.. EntrySensor : realizes
-    Sensor <|.. ExitSensor : realizes
+    Sensor <|.. EntrySensor 
+    Sensor <|.. ExitSensor 
 ```
 
 1. Open `sensor.py`, and add the following import statement to the top of the file:
@@ -649,8 +648,8 @@ classDiagram
    
     CarPark "1" o-- "0..*" Display : contains
     CarPark "1" <-- "0..*" Sensor : notifies
-    Sensor <|.. EntrySensor: inherits
-    Sensor <|..  ExitSensor: inherits
+    Sensor <|.. EntrySensor: realizes 
+    Sensor <|..  ExitSensor: realizes
 
 ```
 
