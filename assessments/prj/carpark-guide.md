@@ -1,7 +1,7 @@
 # Object-Oriented Programming - Car Park System
 
 > **Assessment Guide:**
-> A step-by-step worksheet you can use to complete all the project's coding and version control requirements. Please raise any issues you identify with the guide [raise an issue](https://github.com/NM-TAFE/civ-ipriot-in-class-demos/issues) using the tag `project-guide`.
+> A step-by-step worksheet you can use to complete most of the project's coding and version control requirements. Please [raise any issues](https://github.com/NM-TAFE/civ-ipriot-in-class-demos/issues) you identify with the guide using the tag `project-guide`.
 
 ![Image of a modern car park](images/new_car_park.png)
 
