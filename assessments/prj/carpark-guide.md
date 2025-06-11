@@ -241,12 +241,14 @@ sequenceDiagram
     participant d as :Display
     v->>s: enters (detect_car())
     s->>s: scan_plate()
-    s->>c: update_car_park(+1)
-    c->>d: update_displays()
+    s->>c: update_car_park(plate)
+    c->>c: add_car(plate)
+    c->>d: update_displays() ...
     v->>s: exits (detect_car())
     s->>s: scan_plate()
-    s->>c: update_car_park(-1)
-    c->>d: update_display()
+    s->>c: update_car_park(plate)
+    c->>c: remove_car(plate)
+    c->>d: update_displays() ...
 ```
 
 Notice a sensor detects cars and notifies a car park. The car park then updates the displays. Sensors connect **to** a car park, and a car park connects **to** its displays.
@@ -264,7 +266,6 @@ classDiagram
 
 
       class CarPark {
-         - sensors: list[Sensor]
          - displays: list[Display]
          - plates: list[str]
          + register(obj: Display | _Sensor_) void
@@ -286,7 +287,6 @@ classDiagram
          # update_car_park(plate: str): void
       }
       class Display {
-         - car_park: CarPark
          + update() void
       }
 ```
@@ -315,11 +315,10 @@ We will focus on these key principles to guide the need for additional methods a
 #### 2.7.1. Register method
 
 > **Note:** These instructions were written on the assumption that you wish to store references from sensors to car parks **and** from car parks to sensors.
-> 
+>
 > This kind of bidirectional association adds complexity and typically we would handle it by having some "mediating" class. In this project you can **choose* whether to have only one-way associations or bidirectional associations.
 >
 > If you choose to have only one-way associations, then your register method only needs to support a display.
-
 
 1. Create a `register` method for the `CarPark` class. This method should accept a single parameter, `component`. This parameter will be a `Sensor` (optional) or `Display` object.
 2. If the `component` is a `Sensor`, add it to the `sensors` (optional). If the `component` is a `Display`, add it to the `displays` list.
@@ -351,7 +350,7 @@ Now, we can add the code to add the `component` to the appropriate list. Add the
    # ... inside the register method
    if isinstance(component, Sensor):
       self.sensors.append(component)
-   # TODO: add an elif to check if the component is a Display - MUST
+   # TODO: (optional) add an elif to check if the component is a Display - MUST
    ```
 
 **Additional evidencing:**
@@ -419,7 +418,7 @@ A bonus is that if someone accidentally tries to set the value to this property,
 
 Without a property, python would not raise an error if someone "outside" the class created (or clobbered) an `available_bays` attribute by just assigning a value to it at runtime!
 
-***
+--------
 
 O-oh!
 
@@ -501,15 +500,15 @@ The `update_car_park` method should be implemented in the `EntrySensor` and `Exi
 classDiagram
         class Sensor {
         <<abstract>>
-        -scan_plate()
-        +detect_vehicle()
+        - scan_plate()
+        + detect_vehicle()
     }
 
     class EntrySensor {
-        +update_car_park()
+        + update_car_park()
     }
     class ExitSensor {
-        +update_car_park()
+        + update_car_park()
     }
     Sensor <|.. EntrySensor 
     Sensor <|.. ExitSensor 
@@ -602,54 +601,54 @@ Let's take stock of what we've done up till now. Diagrammatically, here is a rep
 ```mermaid
 classDiagram
     class CarPark {
-        -location: str
-        -capacity: int
-        -plates: list[str]
-        -displays: list[Display]
+        - location: str
+        - capacity: int
+        - plates: list[str]
+        - displays: list[Display]
         \_\_init__(location, capacity, plates, displays)
-        register(component: Display)
-        add_car(plate: str)
-        remove_car(plate:  str)
-        update_displays()
+        + register(component: Display) void
+        + add_car(plate: str) void
+        + remove_car(plate:  str) void
+        + update_displays() void
         property: available_bays: int
     }
 
 
     class Sensor {
         <<abstract>>
-        -id: int
-        -is_active: bool
-        -car_park: CarPark
+        - id: int
+        - is_active: bool
+        - car_park: CarPark
         \_\_init__(id, is_active, car_park)
-        -scan_plate(): str 
-        detect_vehicle()
-        update_car_park(plate:  str)
+        - scan_plate() str
+        + detect_vehicle() void
+        + update_car_park(plate: str) void
     }
 
     class EntrySensor {
-        # update_car_park(plate:  str)
+        # update_car_park(plate:  str) void
 
     }
 
     class ExitSensor {
         
-        # update_car_park(plate:  str)
-        # scan_plate() str 
+        # update_car_park(plate:  str) void
+        # scan_plate() str
     }
 
     class Display {
-        -id: int
-        -message: str 
-        -is_on: bool
-        \_\_init__(id, message, is_on, car_park)
-        update(data: dict)
+        - id: int
+        - message: str
+        - is_on: bool
+        \_\_init__(id, message, is_on)
+        + update(data: dict) void
     }
 
    
     CarPark "1" o-- "0..*" Display : contains
     CarPark "1" <-- "0..*" Sensor : notifies
-    Sensor <|.. EntrySensor: realizes 
-    Sensor <|..  ExitSensor: realizes
+    Sensor <|.. EntrySensor 
+    Sensor <|..  ExitSensor
 
 ```
 
