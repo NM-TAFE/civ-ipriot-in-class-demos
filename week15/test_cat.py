@@ -7,11 +7,14 @@ class TestCat(unittest.TestCase):
 
 
     def test_cat_has_a_name(self):
-        self.assertEqual(self.c.name, "K")
+        self.assertEqual(self.c.name, "J")
         # arrange
 
     def test_cat_has_a_coat(self):
         ...
 
     def test_cat_meows_when_it_speaks(self):
-        ...
+        self.assertTrue(hasattr(Cat, "speak"))
+
+if __name__ == '__main__':
+    unittest.main()

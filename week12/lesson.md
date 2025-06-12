@@ -453,6 +453,29 @@ In the past, this was a mandatory part of the course, but it is now optional. Ne
 An inheritance relationship can be expressed as a solid line with a hollow arrowhead pointing to the superclass.
 
 For example:
+```mermaid
+flowchart TD
+    A((Start)) --> B[Initialize empty score list]
+    B --> C[set index i=0]
+    C --> D{Is guess i equal to target i?}
+    
+    D -- Yes --> E[Set score i to 2]
+    D -- No --> F{Is guess i in target?}
+    
+    F -- Yes --> G[Set score i to 1]
+    F -- No --> H[Set score i to 0]
+    
+    G --> I[Next index i]
+    H --> I
+    E --> I
+    
+    I --> J{i < len guess}
+
+    J -- Yes --> M[increment i]
+    M --> D
+    J -- No --> K[Return score list]
+    K --> L((End))
+```
 
 ```mermaid
 classDiagram
