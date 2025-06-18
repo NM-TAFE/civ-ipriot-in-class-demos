@@ -67,7 +67,7 @@ def treasure_roulette():
         guess = random.randint(0, MAX_GUESS)
         if guess == SECRET_NUMBER:
             print("You Win! 💰💰💰")
-            if guess % 1 == 0:
+            if guess % 2 == 0:
                 print("You Win some more! 💰💰💰")
             else:
                 print("House always wins! 💣💣💣 (you went KABOOM)")
