@@ -20,8 +20,13 @@ class Author:
     def name(self):
         return self._name
 
-    # Here, @name comes from the name of the function definition on line 11.
+    # Here, @name comes from the name of the function definition on line 20.
+    # Wait, the name of this function is exactly the same as L20? Won't this break?
+    # I believe that the annotation is doing some heavy lifting for us here.
     @name.setter
-    def set_name(self, name):
-        if len(name) > 0:
+    def name(self, name):
+        if self.is_valid(name):
             self._name = name
+
+    def is_valid(self, name):
+        return isinstance(name, str) and len(name) > 0
