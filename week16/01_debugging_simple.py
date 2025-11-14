@@ -7,7 +7,7 @@ def deeper_function(an_argument):
         return an_argument + 3
     elif an_argument % 5 == 0 and not an_argument % 10 == 0:
         return deeper_function(an_argument + 1000)
-    elif an_argument > 10 and an_argument % 2 == 0:
+    elif an_argument > 10 and an_argument % 2 == '0':
         return an_argument / 2
     return an_argument
 
