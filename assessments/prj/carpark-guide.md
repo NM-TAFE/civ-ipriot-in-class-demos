@@ -74,7 +74,8 @@ Notes on using this guide:
 Include a screenshot of your GitHub repository **after** you have pushed your initial commit.
 
 ```markdown
-![Initial commit](screenshots/image-of-github-after-push.png)
+![Initial commit](<img width="763" height="588" alt="Initial commit" src="https://github.com/user-attachments/assets/ccd7d5cc-7abe-42d2-9ad4-85988b2c0340" />
+)
 ```
 
 ### 2.2. Create a branch for your work
