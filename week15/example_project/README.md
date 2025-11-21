@@ -10,11 +10,17 @@ The aim here is to write nice unit tests.
 - that correct values are calculated for integer, floating point, and complex numbers (e.g., 2 – 1i is complex)
 - that a TypeError is raised if any of the arguments is not a valid type
 
+# Running your tests from the CLI:
+This tells Python where the source directory is (setting PYTHONPATH), and where the **unittest m**odule should try to **s**tart discovering tests.
+```bash
+PYTHONPATH=src python -m unittest discover -s tests
+```
 # Here are some common pitfalls while running your unittests:
 - [ ] Are modules importing correctly? If not:
 	- [ ] Did you set your PYTHONPATH?
 	- [ ] Are you running your project from the correct directory?
 	- [ ] Does each subdirectory contain a `__init__.py` file? (This only affects some people)
+
 - [ ] Are you running your tests using the unittest module correctly?
 	- [ ] There are 2 ways -- letting the unittest module 'discover' tests (my preference), or running each test file as a script:
 ```python
