@@ -1,6 +1,6 @@
 class Contact:
     def __init__(self):
-        self.__name = ""
+        self.__name = None
 
     @property
     def name(self):

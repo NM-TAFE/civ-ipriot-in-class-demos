@@ -1,5 +1,6 @@
-from contact import Contact
 import unittest
+
+from contact import Contact
 
 class TestContact(unittest.TestCase):
     def test_set_name_ok(self):
@@ -15,4 +16,4 @@ class TestContact(unittest.TestCase):
     def test_set_absent_name_fails(self):
         contact = Contact()
         contact.name = "  "
-        self.assertEqual("", contact.name)
+        self.assertEqual(None, contact.name)

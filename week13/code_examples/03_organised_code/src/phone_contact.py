@@ -6,8 +6,8 @@ class PhoneContact(Contact):
     that happen to contain digits.
     """
     def __init__(self):
-        self.__phone_number = ""
-        self.__area_code = ""
+        self.__phone_number = None
+        self.__area_code = None
 
     @property
     def full_phone_number(self):
@@ -19,7 +19,13 @@ class PhoneContact(Contact):
 
     @phone_number.setter
     def phone_number(self, value):
-        # Perhaps you could check the validity of the value here?
+        value = value.strip()
+        if len(value) == 0:
+            return
+
+        if not value.isdigit():
+            return
+
         self.__phone_number = value
 
     @property
@@ -28,5 +34,11 @@ class PhoneContact(Contact):
 
     @area_code.setter
     def area_code(self, value):
+        value = value.strip()
+        if len(value) == 0:
+            return
+
+        if not value.isdigit():
+            return
         # Perhaps you could check the validity of the value here?
         self.__area_code = value
