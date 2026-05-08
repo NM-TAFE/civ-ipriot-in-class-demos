@@ -1,6 +1,6 @@
 from datetime import datetime
 
-def humanise(this_time: datetime) -> str:
+def humanise(this_time):
     if this_time.hour >= 22:
         return "night"
     elif this_time.hour >= 18:

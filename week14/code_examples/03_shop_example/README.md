@@ -1,5 +1,6 @@
 Viewing this in VS Code?
 
+0. You will need a mermaid extension -- check for Matt Bierner's "Markdown Preview Mermaid Support"
 1. ctrl + shift + p OR command + shift + p
 2. Type: > Markdown: open preview to side
 3. View this file, but rendered nicely
@@ -12,9 +13,11 @@ classDiagram
 	Department --o Product
 
 	class Store {
-		+ tuple(float) location
-		+ str name
+		- tuple[float] location
+		- str name
         + Department[] departments
+		+ name()
+		+ departments()
 	}
 
 	class Department {

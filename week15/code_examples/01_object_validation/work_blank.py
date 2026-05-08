@@ -14,28 +14,18 @@ class Work:
         self.errors = {}
         self.validated_at = None
 
+
     def is_valid(self):
-        self.validated_at = datetime.now()
         self.errors.clear()
 
-        # Why are these all separate if-statements rather than one big if-elif block?
-        # Consider the case where every single field is wrong.
-        # It is more user-friendly for the developer to see a full list of everything which
-        # must be fixed.
-        if self.authors == None or len(self.authors) == 0:
-            self.errors["authors"] = "Must include at least one author"
+        if len(self.chapters) < 1:
+            self.errors['chapters'] = "Should have at least one chapter"
 
-        if self.chapters == None or len(self.chapters) == 0:
-            self.errors["chapters"] = "Must include at least one chapter"
+        if self.title is None or len(self.title) < 1:
+            self.errors['title'] = "Title should have at least one character"
 
-        if self.title == None or len(self.title) == 0:
-            self.errors["title"] = "Title must be at least one character"
-
-        if self.summary == None or len(self.summary) == 0:
-            self.errors["summary"] = "Summary must be at least one character"
-
-        # This is a proxy for validity.  There are no errors, so it must be valid
         return len(self.errors) == 0
+
 
 
     def __str__(self):
@@ -57,3 +47,6 @@ class Work:
             return True
         else:
             return False
+
+    def add_chapter(self, text):
+        self.chapters.append(text)

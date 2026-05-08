@@ -33,6 +33,8 @@ class WorkFormatter(ABC):
         }
 
         if type in types:
-            return types.get(type)(work)
+            formatter = types.get(type)
+            instance = formatter(work)
+            return instance
         else:
             print(f"Error: type {type} not yet supported")

@@ -1,6 +1,6 @@
 from datetime import datetime
 import time_of_day
-# Snip
+
 import unittest
 
 class TestTimeOfDay(unittest.TestCase):

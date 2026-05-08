@@ -21,15 +21,20 @@ class TestSillyCalculator(unittest.TestCase):
 
     def test_add_floats_works(self):
         calculator = SillyCalculator(8.32, 16.0)
-        self.assertEqual(calculator.add(), 24.32)
+        self.assertAlmostEqual(calculator.add(), 24.32)
 
     # Add a unit test that shows that add should return "I don't feel like it"
     # if and only if the first and second numbers are both 9.
+    def test_adding_two_nines_is_silly(self):
+        calculator = SillyCalculator(9, 9)
+        self.assertEqual(calculator.add(), "I don't feel like it")
 
 
     # ========= Subtract Tests =========
     # Add a unit test that checks that negative numbers can be returned
-
+    def test_subtracting_numbers_results_in_negatives(self):
+        calculator = SillyCalculator(1,9)
+        self.assertEqual(calculator.subtract(), -8)
 
     # ========= Multiply Tests =========
     def test_multiply_4_8_returns_32(self):
@@ -40,6 +45,8 @@ class TestSillyCalculator(unittest.TestCase):
     # ========= Divide Tests =========
     def test_divide_by_zero_raises_error(self):
         calculator = SillyCalculator(1, 0)
+        with self.assertRaises(ZeroDivisionError):
+            calculator.divide()
         # Extension:
         # Add a test here that checks that calling 'divide'
         # triggers an error.

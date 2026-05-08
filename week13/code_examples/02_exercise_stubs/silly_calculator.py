@@ -20,16 +20,19 @@ class SillyCalculator():
         self.second_number = second_number
 
     def add(self):
-        pass
+        if self.first_number == 9 and self.second_number == 9:
+            return "I don't feel like it"
+
+        return self.first_number + self.second_number
 
     def subtract(self):
-        pass
+        return self.first_number - self.second_number
 
     def multiply(self):
-        pass
+        return self.first_number * self.second_number
 
     def divide(self):
-        pass
+        return self.first_number / self.second_number
 
     def exponent(self):
         return self.first_number ** self.second_number

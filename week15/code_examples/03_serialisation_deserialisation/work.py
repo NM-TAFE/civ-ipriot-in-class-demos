@@ -64,3 +64,21 @@ class Work:
     @classmethod
     def load(cls, filename):
         "load from json file"
+        with open(filename, "r", encoding="utf-8") as file:
+            contents = file.read()
+            data = json.loads(contents)
+            print(data['title'])
+            new_work = cls()
+            new_work.title = data['title']
+            new_work.summary = data['summary']
+            new_work.chapters = data['chapters']
+            new_work.authors = data['authors']
+            return new_work
+
+    def to_dict(self):
+        return {
+            "title": self.title,
+            "summary": self.summary,
+            "authors": self.authors,
+            "chapters": self.chapters
+        }
