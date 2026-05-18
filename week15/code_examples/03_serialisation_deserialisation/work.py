@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 
 class Work:
@@ -15,7 +16,7 @@ class Work:
         self.validated_at = None
 
     def is_valid(self):
-        self.validated_at = datetime.now()
+        self.validated_at = datetime.now().strftime("%Y-%m-%d")
         self.errors.clear()
 
         # Why are these all separate if-statements rather than one big if-elif block?
@@ -53,7 +54,9 @@ class Work:
         """
         currently_valid = self.is_valid()
         if currently_valid:
-            "Do your save logic -- we'll cover this in serialisation-deserialisation"
+            file_name = self.title.replace(" ", "_")
+            with open(f"{file_name}.json", 'w', encoding="utf-8") as file:
+                file.write(json.dumps(self.__dict__))
             return True
         else:
             return False
