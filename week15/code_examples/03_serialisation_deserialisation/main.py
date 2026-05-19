@@ -2,14 +2,10 @@ from work import Work
 from random import choices, randint
 
 def random_letter_string(length):
-    monkey_letters = list("qwertyuiopasdfghjklzxcvbnm ")
-    return "".join(choices(monkey_letters, k=length))
+    letters = list("qwertyuiopasdfghjklzxcvbnm ")
+    return "".join(choices(letters, k=length))
 
-def a_different_kind_of_factory():
-    """
-    Terrible method name so that you can notice that this is another kind of object
-    factory.
-    """
+def random_work_generator():
     work = Work()
     work.title = random_letter_string(16)
     work.summary = random_letter_string(64)
@@ -24,10 +20,10 @@ def a_different_kind_of_factory():
     return work
 
 
-work_a = a_different_kind_of_factory()
-work_b = a_different_kind_of_factory()
-work_c = a_different_kind_of_factory()
-work_d = a_different_kind_of_factory()
+work_a = random_work_generator()
+work_b = random_work_generator()
+work_c = random_work_generator()
+work_d = random_work_generator()
 
 for work in [work_a, work_b, work_c, work_d]:
     print(str(work))
