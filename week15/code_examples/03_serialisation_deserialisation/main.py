@@ -28,3 +28,4 @@ work_d = random_work_generator()
 for work in [work_a, work_b, work_c, work_d]:
     print(str(work))
     work.save()
+

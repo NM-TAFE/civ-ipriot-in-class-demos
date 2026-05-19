@@ -12,6 +12,11 @@ epub = WorkFormatter.run('epub', complete_work)
 mobi = WorkFormatter.run('mobi', complete_work)
 junk = WorkFormatter.run('junk!', complete_work)
 
+print(type(junk)) # Look, this one returned nothing
+print()
+
 for type in [pdf, epub, mobi]:
+    print("=====================================")
+    print(type.__class__.__name__)
     print("=====================================")
     print(type.serialise())

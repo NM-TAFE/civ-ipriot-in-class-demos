@@ -1,0 +1,17 @@
+[
+    {
+        "kind": "conference",
+        "attendance_mode": "online",
+        "start_date": "2026-05-19",
+        "end_date": "2026-05-20",
+        "subject": "Accessibility in UI Design"
+    },
+    {
+        "kind": "hackathon",
+        "attendance_mode": "in-person",
+        "start_date": "2026-05-20",
+        "end_date": "2026-05-23",
+        "theme": "crab rave",
+        "description": "Let's do our best to spend the next three days developing applications about crabs raving"
+    }
+]
